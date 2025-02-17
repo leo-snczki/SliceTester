@@ -24,7 +24,7 @@ namespace SliceTester
             // Realizar um clique esquerdo 3 vezes com 8s de delay.
             mouse.Click(3, 8000, leftClick: true);
             // Realizar um clique com o botão do meio.
-            mouse.Click(1, 2000);
+            mouse.Click(1, 2000, middleClick: true);
 
             // Scroll para baixo.
             mouse.ScrollVertical(-120);
