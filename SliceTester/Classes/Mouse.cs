@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -74,7 +75,7 @@ namespace SliceTester.Classes
 
                 // Atraso entre os cliques para aguardar o sistema.
                 if (numClicks > 1)
-                    Task.Delay(delay); // 200 por padrão mas pode ser mudado.
+                    Thread.Sleep(delay); // 200 por padrão mas pode ser mudado.
 
                 // Para fazer log no console sobre os cliques.
                 Console.WriteLine($"Clique {i + 1} de {numClicks}: {(rightClick ? "direito" : leftClick ? "esquerdo" : "meio")}");

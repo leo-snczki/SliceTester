@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -28,7 +29,7 @@ namespace SliceTester.Classes
         {
             // Simula pressionar e soltar uma tecla.
             keybd_event((byte)key, 0, KEYEVENTF_KEYDOWN, IntPtr.Zero);
-            Task.Delay(delay);
+            Thread.Sleep(delay);
             keybd_event((byte)key, 0, KEYEVENTF_KEYUP, IntPtr.Zero);
             Console.WriteLine($"Tecla '{key}' pressionada.");
         }
@@ -46,7 +47,7 @@ namespace SliceTester.Classes
             foreach (var key in keys)
                 keybd_event((byte)key, 0, KEYEVENTF_KEYDOWN, IntPtr.Zero);
 
-            Task.Delay(delay);
+            Thread.Sleep(delay);
 
             // Solta todas as teclas na ordem inversa.
             for (int i = keys.Length - 1; i >= 0; i--)
