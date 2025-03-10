@@ -31,6 +31,11 @@
             this.btnRecord = new DevExpress.XtraEditors.SimpleButton();
             this.btnStop = new DevExpress.XtraEditors.SimpleButton();
             this.btnPlay = new DevExpress.XtraEditors.SimpleButton();
+            this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
+            this.colorDialog1 = new System.Windows.Forms.ColorDialog();
+            this.txtLog = new System.Windows.Forms.TextBox();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
+            this.panelControl1.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnRecord
@@ -60,16 +65,40 @@
             this.btnPlay.Text = "Iniciar";
             this.btnPlay.Click += new System.EventHandler(this.btnPlay_Click);
             // 
+            // panelControl1
+            // 
+            this.panelControl1.Controls.Add(this.txtLog);
+            this.panelControl1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panelControl1.Location = new System.Drawing.Point(0, 126);
+            this.panelControl1.Name = "panelControl1";
+            this.panelControl1.Size = new System.Drawing.Size(632, 152);
+            this.panelControl1.TabIndex = 3;
+            // 
+            // txtLog
+            // 
+            this.txtLog.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtLog.Location = new System.Drawing.Point(2, 2);
+            this.txtLog.Multiline = true;
+            this.txtLog.Name = "txtLog";
+            this.txtLog.ReadOnly = true;
+            this.txtLog.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtLog.Size = new System.Drawing.Size(628, 148);
+            this.txtLog.TabIndex = 0;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(632, 278);
+            this.Controls.Add(this.panelControl1);
             this.Controls.Add(this.btnPlay);
             this.Controls.Add(this.btnStop);
             this.Controls.Add(this.btnRecord);
             this.Name = "MainForm";
             this.Text = "Form1";
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).EndInit();
+            this.panelControl1.ResumeLayout(false);
+            this.panelControl1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -79,6 +108,9 @@
         private DevExpress.XtraEditors.SimpleButton btnRecord;
         private DevExpress.XtraEditors.SimpleButton btnStop;
         private DevExpress.XtraEditors.SimpleButton btnPlay;
+        private DevExpress.XtraEditors.PanelControl panelControl1;
+        private System.Windows.Forms.TextBox txtLog;
+        private System.Windows.Forms.ColorDialog colorDialog1;
     }
 }
 

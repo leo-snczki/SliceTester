@@ -59,6 +59,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\LogManager.cs" />
     <Compile Include="Classes\MacroRecorder.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>

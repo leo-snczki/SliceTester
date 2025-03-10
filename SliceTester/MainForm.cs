@@ -6,16 +6,19 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using SliceTester.Classes;
 
 namespace SliceTester
 {
     public partial class MainForm : DevExpress.XtraEditors.XtraForm
     {
-        private MacroRecorder macroRecorder = new MacroRecorder();
+        private LogManager logger;
+        private MacroRecorder macroRecorder;
         public MainForm()
         {
             InitializeComponent();
-
+            logger = new LogManager(txtLog);
+            macroRecorder = new MacroRecorder(logger);
         }
 
         private void btnRecord_Click(object sender, EventArgs e)
