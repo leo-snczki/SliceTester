@@ -6,6 +6,7 @@ using Gma.System.MouseKeyHook;
 using WindowsInput;
 using WindowsInput.Native;
 using SliceTester.Classes;
+using Newtonsoft.Json;
 
 public class MacroRecorder
 {
@@ -85,7 +86,7 @@ public class MacroRecorder
 
     public void StopRecording()
     {
-        globalHook.Dispose(); // Adiciona os detalhes da tecla a lista de eventos gravados.
+        globalHook.Dispose();
         stopwatch.Stop();
         logManager.Log("[INFO] Gravação encerrada.");
     }
@@ -95,7 +96,8 @@ public class MacroRecorder
         var inputSimulator = new InputSimulator();
         // Timestamp é um valor que representa um ponto específico no tempo.
         long lastTimestamp = 0;
-            foreach (var ev in recordedEvents)
+
+        foreach (var ev in recordedEvents)
         {
             long delay = ev.Timestamp - lastTimestamp; // Calcula o tempo de atraso entre o evento atual e o anterior.
             Thread.Sleep((int)delay); // Espera pelo tempo de atraso antes de executar o próximo evento.
@@ -120,7 +122,7 @@ public class MacroRecorder
                     // O windows mede por pixels.
                     // O inputSimulator mede usando base 2^16 com máximo até 65535.
                     inputSimulator.Mouse.MoveMouseTo(ev.MousePosition.X * 65535 / Screen.PrimaryScreen.Bounds.Width,
-                                                     ev.MousePosition.Y * 65535 / Screen.PrimaryScreen.Bounds.Height); 
+                                                     ev.MousePosition.Y * 65535 / Screen.PrimaryScreen.Bounds.Height);
                     inputSimulator.Mouse.LeftButtonDown();
                     logManager.Log($"[PLAY] MouseDown: {ev.MouseButton} em {ev.MousePosition} ({ev.Timestamp}ms)");
                     break;
@@ -132,15 +134,64 @@ public class MacroRecorder
             }
         }
     }
-}
+    public void ClearEvents()
+    {
+        recordedEvents.Clear();
+        logManager.Log("[INFO] Eventos gravados apagados.");
 
-public enum MacroEventType { KeyDown, KeyUp, MouseDown, MouseUp }
+    }
+    public List<MacroEvent> GetRecordedEvents()
+    {
+        return recordedEvents;
+    }
+    
+     public void SaveEvents(string path)
+    {
+        // Serializa a lista de eventos gravados em um arquivo JSON.
+        var json = Newtonsoft.Json.JsonConvert.SerializeObject(recordedEvents);
+        System.IO.File.WriteAllText(path, json);
+        logManager.Log($"[INFO] Eventos gravados salvos em {path}");
+    }
+    public void LoadEvents(string path)
+    {
+        // Lê o arquivo JSON e desserializa a lista de eventos gravados.
+        var json = System.IO.File.ReadAllText(path);
+        recordedEvents = Newtonsoft.Json.JsonConvert.DeserializeObject<List<MacroEvent>>(json);
+        logManager.Log($"[INFO] Eventos gravados carregados de {path}");
+    }
+    public void ViewRecordedEvents()
+    {
+        logManager.Log("[INFO] Eventos gravados:");
+        foreach (var ev in recordedEvents)
+        {
+            switch (ev.EventType)
+            {
+                case MacroEventType.KeyDown:
+                    logManager.Log($"[INFO] KeyDown: {ev.Key} ({ev.Timestamp}ms)");
+                    break;
+                case MacroEventType.KeyUp:
+                    logManager.Log($"[INFO] KeyUp: {ev.Key} ({ev.Timestamp}ms)");
+                    break;
+                case MacroEventType.MouseDown:
+                    logManager.Log($"[INFO] MouseDown: {ev.MouseButton} em {ev.MousePosition} ({ev.Timestamp}ms)");
+                    break;
+                case MacroEventType.MouseUp:
+                    logManager.Log($"[INFO] MouseUp: {ev.MouseButton} em {ev.MousePosition} ({ev.Timestamp}ms)");
+                    break;
+            }
+        }
+        logManager.Log("[INFO] Fim dos eventos gravados.");
+    }
 
-public class MacroEvent
-{
-    public MacroEventType EventType { get; set; }
-    public Keys Key { get; set; }
-    public MouseButtons MouseButton { get; set; }
-    public System.Drawing.Point MousePosition { get; set; }
-    public long Timestamp { get; set; }
+
+    public enum MacroEventType { KeyDown, KeyUp, MouseDown, MouseUp }
+
+    public class MacroEvent
+    {
+        public MacroEventType EventType { get; set; }
+        public Keys Key { get; set; }
+        public MouseButtons MouseButton { get; set; }
+        public System.Drawing.Point MousePosition { get; set; }
+        public long Timestamp { get; set; }
+    }
 }
