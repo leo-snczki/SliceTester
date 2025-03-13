@@ -96,7 +96,7 @@ public class MacroRecorder
         var inputSimulator = new InputSimulator();
         // Timestamp é um valor que representa um ponto específico no tempo.
         long lastTimestamp = 0;
-
+        logManager.Log("[INFO] Reprodução iniciada.");
         foreach (var ev in recordedEvents)
         {
             long delay = ev.Timestamp - lastTimestamp; // Calcula o tempo de atraso entre o evento atual e o anterior.
@@ -133,6 +133,7 @@ public class MacroRecorder
                     break;
             }
         }
+        logManager.Log("[INFO] Reprodução finalizada.");
     }
     public void ClearEvents()
     {

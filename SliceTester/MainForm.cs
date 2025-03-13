@@ -55,7 +55,7 @@ namespace SliceTester
                 btnPlay.Enabled = true;
             }
             else
-                logger.Log("Reprodução não iniciada.");
+                logger.Log("[INFO] Reprodução NÃO iniciada.");
         }
 
         private void btnClear_Click(object sender, EventArgs e)
