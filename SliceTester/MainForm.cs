@@ -30,8 +30,8 @@ namespace SliceTester
             if (result == DialogResult.OK)
             {
                 btnRecord.Enabled = false;
-                btnStop.Enabled = true;
                 macroRecorder.StartRecording();
+                btnStop.Enabled = true;
             }
         }
 
@@ -39,7 +39,7 @@ namespace SliceTester
         {
             macroRecorder.StopRecording();
             btnStop.Enabled = false;
-            btnRecord.Enabled = true;            
+            btnRecord.Enabled = true;
             btnPlay.Enabled = true;
             btnSaveJson.Enabled = true;
             btnClear.Enabled = true;
@@ -47,12 +47,6 @@ namespace SliceTester
 
         private void btnPlay_Click(object sender, EventArgs e)
         {
-            if (macroRecorder.GetRecordedEvents().Count == 0)
-            {
-                MessageBox.Show("Nenhum evento gravado para reproduzir", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
             var result = MessageBox.Show("A reprodução vai começar depois do OK", "Iniciar Reprodução", MessageBoxButtons.OKCancel);
             if (result == DialogResult.OK)
             {
@@ -60,6 +54,8 @@ namespace SliceTester
                 macroRecorder.Play();
                 btnPlay.Enabled = true;
             }
+            else
+                logger.Log("Reprodução não iniciada.");
         }
 
         private void btnClear_Click(object sender, EventArgs e)
@@ -87,8 +83,21 @@ namespace SliceTester
 
                 if (saveFileDialog.ShowDialog() == DialogResult.OK)
                 {
-                    macroRecorder.SaveEvents(saveFileDialog.FileName);
-                    MessageBox.Show("Arquivo salvo com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    try
+                    {
+                        macroRecorder.SaveEvents(saveFileDialog.FileName);
+                        MessageBox.Show("Arquivo salvo com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    catch (Exception ex)
+                    {
+                        logger.Log($"[ERRO] Falha ao salvar o arquivo: {ex.Message}");
+                        MessageBox.Show($"Erro ao salvar o arquivo:\n{ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }                
+                }
+                else
+                {
+                    logger.Log("[INFO] o arquivo não foi salvo.");
+                    MessageBox.Show("O arquivo não foi salvo", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
         }
@@ -96,6 +105,7 @@ namespace SliceTester
         private void btnLoadJson_Click(object sender, EventArgs e)
         {
             logger.Log("[INFO] Carregando arquivo JSON...");
+
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
             {
                 openFileDialog.Filter = "Arquivos JSON (*.json)|*.json|Todos os Arquivos (*.*)|*.*";
@@ -103,16 +113,26 @@ namespace SliceTester
 
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
-                    macroRecorder.LoadEvents(openFileDialog.FileName);
-                    btnPlay.Enabled = true;
-                    MessageBox.Show("Arquivo carregado com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    try
+                    {
+                        macroRecorder.LoadEvents(openFileDialog.FileName);
+                        btnPlay.Enabled = true;
+                        logger.Log("[INFO] Processo de carregamento de arquivo concluído.");
+                        MessageBox.Show("Arquivo carregado com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    catch (Exception ex)
+                    {
+                        logger.Log($"[ERRO] Falha ao carregar o arquivo: {ex.Message}");
+                        MessageBox.Show($"Erro ao carregar o arquivo:\n{ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
                 else
                 {
                     logger.Log("[INFO] Nenhum arquivo selecionado.");
-                    MessageBox.Show("Nenhum arquivo selecionado", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Nenhum arquivo selecionado", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
         }
+
     }
 }
