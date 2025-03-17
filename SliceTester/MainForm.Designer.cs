@@ -44,6 +44,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
+            this.btnEdit = new DevExpress.XtraEditors.SimpleButton();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
             this.panelControl1.SuspendLayout();
             this.SuspendLayout();
@@ -187,6 +188,14 @@
             this.label6.Size = new System.Drawing.Size(19, 13);
             this.label6.TabIndex = 16;
             this.label6.Text = "F6";
+            // btnEdit
+            // 
+            this.btnEdit.Location = new System.Drawing.Point(525, 38);
+            this.btnEdit.Name = "btnEdit";
+            this.btnEdit.Size = new System.Drawing.Size(75, 23);
+            this.btnEdit.TabIndex = 9;
+            this.btnEdit.Text = "Editar";
+            this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
             // 
             // MainForm
             // 
@@ -199,6 +208,7 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
+            this.Controls.Add(this.btnEdit);
             this.Controls.Add(this.btnLoadJson);
             this.Controls.Add(this.btnSaveJson);
             this.Controls.Add(this.btnClear);
@@ -235,6 +245,7 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
+        private DevExpress.XtraEditors.SimpleButton btnEdit;
     }
 }
 

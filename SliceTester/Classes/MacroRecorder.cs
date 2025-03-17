@@ -7,6 +7,7 @@ using WindowsInput;
 using WindowsInput.Native;
 using SliceTester.Classes;
 using Newtonsoft.Json;
+using SliceTester;
 
 public class MacroRecorder
 {
@@ -160,30 +161,12 @@ public class MacroRecorder
         recordedEvents = Newtonsoft.Json.JsonConvert.DeserializeObject<List<MacroEvent>>(json);
         logManager.Log($"[INFO] Eventos gravados carregados de {path}");
     }
-    public void ViewRecordedEvents()
-    {
-        logManager.Log("[INFO] Eventos gravados:");
-        foreach (var ev in recordedEvents)
-        {
-            switch (ev.EventType)
-            {
-                case MacroEventType.KeyDown:
-                    logManager.Log($"[INFO] KeyDown: {ev.Key} ({ev.Timestamp}ms)");
-                    break;
-                case MacroEventType.KeyUp:
-                    logManager.Log($"[INFO] KeyUp: {ev.Key} ({ev.Timestamp}ms)");
-                    break;
-                case MacroEventType.MouseDown:
-                    logManager.Log($"[INFO] MouseDown: {ev.MouseButton} em {ev.MousePosition} ({ev.Timestamp}ms)");
-                    break;
-                case MacroEventType.MouseUp:
-                    logManager.Log($"[INFO] MouseUp: {ev.MouseButton} em {ev.MousePosition} ({ev.Timestamp}ms)");
-                    break;
-            }
-        }
-        logManager.Log("[INFO] Fim dos eventos gravados.");
-    }
 
+    public void EditRecordedEvents()
+    {
+        var editor = new MacroEventForm(recordedEvents);
+        editor.ShowDialog();
+    }
 
     public enum MacroEventType { KeyDown, KeyUp, MouseDown, MouseUp }
 
