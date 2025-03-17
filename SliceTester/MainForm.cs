@@ -16,12 +16,18 @@ namespace SliceTester
         private LogManager logger;
         private MacroRecorder macroRecorder;
 
+        #region MacroKeybinds
+
         private bool isF1Pressed = false;
         private bool isF2Pressed = false;
         private bool isF3Pressed = false;
         private bool isF4Pressed = false;
         private bool isF5Pressed = false;
         private bool isF6Pressed = false;
+
+        #endregion
+
+
 
         public MainForm()
         {
