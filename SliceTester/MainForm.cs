@@ -15,13 +15,52 @@ namespace SliceTester
     {
         private LogManager logger;
         private MacroRecorder macroRecorder;
-        //List<Test> tests = new List<Test>();
+
+        private bool isF1Pressed = false;
+        private bool isF2Pressed = false;
+        private bool isF3Pressed = false;
+        private bool isF4Pressed = false;
+        private bool isF5Pressed = false;
+        private bool isF6Pressed = false;
 
         public MainForm()
         {
             InitializeComponent();
             logger = new LogManager(txtLog);
             macroRecorder = new MacroRecorder(logger);
+            this.KeyPreview = true; 
+            this.KeyDown += new KeyEventHandler(MainForm_KeyDown);
+        }
+
+        private void MainForm_KeyDown(object sender, KeyEventArgs e)
+        {
+            switch (e.KeyCode)
+            {
+                case Keys.F1:
+                    isF1Pressed = true;
+                    btnRecord_Click(sender, e);
+                    break;
+                case Keys.F2:
+                    isF2Pressed = true;
+                    btnStop_Click(sender, e);
+                    break;
+                case Keys.F3:
+                    isF3Pressed = true;
+                    btnPlay_Click(sender, e);
+                    break;
+                case Keys.F4:
+                    isF4Pressed = true;
+                    btnClear_Click(sender, e);
+                    break;
+                case Keys.F5:
+                    isF5Pressed = true;
+                    btnSaveJson_Click(sender, e);
+                    break;
+                case Keys.F6:
+                    isF6Pressed = true;
+                    btnLoadJson_Click(sender, e);
+                    break;
+            }
         }
 
         private void btnRecord_Click(object sender, EventArgs e)
@@ -92,7 +131,7 @@ namespace SliceTester
                     {
                         logger.Log($"[ERRO] Falha ao salvar o arquivo: {ex.Message}");
                         MessageBox.Show($"Erro ao salvar o arquivo:\n{ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }                
+                    }
                 }
                 else
                 {
@@ -133,6 +172,5 @@ namespace SliceTester
                 }
             }
         }
-
     }
 }
