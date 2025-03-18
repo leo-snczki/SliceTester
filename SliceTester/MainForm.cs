@@ -27,10 +27,11 @@ namespace SliceTester
 
         public MainForm()
         {
+            CreateAppFolder();
             InitializeComponent();
             logger = new LogManager(txtLog);
             macroRecorder = new MacroRecorder(logger);
-            this.KeyPreview = true; 
+            this.KeyPreview = true;
             this.KeyDown += new KeyEventHandler(MainForm_KeyDown);
         }
 
@@ -90,7 +91,7 @@ namespace SliceTester
         private void btnPlay_Click(object sender, EventArgs e)
         {
             var result = MessageBox.Show("A reprodução vai começar depois do OK", "Iniciar Reprodução", MessageBoxButtons.OKCancel);
-            
+
             if (result == DialogResult.OK)
             {
                 btnPlay.Enabled = false;
@@ -163,7 +164,7 @@ namespace SliceTester
                         FileInfo fileInfo = new FileInfo(openFileDialog.FileName);
                         if (fileInfo.Length == 0)
                             throw new InvalidOperationException("O arquivo selecionado está vazio.");
-                        
+
 
                         macroRecorder.LoadEvents(openFileDialog.FileName);
 
@@ -194,6 +195,40 @@ namespace SliceTester
         private void btnEdit_Click(object sender, EventArgs e)
         {
             macroRecorder.EditRecordedEvents();
+        }
+
+        private void BtnStartLoop_Click(object sender, EventArgs e)
+        {
+            for (int i = 0; i < Loop.num; i++)
+            {
+                btnPlay.Enabled = false;
+                macroRecorder.Play();
+                btnPlay.Enabled = true;
+            }
+        }
+
+        private void btnCreateLoop_Click(object sender, EventArgs e)
+        {
+            Loop loop = new Loop();
+            loop.Show();
+            using (var form = new Loop())
+            {
+                int IntLoop = Loop.num;
+            }
+        }
+        private void CreateAppFolder()
+        {
+            // Get the bin folder by moving up one level from Debug/Release
+            string binPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "JsonLogs");
+
+            // Get the absolute path after moving up one level
+            string jsonLogsPath = Path.GetFullPath(binPath);
+
+            if (!Directory.Exists(jsonLogsPath))
+            {
+                Directory.CreateDirectory(jsonLogsPath);
+                MessageBox.Show("Folder created at: " + jsonLogsPath);
+            }
         }
     }
 }
