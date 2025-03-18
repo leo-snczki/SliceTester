@@ -188,8 +188,10 @@
             this.label6.Size = new System.Drawing.Size(19, 13);
             this.label6.TabIndex = 16;
             this.label6.Text = "F6";
+            // 
             // btnEdit
             // 
+            this.btnEdit.Enabled = false;
             this.btnEdit.Location = new System.Drawing.Point(525, 38);
             this.btnEdit.Name = "btnEdit";
             this.btnEdit.Size = new System.Drawing.Size(75, 23);

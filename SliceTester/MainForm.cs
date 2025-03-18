@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using DevExpress.Utils.Extensions;
+using Newtonsoft.Json;
 using SliceTester.Classes;
 
 namespace SliceTester
@@ -82,11 +84,13 @@ namespace SliceTester
             btnPlay.Enabled = true;
             btnSaveJson.Enabled = true;
             btnClear.Enabled = true;
+            btnEdit.Enabled = true;
         }
 
         private void btnPlay_Click(object sender, EventArgs e)
         {
             var result = MessageBox.Show("A reprodução vai começar depois do OK", "Iniciar Reprodução", MessageBoxButtons.OKCancel);
+            
             if (result == DialogResult.OK)
             {
                 btnPlay.Enabled = false;
@@ -108,6 +112,7 @@ namespace SliceTester
                     btnClear.Enabled = false;
                     btnPlay.Enabled = false;
                     btnSaveJson.Enabled = false;
+                    btnEdit.Enabled = false;
                 }
             }
         }
@@ -154,16 +159,29 @@ namespace SliceTester
                 {
                     try
                     {
+                        // Verifica se o arquivo está vazio
+                        FileInfo fileInfo = new FileInfo(openFileDialog.FileName);
+                        if (fileInfo.Length == 0)
+                            throw new InvalidOperationException("O arquivo selecionado está vazio.");
+                        
+
                         macroRecorder.LoadEvents(openFileDialog.FileName);
+
+                        btnClear.Enabled = true;
                         btnPlay.Enabled = true;
+                        btnSaveJson.Enabled = true;
+                        btnEdit.Enabled = true;
+
                         logger.Log("[INFO] Processo de carregamento de arquivo concluído.");
                         MessageBox.Show("Arquivo carregado com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
+
                     catch (Exception ex)
                     {
-                        logger.Log($"[ERRO] Falha ao carregar o arquivo: {ex.Message}");
+                        logger.Log($"[ERRO] Falha ao carregar o arquivo JSON: {ex.Message}");
                         MessageBox.Show($"Erro ao carregar o arquivo:\n{ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
+
                 }
                 else
                 {

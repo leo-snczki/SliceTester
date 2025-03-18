@@ -23,7 +23,5 @@ namespace SliceTester
                 this.DialogResult = DialogResult.OK;
                 this.Close();
         }
-
-
     }
 }
