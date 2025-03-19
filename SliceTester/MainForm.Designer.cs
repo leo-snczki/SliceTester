@@ -33,6 +33,7 @@
             this.btnPlay = new DevExpress.XtraEditors.SimpleButton();
             this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
             this.txtLog = new System.Windows.Forms.TextBox();
+            this.listView1 = new System.Windows.Forms.ListView();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.lblMacroRecorder = new DevExpress.XtraEditors.LabelControl();
             this.btnClear = new DevExpress.XtraEditors.SimpleButton();
@@ -49,6 +50,7 @@
             this.label8 = new System.Windows.Forms.Label();
             this.simpleButton1 = new DevExpress.XtraEditors.SimpleButton();
             this.btnCreateLoop = new DevExpress.XtraEditors.SimpleButton();
+            this.btnSave = new DevExpress.XtraEditors.SimpleButton();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
             this.panelControl1.SuspendLayout();
             this.SuspendLayout();
@@ -86,9 +88,9 @@
             // 
             this.panelControl1.Controls.Add(this.txtLog);
             this.panelControl1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panelControl1.Location = new System.Drawing.Point(0, 126);
+            this.panelControl1.Location = new System.Drawing.Point(0, 298);
             this.panelControl1.Name = "panelControl1";
-            this.panelControl1.Size = new System.Drawing.Size(632, 152);
+            this.panelControl1.Size = new System.Drawing.Size(1148, 152);
             this.panelControl1.TabIndex = 3;
             // 
             // txtLog
@@ -99,12 +101,23 @@
             this.txtLog.Name = "txtLog";
             this.txtLog.ReadOnly = true;
             this.txtLog.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtLog.Size = new System.Drawing.Size(628, 148);
+            this.txtLog.Size = new System.Drawing.Size(1144, 148);
             this.txtLog.TabIndex = 0;
+            // 
+            // listView1
+            // 
+            this.panelControl1.Controls.Add(this.listView1); // Add ListView to the panelControl1 to maintain layout structure
+            this.listView1.Location = new System.Drawing.Point(637, 38); // Adjust location based on your needs
+            this.listView1.Size = new System.Drawing.Size(457, 254); // Adjust size based on your needs
+            this.listView1.View = System.Windows.Forms.View.Details;
+            this.listView1.FullRowSelect = true;
+            this.listView1.GridLines = true;
+            this.listView1.Columns.Add("File Name", 250);
+            this.listView1.Columns.Add("Full Path", 350);
             // 
             // lblMacroRecorder
             // 
-            this.lblMacroRecorder.Location = new System.Drawing.Point(275, 0);
+            this.lblMacroRecorder.Location = new System.Drawing.Point(23, 38);
             this.lblMacroRecorder.Name = "lblMacroRecorder";
             this.lblMacroRecorder.Size = new System.Drawing.Size(73, 13);
             this.lblMacroRecorder.TabIndex = 6;
@@ -127,7 +140,7 @@
             this.btnSaveJson.Name = "btnSaveJson";
             this.btnSaveJson.Size = new System.Drawing.Size(75, 23);
             this.btnSaveJson.TabIndex = 8;
-            this.btnSaveJson.Text = "Salvar";
+            this.btnSaveJson.Text = "Export";
             this.btnSaveJson.Click += new System.EventHandler(this.btnSaveJson_Click);
             // 
             // btnLoadJson
@@ -239,11 +252,22 @@
             this.btnCreateLoop.Text = "Create Loop";
             this.btnCreateLoop.Click += new System.EventHandler(this.btnCreateLoop_Click);
             // 
+            // btnSave
+            // 
+            this.btnSave.Location = new System.Drawing.Point(219, 38);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(75, 23);
+            this.btnSave.TabIndex = 23;
+            this.btnSave.Text = "Salvar";
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(632, 278);
+            this.ClientSize = new System.Drawing.Size(1148, 450);
+            this.Controls.Add(this.btnSave);
+            this.Controls.Add(this.listView1);
             this.Controls.Add(this.btnCreateLoop);
             this.Controls.Add(this.simpleButton1);
             this.Controls.Add(this.label8);
@@ -264,7 +288,7 @@
             this.Controls.Add(this.btnStop);
             this.Controls.Add(this.btnRecord);
             this.Name = "MainForm";
-            this.Text = "Form1";
+            this.Text = "JSON Files";
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).EndInit();
             this.panelControl1.ResumeLayout(false);
             this.panelControl1.PerformLayout();
@@ -296,6 +320,8 @@
         private System.Windows.Forms.Label label8;
         private DevExpress.XtraEditors.SimpleButton simpleButton1;
         private DevExpress.XtraEditors.SimpleButton btnCreateLoop;
+        private System.Windows.Forms.ListView listView1;
+        private DevExpress.XtraEditors.SimpleButton btnSave;
     }
 }
 

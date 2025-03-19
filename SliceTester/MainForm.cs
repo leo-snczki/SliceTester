@@ -15,6 +15,7 @@ namespace SliceTester
 {
     public partial class MainForm : DevExpress.XtraEditors.XtraForm
     {
+
         private LogManager logger;
         private MacroRecorder macroRecorder;
 
@@ -33,6 +34,9 @@ namespace SliceTester
             macroRecorder = new MacroRecorder(logger);
             this.KeyPreview = true;
             this.KeyDown += new KeyEventHandler(MainForm_KeyDown);
+            LoadJsonFiles();
+
+            listView1.ItemActivate += ListView1_ItemActivate;
         }
 
         private void MainForm_KeyDown(object sender, KeyEventArgs e)
@@ -124,7 +128,7 @@ namespace SliceTester
             {
                 saveFileDialog.Filter = "Arquivos JSON (*.json)|*.json|Todos os Arquivos (*.*)|*.*";
                 saveFileDialog.Title = "Salvar Macro";
-                saveFileDialog.FileName = "macro.json";
+                saveFileDialog.FileName = "Nome.json";
 
                 if (saveFileDialog.ShowDialog() == DialogResult.OK)
                 {
@@ -191,6 +195,81 @@ namespace SliceTester
                 }
             }
         }
+        private void LoadJsonFiles()
+        {
+            // Specify the directory where JSON files are located
+            string directoryPath = @"C:\Users\Estagio1Fev2025\Documents\SliceTester\SliceTester\bin\JsonLogs";
+
+            // Check if the directory exists
+            if (Directory.Exists(directoryPath))
+            {
+                try
+                {
+                    // Get all JSON files in the specified directory
+                    string[] jsonFiles = Directory.GetFiles(directoryPath, "*.json");
+
+                    // Loop through the files and add them to the ListView
+                    foreach (string file in jsonFiles)
+                    {
+                        string fileName = Path.GetFileName(file);
+                        string filePath = file;
+
+                        // Add the file to the ListView with its full path
+                        ListViewItem item = new ListViewItem(fileName)
+                        {
+                            SubItems = { filePath }
+                        };
+                        listView1.Items.Add(item);
+                    }
+
+                    // If no files found, inform the user
+                    if (jsonFiles.Length == 0)
+                    {
+                        MessageBox.Show("No JSON files found in the specified directory.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error loading files: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else
+            {
+                MessageBox.Show("The specified directory does not exist.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void ListView1_ItemActivate(object sender, EventArgs e)
+        {
+            if (listView1.SelectedItems.Count > 0)
+            {
+                string selectedFilePath = listView1.SelectedItems[0].SubItems[1].Text;
+
+                try
+                {
+                    FileInfo fileInfo = new FileInfo(selectedFilePath);
+                    if (fileInfo.Length == 0)
+                        throw new InvalidOperationException("O arquivo selecionado está vazio.");
+
+                    macroRecorder.LoadEvents(selectedFilePath);
+
+                    btnClear.Enabled = true;
+                    btnPlay.Enabled = true;
+                    btnSaveJson.Enabled = true;
+                    btnEdit.Enabled = true;
+
+                    logger.Log("[INFO] Processo de carregamento de arquivo concluído.");
+                    MessageBox.Show("Arquivo carregado com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                catch (Exception ex)
+                {
+                    logger.Log($"[ERRO] Falha ao carregar o arquivo JSON: {ex.Message}");
+                    MessageBox.Show($"Erro ao carregar o arquivo:\n{ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+
 
         private void btnEdit_Click(object sender, EventArgs e)
         {
@@ -218,16 +297,60 @@ namespace SliceTester
         }
         private void CreateAppFolder()
         {
-            // Get the bin folder by moving up one level from Debug/Release
-            string binPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "JsonLogs");
+            // Ensure the path is always pointing to the correct bin folder
+            string binPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\bin\JsonLogs");
 
-            // Get the absolute path after moving up one level
+            // Get the absolute full path
             string jsonLogsPath = Path.GetFullPath(binPath);
 
+            // Create the folder if it does not exist
             if (!Directory.Exists(jsonLogsPath))
             {
                 Directory.CreateDirectory(jsonLogsPath);
                 MessageBox.Show("Folder created at: " + jsonLogsPath);
+            }
+        }
+
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // Ensure the save form is opened to get the input string
+                Save save = new Save();
+                save.ShowDialog(); // Ensure this runs modally so inputString is set before continuing
+
+                // Get the filename from the Save form
+                string fileName = Save.inputString;
+                if (string.IsNullOrWhiteSpace(fileName))
+                {
+                    MessageBox.Show("Nome do arquivo inválido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                // Ensure the filename has .json extension
+                if (!fileName.EndsWith(".json", StringComparison.OrdinalIgnoreCase))
+                {
+                    fileName += ".json";
+                }
+
+                // Define the save path (relative to the bin folder)
+                string binPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\bin\JsonLogs");
+                string fullFilePath = Path.Combine(binPath, fileName);
+
+                // Ensure the directory exists
+                if (!Directory.Exists(binPath))
+                {
+                    Directory.CreateDirectory(binPath);
+                }
+
+                // Save the macro
+                macroRecorder.SaveEvents(fullFilePath);
+                MessageBox.Show($"Arquivo salvo com sucesso em:\n{fullFilePath}", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                logger.Log($"[ERRO] Falha ao salvar o arquivo: {ex.Message}");
+                MessageBox.Show($"Erro ao salvar o arquivo:\n{ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }
