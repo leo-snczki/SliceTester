@@ -1,4 +1,4 @@
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
@@ -65,12 +65,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AddEventForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="AddEventForm.Designer.cs">
-      <DependentUpon>AddEventForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="Classes\LogManager.cs" />
     <Compile Include="Classes\MacroRecorder.cs" />
     <Compile Include="MacroEventForm.cs">
@@ -87,9 +81,6 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="AddEventForm.resx">
-      <DependentUpon>AddEventForm.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="MacroEventForm.resx">
       <DependentUpon>MacroEventForm.cs</DependentUpon>
     </EmbeddedResource>
