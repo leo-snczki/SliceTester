@@ -29,9 +29,11 @@
         private void InitializeComponent()
         {
             this.btnClose = new DevExpress.XtraEditors.SimpleButton();
-            this.btnDelete = new DevExpress.XtraEditors.SimpleButton();
-            this.dgvEvents = new System.Windows.Forms.DataGridView();
-            this.btnAdd = new DevExpress.XtraEditors.SimpleButton();
+            this.GridMacroEvents = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.dgvEvents = new DevExpress.XtraGrid.GridControl();
+            this.btnSave = new DevExpress.XtraEditors.SimpleButton();
+            this.btnSaveClose = new DevExpress.XtraEditors.SimpleButton();
+            ((System.ComponentModel.ISupportInitialize)(this.GridMacroEvents)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvEvents)).BeginInit();
             this.SuspendLayout();
             // 
@@ -44,44 +46,51 @@
             this.btnClose.Text = "Fechar";
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
-            // btnDelete
+            // GridMacroEvents
             // 
-            this.btnDelete.Location = new System.Drawing.Point(306, 413);
-            this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(75, 23);
-            this.btnDelete.TabIndex = 0;
-            this.btnDelete.Text = "Deletar";
-            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
+            this.GridMacroEvents.GridControl = this.dgvEvents;
+            this.GridMacroEvents.Name = "GridMacroEvents";
             // 
             // dgvEvents
             // 
-            this.dgvEvents.AllowUserToOrderColumns = true;
-            this.dgvEvents.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvEvents.Location = new System.Drawing.Point(28, 12);
+            this.dgvEvents.Location = new System.Drawing.Point(41, 12);
+            this.dgvEvents.MainView = this.GridMacroEvents;
             this.dgvEvents.Name = "dgvEvents";
-            this.dgvEvents.Size = new System.Drawing.Size(543, 377);
-            this.dgvEvents.TabIndex = 1;
+            this.dgvEvents.Size = new System.Drawing.Size(530, 358);
+            this.dgvEvents.TabIndex = 4;
+            this.dgvEvents.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
+            this.GridMacroEvents});
             // 
-            // btnAdd
+            // btnSave
             // 
-            this.btnAdd.Location = new System.Drawing.Point(399, 413);
-            this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(75, 23);
-            this.btnAdd.TabIndex = 3;
-            this.btnAdd.Text = "Adicionar";
-            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
+            this.btnSave.Location = new System.Drawing.Point(295, 413);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(75, 23);
+            this.btnSave.TabIndex = 5;
+            this.btnSave.Text = "Salvar";
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+            // 
+            // btnSaveClose
+            // 
+            this.btnSaveClose.Location = new System.Drawing.Point(388, 413);
+            this.btnSaveClose.Name = "btnSaveClose";
+            this.btnSaveClose.Size = new System.Drawing.Size(90, 23);
+            this.btnSaveClose.TabIndex = 6;
+            this.btnSaveClose.Text = "Fechar e Salvar";
+            this.btnSaveClose.Click += new System.EventHandler(this.btnSaveClose_Click);
             // 
             // MacroEventForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(605, 461);
-            this.Controls.Add(this.btnAdd);
+            this.Controls.Add(this.btnSaveClose);
+            this.Controls.Add(this.btnSave);
             this.Controls.Add(this.dgvEvents);
-            this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.btnClose);
             this.Name = "MacroEventForm";
             this.Text = "MacroEventForm";
+            ((System.ComponentModel.ISupportInitialize)(this.GridMacroEvents)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvEvents)).EndInit();
             this.ResumeLayout(false);
 
@@ -90,8 +99,9 @@
         #endregion
 
         private DevExpress.XtraEditors.SimpleButton btnClose;
-        private DevExpress.XtraEditors.SimpleButton btnDelete;
-        private System.Windows.Forms.DataGridView dgvEvents;
-        private DevExpress.XtraEditors.SimpleButton btnAdd;
+        private DevExpress.XtraGrid.Views.Grid.GridView GridMacroEvents;
+        private DevExpress.XtraGrid.GridControl dgvEvents;
+        private DevExpress.XtraEditors.SimpleButton btnSave;
+        private DevExpress.XtraEditors.SimpleButton btnSaveClose;
     }
 }
