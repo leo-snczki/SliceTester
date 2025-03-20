@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using DevExpress.Utils.Extensions;
+using DevExpress.XtraGrid.Views.Grid;
 using Newtonsoft.Json;
 using SliceTester.Classes;
 
@@ -35,8 +36,6 @@ namespace SliceTester
             this.KeyPreview = true;
             this.KeyDown += new KeyEventHandler(MainForm_KeyDown);
             LoadJsonFiles();
-
-            listView1.ItemActivate += ListView1_ItemActivate;
         }
 
         private void MainForm_KeyDown(object sender, KeyEventArgs e)
@@ -114,11 +113,39 @@ namespace SliceTester
                 if (result == DialogResult.Yes)
                 {
                     macroRecorder.ClearEvents();
+
+                    ViewMacroEventGrid();s
+
                     btnClear.Enabled = false;
                     btnPlay.Enabled = false;
                     btnSaveJson.Enabled = false;
                     btnEdit.Enabled = false;
                 }
+            }
+        }
+
+        private void btnEdit_Click(object sender, EventArgs e)
+        {
+            macroRecorder.EditRecordedEvents();
+        }
+
+        private void BtnStartLoop_Click(object sender, EventArgs e)
+        {
+            for (int i = 0; i < Loop.num; i++)
+            {
+                btnPlay.Enabled = false;
+                macroRecorder.Play();
+                btnPlay.Enabled = true;
+            }
+        }
+
+        private void btnCreateLoop_Click(object sender, EventArgs e)
+        {
+            Loop loop = new Loop();
+            loop.Show();
+            using (var form = new Loop())
+            {
+                int IntLoop = Loop.num;
             }
         }
 
@@ -169,8 +196,9 @@ namespace SliceTester
                         if (fileInfo.Length == 0)
                             throw new InvalidOperationException("O arquivo selecionado está vazio.");
 
-
                         macroRecorder.LoadEvents(openFileDialog.FileName);
+
+                        ViewMacroEventGrid();
 
                         btnClear.Enabled = true;
                         btnPlay.Enabled = true;
@@ -193,121 +221,6 @@ namespace SliceTester
                     logger.Log("[INFO] Nenhum arquivo selecionado.");
                     MessageBox.Show("Nenhum arquivo selecionado", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
-            }
-        }
-        private void LoadJsonFiles()
-        {
-            // Specify the directory where JSON files are located
-            string directoryPath = @"C:\Users\Estagio1Fev2025\Documents\SliceTester\SliceTester\bin\JsonLogs";
-
-            // Check if the directory exists
-            if (Directory.Exists(directoryPath))
-            {
-                try
-                {
-                    // Get all JSON files in the specified directory
-                    string[] jsonFiles = Directory.GetFiles(directoryPath, "*.json");
-
-                    // Loop through the files and add them to the ListView
-                    foreach (string file in jsonFiles)
-                    {
-                        string fileName = Path.GetFileName(file);
-                        string filePath = file;
-
-                        // Add the file to the ListView with its full path
-                        ListViewItem item = new ListViewItem(fileName)
-                        {
-                            SubItems = { filePath }
-                        };
-                        listView1.Items.Add(item);
-                    }
-
-                    // If no files found, inform the user
-                    if (jsonFiles.Length == 0)
-                    {
-                        MessageBox.Show("No JSON files found in the specified directory.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"Error loading files: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-            else
-            {
-                MessageBox.Show("The specified directory does not exist.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        private void ListView1_ItemActivate(object sender, EventArgs e)
-        {
-            if (listView1.SelectedItems.Count > 0)
-            {
-                string selectedFilePath = listView1.SelectedItems[0].SubItems[1].Text;
-
-                try
-                {
-                    FileInfo fileInfo = new FileInfo(selectedFilePath);
-                    if (fileInfo.Length == 0)
-                        throw new InvalidOperationException("O arquivo selecionado está vazio.");
-
-                    macroRecorder.LoadEvents(selectedFilePath);
-
-                    btnClear.Enabled = true;
-                    btnPlay.Enabled = true;
-                    btnSaveJson.Enabled = true;
-                    btnEdit.Enabled = true;
-
-                    logger.Log("[INFO] Processo de carregamento de arquivo concluído.");
-                    MessageBox.Show("Arquivo carregado com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-                catch (Exception ex)
-                {
-                    logger.Log($"[ERRO] Falha ao carregar o arquivo JSON: {ex.Message}");
-                    MessageBox.Show($"Erro ao carregar o arquivo:\n{ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-        }
-
-
-
-        private void btnEdit_Click(object sender, EventArgs e)
-        {
-            macroRecorder.EditRecordedEvents();
-        }
-
-        private void BtnStartLoop_Click(object sender, EventArgs e)
-        {
-            for (int i = 0; i < Loop.num; i++)
-            {
-                btnPlay.Enabled = false;
-                macroRecorder.Play();
-                btnPlay.Enabled = true;
-            }
-        }
-
-        private void btnCreateLoop_Click(object sender, EventArgs e)
-        {
-            Loop loop = new Loop();
-            loop.Show();
-            using (var form = new Loop())
-            {
-                int IntLoop = Loop.num;
-            }
-        }
-        private void CreateAppFolder()
-        {
-            // Ensure the path is always pointing to the correct bin folder
-            string binPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\bin\JsonLogs");
-
-            // Get the absolute full path
-            string jsonLogsPath = Path.GetFullPath(binPath);
-
-            // Create the folder if it does not exist
-            if (!Directory.Exists(jsonLogsPath))
-            {
-                Directory.CreateDirectory(jsonLogsPath);
-                MessageBox.Show("Folder created at: " + jsonLogsPath);
             }
         }
 
@@ -352,6 +265,127 @@ namespace SliceTester
                 logger.Log($"[ERRO] Falha ao salvar o arquivo: {ex.Message}");
                 MessageBox.Show($"Erro ao salvar o arquivo:\n{ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void ListView1_ItemActivate(object sender, EventArgs e)
+        {
+            if (listView1.SelectedItems.Count > 0)
+            {
+                string selectedFilePath = listView1.SelectedItems[0].SubItems[1].Text;
+
+                try
+                {
+                    FileInfo fileInfo = new FileInfo(selectedFilePath);
+                    if (fileInfo.Length == 0)
+                        throw new InvalidOperationException("O arquivo selecionado está vazio.");
+
+                    macroRecorder.LoadEvents(selectedFilePath);
+
+                    ViewMacroEventGrid();
+
+                    btnClear.Enabled = true;
+                    btnPlay.Enabled = true;
+                    btnSaveJson.Enabled = true;
+                    btnEdit.Enabled = true;
+
+                    logger.Log("[INFO] Processo de carregamento de arquivo concluído.");
+                    MessageBox.Show("Arquivo carregado com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                catch (Exception ex)
+                {
+                    logger.Log($"[ERRO] Falha ao carregar o arquivo JSON: {ex.Message}");
+                    MessageBox.Show($"Erro ao carregar o arquivo:\n{ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void LoadJsonFiles()
+        {
+            // Specify the directory where JSON files are located
+            string directoryPath = @"C:\Users\Estagio1Fev2025\Documents\SliceTester\SliceTester\bin\JsonLogs";
+
+            // Check if the directory exists
+            if (Directory.Exists(directoryPath))
+            {
+                try
+                {
+                    // Get all JSON files in the specified directory
+                    string[] jsonFiles = Directory.GetFiles(directoryPath, "*.json");
+
+                    // Loop through the files and add them to the ListView
+                    foreach (string file in jsonFiles)
+                    {
+                        string fileName = Path.GetFileName(file);
+                        string filePath = file;
+
+                        // Add the file to the ListView with its full path
+                        ListViewItem item = new ListViewItem(fileName)
+                        {
+                            SubItems = { filePath }
+                        };
+                        listView1.Items.Add(item);
+                    }
+
+                    // If no files found, inform the user
+                    if (jsonFiles.Length == 0)
+                    {
+                        MessageBox.Show("No JSON files found in the specified directory.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error loading files: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else
+            {
+                MessageBox.Show("The specified directory does not exist.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void CreateAppFolder()
+        {
+            // Ensure the path is always pointing to the correct bin folder
+            string binPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\bin\JsonLogs");
+
+            // Get the absolute full path
+            string jsonLogsPath = Path.GetFullPath(binPath);
+
+            // Create the folder if it does not exist
+            if (!Directory.Exists(jsonLogsPath))
+            {
+                Directory.CreateDirectory(jsonLogsPath);
+                MessageBox.Show("Folder created at: " + jsonLogsPath);
+            }
+        }
+
+
+        private void loadDataGridConfig()
+        {
+            // Obter a GridView associada ao GridControl.
+            var gridView = gridViewer.MainView as GridView;
+
+            if (gridView != null)
+            {
+                // Nome das colunas.
+                string[] columns = { "EventType", "Key", "MouseButton", "Timestamp" };
+
+                foreach (var columnName in columns)
+                {
+                    var eventTypeColumn = gridView.Columns[columnName];
+
+                    // Desabilitar o sort para essa coluna.
+                    if (eventTypeColumn != null)
+                        eventTypeColumn.OptionsColumn.AllowSort = DevExpress.Utils.DefaultBoolean.False;
+                }
+            }
+        }
+
+        private void ViewMacroEventGrid()
+        {
+            loadDataGridConfig();
+            gridViewer.DataSource = macroRecorder.GetRecordedEvents();
+            gridViewer.RefreshDataSource(); // Garante que os dados sejam recarregados corretamente.
         }
     }
 }
