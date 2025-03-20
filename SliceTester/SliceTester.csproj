@@ -66,12 +66,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AddEventForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="AddEventForm.Designer.cs">
-      <DependentUpon>AddEventForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="Classes\LogManager.cs" />
     <Compile Include="Classes\MacroRecorder.cs" />
     <Compile Include="Loop.cs">
@@ -100,9 +94,6 @@
     <Compile Include="Save.Designer.cs">
       <DependentUpon>Save.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="AddEventForm.resx">
-      <DependentUpon>AddEventForm.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Loop.resx">
       <DependentUpon>Loop.cs</DependentUpon>
     </EmbeddedResource>
