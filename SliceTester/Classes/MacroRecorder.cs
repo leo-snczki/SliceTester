@@ -165,7 +165,7 @@ public class MacroRecorder
     public void EditRecordedEvents()
     {
         var editor = new MacroEventForm(recordedEvents);
-        editor.ShowDialog();
+        editor.ShowDialog();       
     }
 
     public enum MacroEventType { KeyDown, KeyUp, MouseDown, MouseUp }
