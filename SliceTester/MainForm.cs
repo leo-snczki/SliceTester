@@ -33,8 +33,6 @@ namespace SliceTester
             InitializeComponent();
             logger = new LogManager(txtLog);
             macroRecorder = new MacroRecorder(logger);
-            this.KeyPreview = true;
-            this.KeyDown += new KeyEventHandler(MainForm_KeyDown);
             LoadJsonFiles();
         }
 
@@ -114,7 +112,7 @@ namespace SliceTester
                 {
                     macroRecorder.ClearEvents();
 
-                    ViewMacroEventGrid();s
+                    ViewMacroEventGrid();
 
                     btnClear.Enabled = false;
                     btnPlay.Enabled = false;
@@ -301,8 +299,14 @@ namespace SliceTester
 
         private void LoadJsonFiles()
         {
-            // Specify the directory where JSON files are located
-            string directoryPath = @"C:\Users\Estagio1Fev2025\Documents\SliceTester\SliceTester\bin\JsonLogs";
+            // Dynamically get the path for the JsonLogs folder
+            string binPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\bin\JsonLogs");
+
+            // Get the absolute full path
+            string directoryPath = Path.GetFullPath(binPath);
+
+            // Clear the ListView before reloading files
+            listView1.Items.Clear();
 
             // Check if the directory exists
             if (Directory.Exists(directoryPath))
@@ -386,6 +390,11 @@ namespace SliceTester
             loadDataGridConfig();
             gridViewer.DataSource = macroRecorder.GetRecordedEvents();
             gridViewer.RefreshDataSource(); // Garante que os dados sejam recarregados corretamente.
+        }
+
+        private void btnRefresh_Click(object sender, EventArgs e)
+        {
+            LoadJsonFiles();
         }
     }
 }
