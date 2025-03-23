@@ -158,7 +158,7 @@ public class MacroRecorder
      public void SaveEvents(string path)
     {
         // Serializa a lista de eventos gravados em um arquivo JSON.
-        var json = Newtonsoft.Json.JsonConvert.SerializeObject(recordedEvents);
+        var json = JsonConvert.SerializeObject(recordedEvents);
         System.IO.File.WriteAllText(path, json);
         logManager.Log($"[INFO] Eventos gravados salvos em {path}");
     }
@@ -166,7 +166,7 @@ public class MacroRecorder
     {
         // Lê o arquivo JSON e desserializa a lista de eventos gravados.
         var json = System.IO.File.ReadAllText(path);
-        recordedEvents = Newtonsoft.Json.JsonConvert.DeserializeObject<List<MacroEvent>>(json);
+        recordedEvents = JsonConvert.DeserializeObject<List<MacroEvent>>(json);
         logManager.Log($"[INFO] Eventos gravados carregados de {path}");
     }
 
