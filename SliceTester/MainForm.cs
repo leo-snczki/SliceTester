@@ -2,9 +2,8 @@
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using DevExpress.Utils.Extensions;
 using DevExpress.XtraGrid.Views.Grid;
-using Newtonsoft.Json;
+using Gma.System.MouseKeyHook;
 using SliceTester.Classes;
 
 namespace SliceTester
@@ -47,10 +46,22 @@ namespace SliceTester
                     btnClear_Click(sender, e);
                     break;
                 case Keys.F5:
-                    btnSaveJson_Click(sender, e);
+                    btnExportJson_Click(sender, e);
                     break;
                 case Keys.F6:
                     btnLoadJson_Click(sender, e);
+                    break;
+                case Keys.F7:
+                     BtnStartLoop_Click(sender, e);
+                     break;
+                case Keys.F8:
+                     btnCreateLoop_Click(sender, e);
+                     break;
+                case Keys.F9:
+                     btnSave_Click(sender, e);
+                    break;
+                case Keys.F10:
+                    btnEdit_Click(sender, e);
                     break;
                 }
             }
@@ -78,7 +89,7 @@ namespace SliceTester
                     btnStop.Enabled = false;
                     btnRecord.Enabled = true;
                     btnPlay.Enabled = true;
-                    btnSaveJson.Enabled = true;
+                    btnExportJson.Enabled = true;
                     btnClear.Enabled = true;
                     btnEdit.Enabled = true;
                 }
@@ -122,7 +133,7 @@ namespace SliceTester
 
                     btnClear.Enabled = false;
                     btnPlay.Enabled = false;
-                    btnSaveJson.Enabled = false;
+                    btnExportJson.Enabled = false;
                     btnEdit.Enabled = false;
                 }
             }
@@ -130,7 +141,7 @@ namespace SliceTester
 
         private void btnEdit_Click(object sender, EventArgs e)
         {
-            macroRecorder.EditRecordedEvents();
+            _macroRecorder.EditRecordedEvents();
         }
 
         private void BtnStartLoop_Click(object sender, EventArgs e)
@@ -138,7 +149,7 @@ namespace SliceTester
             for (int i = 0; i < Loop.num; i++)
             {
                 btnPlay.Enabled = false;
-                macroRecorder.Play();
+                _macroRecorder.Play();
                 btnPlay.Enabled = true;
             }
         }
@@ -153,7 +164,7 @@ namespace SliceTester
             }
         }
 
-        private void btnSaveJson_Click(object sender, EventArgs e)
+        private void btnExportJson_Click(object sender, EventArgs e)
         {
             using (SaveFileDialog saveFileDialog = new SaveFileDialog())
             {
@@ -206,7 +217,7 @@ namespace SliceTester
 
                         btnClear.Enabled = true;
                         btnPlay.Enabled = true;
-                        btnSaveJson.Enabled = true;
+                        btnExportJson.Enabled = true;
                         btnEdit.Enabled = true;
 
                         _logger.Log("[INFO] Processo de carregamento de arquivo concluído.");
@@ -261,12 +272,12 @@ namespace SliceTester
                 }
 
                 // Save the macro
-                macroRecorder.SaveEvents(fullFilePath);
+                _macroRecorder.SaveEvents(fullFilePath);
                 MessageBox.Show($"Arquivo salvo com sucesso em:\n{fullFilePath}", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
-                logger.Log($"[ERRO] Falha ao salvar o arquivo: {ex.Message}");
+                _logger.Log($"[ERRO] Falha ao salvar o arquivo: {ex.Message}");
                 MessageBox.Show($"Erro ao salvar o arquivo:\n{ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -283,21 +294,21 @@ namespace SliceTester
                     if (fileInfo.Length == 0)
                         throw new InvalidOperationException("O arquivo selecionado está vazio.");
 
-                    macroRecorder.LoadEvents(selectedFilePath);
+                    _macroRecorder.LoadEvents(selectedFilePath);
 
                     ViewMacroEventGrid();
 
                     btnClear.Enabled = true;
                     btnPlay.Enabled = true;
-                    btnSaveJson.Enabled = true;
+                    btnExportJson.Enabled = true;
                     btnEdit.Enabled = true;
 
-                    logger.Log("[INFO] Processo de carregamento de arquivo concluído.");
+                    _logger.Log("[INFO] Processo de carregamento de arquivo concluído.");
                     MessageBox.Show("Arquivo carregado com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 catch (Exception ex)
                 {
-                    logger.Log($"[ERRO] Falha ao carregar o arquivo JSON: {ex.Message}");
+                    _logger.Log($"[ERRO] Falha ao carregar o arquivo JSON: {ex.Message}");
                     MessageBox.Show($"Erro ao carregar o arquivo:\n{ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
@@ -394,14 +405,13 @@ namespace SliceTester
         private void ViewMacroEventGrid()
         {
             loadDataGridConfig();
-            gridViewer.DataSource = macroRecorder.GetRecordedEvents();
+            gridViewer.DataSource = _macroRecorder.GetRecordedEvents();
             gridViewer.RefreshDataSource(); // Garante que os dados sejam recarregados corretamente.
         }
 
         private void btnRefresh_Click(object sender, EventArgs e)
         {
             LoadJsonFiles();
-            _macroRecorder.EditRecordedEvents();
         }
 
         private void GlobalHotkeys() // Regista os atalhos globais.
