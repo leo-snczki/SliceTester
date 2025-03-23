@@ -55,12 +55,9 @@ namespace SliceTester
                         BtnStartLoop_Click(sender, e);
                         break;
                     case Keys.F8:
-                        btnCreateLoop_Click(sender, e);
-                        break;
-                    case Keys.F9:
                         btnSave_Click(sender, e);
                         break;
-                    case Keys.F10:
+                    case Keys.F9:
                         btnEdit_Click(sender, e);
                         break;
                 }
@@ -177,33 +174,28 @@ namespace SliceTester
 
         private void BtnStartLoop_Click(object sender, EventArgs e)
         {
-            //Um loop que vai repetir as vezes que o utilizador inserio na Variavel.
-            for (int i = 0; i < LoopForm.num; i++)
+            try
             {
-                // Desativa o botão replay.
-                btnPlay.Enabled = false;
+                //Um loop que vai repetir as vezes que o utilizador inserio na Variavel.
+                for (int i = 0; i < Convert.ToInt32(txtLoopBox.Text); i++)
+                {
+                    // Desativa o botão replay.
+                    btnPlay.Enabled = false;
 
-                // Chama o método Play da classe _macroRecorder para reproduzir os eventos gravados.
-                _macroRecorder.Play();
+                    // Chama o método Play da classe _macroRecorder para reproduzir os eventos gravados.
+                    _macroRecorder.Play();
 
-                // Reativa o botão.
-                btnPlay.Enabled = true;
+                    // Reativa o botão.
+                    btnPlay.Enabled = true;
+                }
             }
-        }
-
-        private void btnCreateLoop_Click(object sender, EventArgs e)
-        {
-            LoopForm loop = new LoopForm();
-
-            // Abre a form Loop.
-            loop.Show();
-
-            // Pega a variavel num da Form Loop.
-            using (var form = new LoopForm())
+            catch (Exception ex)
             {
-                // Atribui o valor de Loop.num (o número de iterações do loop) a uma variável local.
-                int IntLoop = LoopForm.num;
+                // Caso ocorra um erro ao salvar o arquivo, loga a falha e exibe uma mensagem de erro.
+                _logger.Log($"[ERRO] Falha no Loop: {ex.Message}");
+                MessageBox.Show($"Erro ao iniciar loop: \n{ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+
         }
 
         private void btnExportJson_Click(object sender, EventArgs e)

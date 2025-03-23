@@ -48,15 +48,15 @@
             this.lblHotKeyF6 = new System.Windows.Forms.Label();
             this.btnEdit = new DevExpress.XtraEditors.SimpleButton();
             this.lblHotKeyF8 = new System.Windows.Forms.Label();
-            this.lblHotKeyF9 = new System.Windows.Forms.Label();
             this.simpleButton1 = new DevExpress.XtraEditors.SimpleButton();
-            this.btnCreateLoop = new DevExpress.XtraEditors.SimpleButton();
             this.btnSave = new DevExpress.XtraEditors.SimpleButton();
             this.gridViewer = new DevExpress.XtraGrid.GridControl();
             this.gridViewerFormMain = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.btnRefresh = new DevExpress.XtraEditors.SimpleButton();
             this.lblHotKeyF7 = new DevExpress.XtraEditors.LabelControl();
-            this.lblHotKeyF10 = new DevExpress.XtraEditors.LabelControl();
+            this.lblHotKeyF9 = new DevExpress.XtraEditors.LabelControl();
+            this.txtLoopBox = new System.Windows.Forms.TextBox();
+            this.lblLoop = new DevExpress.XtraEditors.LabelControl();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
             this.panelControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewer)).BeginInit();
@@ -237,20 +237,11 @@
             // lblHotKeyF8
             // 
             this.lblHotKeyF8.AutoSize = true;
-            this.lblHotKeyF8.Location = new System.Drawing.Point(1039, 252);
+            this.lblHotKeyF8.Location = new System.Drawing.Point(901, 329);
             this.lblHotKeyF8.Name = "lblHotKeyF8";
             this.lblHotKeyF8.Size = new System.Drawing.Size(89, 24);
             this.lblHotKeyF8.TabIndex = 18;
             this.lblHotKeyF8.Text = "Ctrl + F8";
-            // 
-            // lblHotKeyF9
-            // 
-            this.lblHotKeyF9.AutoSize = true;
-            this.lblHotKeyF9.Location = new System.Drawing.Point(901, 322);
-            this.lblHotKeyF9.Name = "lblHotKeyF9";
-            this.lblHotKeyF9.Size = new System.Drawing.Size(89, 24);
-            this.lblHotKeyF9.TabIndex = 20;
-            this.lblHotKeyF9.Text = "Ctrl + F9";
             // 
             // simpleButton1
             // 
@@ -258,17 +249,8 @@
             this.simpleButton1.Name = "simpleButton1";
             this.simpleButton1.Size = new System.Drawing.Size(126, 37);
             this.simpleButton1.TabIndex = 21;
-            this.simpleButton1.Text = "Start Loop";
+            this.simpleButton1.Text = "Iniciar Loop";
             this.simpleButton1.Click += new System.EventHandler(this.BtnStartLoop_Click);
-            // 
-            // btnCreateLoop
-            // 
-            this.btnCreateLoop.Location = new System.Drawing.Point(1027, 281);
-            this.btnCreateLoop.Name = "btnCreateLoop";
-            this.btnCreateLoop.Size = new System.Drawing.Size(111, 37);
-            this.btnCreateLoop.TabIndex = 22;
-            this.btnCreateLoop.Text = "Create Loop";
-            this.btnCreateLoop.Click += new System.EventHandler(this.btnCreateLoop_Click);
             // 
             // btnSave
             // 
@@ -316,28 +298,43 @@
             this.lblHotKeyF7.TabIndex = 26;
             this.lblHotKeyF7.Text = "Ctrl + F7";
             // 
-            // lblHotKeyF10
+            // lblHotKeyF9
             // 
-            this.lblHotKeyF10.Location = new System.Drawing.Point(1043, 323);
-            this.lblHotKeyF10.Name = "lblHotKeyF10";
-            this.lblHotKeyF10.Size = new System.Drawing.Size(84, 23);
-            this.lblHotKeyF10.TabIndex = 27;
-            this.lblHotKeyF10.Text = "Ctrl + F10";
+            this.lblHotKeyF9.Location = new System.Drawing.Point(1043, 323);
+            this.lblHotKeyF9.Name = "lblHotKeyF9";
+            this.lblHotKeyF9.Size = new System.Drawing.Size(74, 23);
+            this.lblHotKeyF9.TabIndex = 27;
+            this.lblHotKeyF9.Text = "Ctrl + F9";
+            // 
+            // txtLoopBox
+            // 
+            this.txtLoopBox.Location = new System.Drawing.Point(1028, 284);
+            this.txtLoopBox.Name = "txtLoopBox";
+            this.txtLoopBox.Size = new System.Drawing.Size(110, 30);
+            this.txtLoopBox.TabIndex = 28;
+            // 
+            // lblLoop
+            // 
+            this.lblLoop.Location = new System.Drawing.Point(1058, 255);
+            this.lblLoop.Name = "lblLoop";
+            this.lblLoop.Size = new System.Drawing.Size(40, 23);
+            this.lblLoop.TabIndex = 29;
+            this.lblLoop.Text = "Loop";
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 23F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1159, 569);
-            this.Controls.Add(this.lblHotKeyF10);
+            this.Controls.Add(this.lblLoop);
+            this.Controls.Add(this.txtLoopBox);
+            this.Controls.Add(this.lblHotKeyF9);
             this.Controls.Add(this.lblHotKeyF7);
             this.Controls.Add(this.btnRefresh);
             this.Controls.Add(this.gridViewer);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.listView1);
-            this.Controls.Add(this.btnCreateLoop);
             this.Controls.Add(this.simpleButton1);
-            this.Controls.Add(this.lblHotKeyF9);
             this.Controls.Add(this.lblHotKeyF8);
             this.Controls.Add(this.lblHotKeyF6);
             this.Controls.Add(this.lblHotKeyF5);
@@ -387,17 +384,17 @@
         private System.Windows.Forms.Label lblHotKeyF6;
         private DevExpress.XtraEditors.SimpleButton btnEdit;
         private System.Windows.Forms.Label lblHotKeyF8;
-        private System.Windows.Forms.Label lblHotKeyF9;
         private DevExpress.XtraEditors.SimpleButton simpleButton1;
-        private DevExpress.XtraEditors.SimpleButton btnCreateLoop;
         private System.Windows.Forms.ListView listView1;
         private DevExpress.XtraEditors.SimpleButton btnSave;
         private DevExpress.XtraGrid.GridControl gridViewer;
         private DevExpress.XtraGrid.Views.Grid.GridView gridViewerFormMain;
         private DevExpress.XtraEditors.SimpleButton btnRefresh;
         private DevExpress.XtraEditors.LabelControl lblHotKeyF7;
-        private DevExpress.XtraEditors.LabelControl lblHotKeyF10;
+        private DevExpress.XtraEditors.LabelControl lblHotKeyF9;
         private System.Windows.Forms.ColumnHeader columnNameFile;
+        private System.Windows.Forms.TextBox txtLoopBox;
+        private DevExpress.XtraEditors.LabelControl lblLoop;
     }
 }
 
