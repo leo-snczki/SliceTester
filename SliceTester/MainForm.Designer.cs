@@ -34,6 +34,7 @@
             this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
             this.txtLog = new System.Windows.Forms.TextBox();
             this.listView1 = new System.Windows.Forms.ListView();
+            this.columnNameFile = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.lblMacroRecorder = new DevExpress.XtraEditors.LabelControl();
             this.btnClear = new DevExpress.XtraEditors.SimpleButton();
@@ -56,7 +57,6 @@
             this.btnRefresh = new DevExpress.XtraEditors.SimpleButton();
             this.lblHotKeyF7 = new DevExpress.XtraEditors.LabelControl();
             this.lblHotKeyF10 = new DevExpress.XtraEditors.LabelControl();
-            this.columnNameFile = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
             this.panelControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewer)).BeginInit();
@@ -127,6 +127,11 @@
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
             this.listView1.ItemActivate += new System.EventHandler(this.ListView1_ItemActivate);
+            // 
+            // columnNameFile
+            // 
+            this.columnNameFile.Text = "Ficheiro";
+            this.columnNameFile.Width = 231;
             // 
             // lblMacroRecorder
             // 
@@ -277,11 +282,11 @@
             // gridViewer
             // 
             this.gridViewer.EmbeddedNavigator.Margin = new System.Windows.Forms.Padding(2);
-            this.gridViewer.Location = new System.Drawing.Point(30, 0);
+            this.gridViewer.Location = new System.Drawing.Point(16, 0);
             this.gridViewer.MainView = this.gridViewerFormMain;
             this.gridViewer.Margin = new System.Windows.Forms.Padding(2);
             this.gridViewer.Name = "gridViewer";
-            this.gridViewer.Size = new System.Drawing.Size(554, 396);
+            this.gridViewer.Size = new System.Drawing.Size(586, 396);
             this.gridViewer.TabIndex = 24;
             this.gridViewer.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridViewerFormMain});
@@ -292,6 +297,7 @@
             this.gridViewerFormMain.GridControl = this.gridViewer;
             this.gridViewerFormMain.Name = "gridViewerFormMain";
             this.gridViewerFormMain.OptionsEditForm.PopupEditFormWidth = 480;
+            this.gridViewerFormMain.OptionsView.ShowGroupPanel = false;
             // 
             // btnRefresh
             // 
@@ -317,11 +323,6 @@
             this.lblHotKeyF10.Size = new System.Drawing.Size(84, 23);
             this.lblHotKeyF10.TabIndex = 27;
             this.lblHotKeyF10.Text = "Ctrl + F10";
-            // 
-            // columnNameFile
-            // 
-            this.columnNameFile.Text = "Ficheiro";
-            this.columnNameFile.Width = 231;
             // 
             // MainForm
             // 
