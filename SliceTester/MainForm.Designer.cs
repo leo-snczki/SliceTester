@@ -56,6 +56,7 @@
             this.btnRefresh = new DevExpress.XtraEditors.SimpleButton();
             this.lblHotKeyF7 = new DevExpress.XtraEditors.LabelControl();
             this.lblHotKeyF10 = new DevExpress.XtraEditors.LabelControl();
+            this.columnNameFile = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
             this.panelControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewer)).BeginInit();
@@ -114,6 +115,8 @@
             // 
             // listView1
             // 
+            this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnNameFile});
             this.listView1.FullRowSelect = true;
             this.listView1.GridLines = true;
             this.listView1.HideSelection = false;
@@ -127,7 +130,7 @@
             // 
             // lblMacroRecorder
             // 
-            this.lblMacroRecorder.Location = new System.Drawing.Point(933, 12);
+            this.lblMacroRecorder.Location = new System.Drawing.Point(948, 5);
             this.lblMacroRecorder.Name = "lblMacroRecorder";
             this.lblMacroRecorder.Size = new System.Drawing.Size(127, 23);
             this.lblMacroRecorder.TabIndex = 6;
@@ -315,6 +318,11 @@
             this.lblHotKeyF10.TabIndex = 27;
             this.lblHotKeyF10.Text = "Ctrl + F10";
             // 
+            // columnNameFile
+            // 
+            this.columnNameFile.Text = "Ficheiro";
+            this.columnNameFile.Width = 231;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 23F);
@@ -388,6 +396,7 @@
         private DevExpress.XtraEditors.SimpleButton btnRefresh;
         private DevExpress.XtraEditors.LabelControl lblHotKeyF7;
         private DevExpress.XtraEditors.LabelControl lblHotKeyF10;
+        private System.Windows.Forms.ColumnHeader columnNameFile;
     }
 }
 
