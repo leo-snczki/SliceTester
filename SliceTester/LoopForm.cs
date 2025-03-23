@@ -11,12 +11,12 @@ using System.Windows.Forms;
 
 namespace SliceTester
 {
-    public partial class Loop : DevExpress.XtraEditors.XtraForm
+    public partial class LoopForm : DevExpress.XtraEditors.XtraForm
     {
 
         public static int num;
 
-        public Loop()
+        public LoopForm()
         {
             InitializeComponent();
         }

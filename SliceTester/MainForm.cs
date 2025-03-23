@@ -178,7 +178,7 @@ namespace SliceTester
         private void BtnStartLoop_Click(object sender, EventArgs e)
         {
             //Um loop que vai repetir as vezes que o utilizador inserio na Variavel.
-            for (int i = 0; i < Loop.num; i++)
+            for (int i = 0; i < LoopForm.num; i++)
             {
                 // Desativa o botão replay.
                 btnPlay.Enabled = false;
@@ -193,16 +193,16 @@ namespace SliceTester
 
         private void btnCreateLoop_Click(object sender, EventArgs e)
         {
-            Loop loop = new Loop();
+            LoopForm loop = new LoopForm();
 
             // Abre a form Loop.
             loop.Show();
 
             // Pega a variavel num da Form Loop.
-            using (var form = new Loop())
+            using (var form = new LoopForm())
             {
                 // Atribui o valor de Loop.num (o número de iterações do loop) a uma variável local.
-                int IntLoop = Loop.num;
+                int IntLoop = LoopForm.num;
             }
         }
 
@@ -307,11 +307,11 @@ namespace SliceTester
         {
             try
             {
-                Save save = new Save();
+                SaveForm save = new SaveForm();
                 save.ShowDialog();  // Exibe a janela de diálogo para o utilizador escolher o nome do arquivo.
 
                 // Obtém o nome do arquivo inserido pelo utilizador.
-                string fileName = Save.inputString;
+                string fileName = SaveForm.inputString;
 
                 // Verifica se o nome do arquivo é inválido branco ou nulo.
                 if (string.IsNullOrWhiteSpace(fileName))

@@ -11,9 +11,9 @@ using System.Windows.Forms;
 
 namespace SliceTester
 {
-    public partial class Save : DevExpress.XtraEditors.XtraForm
+    public partial class SaveForm : DevExpress.XtraEditors.XtraForm
     {
-        public Save()
+        public SaveForm()
         {
             InitializeComponent();
         }

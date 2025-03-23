@@ -1,7 +1,7 @@
 ﻿
 namespace SliceTester
 {
-    partial class Loop
+    partial class LoopForm
     {
         /// <summary>
         /// Required designer variable.
