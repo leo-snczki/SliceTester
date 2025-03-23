@@ -42,9 +42,9 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
+            this.lblHotKeyF4 = new System.Windows.Forms.Label();
+            this.lblHotKeyF5 = new System.Windows.Forms.Label();
+            this.lblHotKeyF6 = new System.Windows.Forms.Label();
             this.btnEdit = new DevExpress.XtraEditors.SimpleButton();
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
@@ -64,7 +64,7 @@
             // 
             this.btnRecord.Location = new System.Drawing.Point(878, 58);
             this.btnRecord.Name = "btnRecord";
-            this.btnRecord.Size = new System.Drawing.Size(75, 23);
+            this.btnRecord.Size = new System.Drawing.Size(126, 40);
             this.btnRecord.TabIndex = 0;
             this.btnRecord.Text = "Gravar";
             this.btnRecord.Click += new System.EventHandler(this.btnRecord_Click);
@@ -74,7 +74,7 @@
             this.btnStop.Enabled = false;
             this.btnStop.Location = new System.Drawing.Point(977, 58);
             this.btnStop.Name = "btnStop";
-            this.btnStop.Size = new System.Drawing.Size(75, 23);
+            this.btnStop.Size = new System.Drawing.Size(126, 40);
             this.btnStop.TabIndex = 1;
             this.btnStop.Text = "Parar";
             this.btnStop.Click += new System.EventHandler(this.btnStop_Click);
@@ -84,7 +84,7 @@
             this.btnPlay.Enabled = false;
             this.btnPlay.Location = new System.Drawing.Point(878, 106);
             this.btnPlay.Name = "btnPlay";
-            this.btnPlay.Size = new System.Drawing.Size(75, 23);
+            this.btnPlay.Size = new System.Drawing.Size(126, 40);
             this.btnPlay.TabIndex = 2;
             this.btnPlay.Text = "Iniciar";
             this.btnPlay.Click += new System.EventHandler(this.btnPlay_Click);
@@ -101,7 +101,8 @@
             // txtLog
             // 
             this.txtLog.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtLog.Location = new System.Drawing.Point(2, 2);
+            this.txtLog.Location = new System.Drawing.Point(3, 3);
+            this.txtLog.Margin = new System.Windows.Forms.Padding(6);
             this.txtLog.Multiline = true;
             this.txtLog.Name = "txtLog";
             this.txtLog.ReadOnly = true;
@@ -127,7 +128,7 @@
             // 
             this.lblMacroRecorder.Location = new System.Drawing.Point(933, 12);
             this.lblMacroRecorder.Name = "lblMacroRecorder";
-            this.lblMacroRecorder.Size = new System.Drawing.Size(73, 13);
+            this.lblMacroRecorder.Size = new System.Drawing.Size(127, 23);
             this.lblMacroRecorder.TabIndex = 6;
             this.lblMacroRecorder.Text = "MacroRecorder";
             // 
@@ -136,7 +137,7 @@
             this.btnClear.Enabled = false;
             this.btnClear.Location = new System.Drawing.Point(977, 106);
             this.btnClear.Name = "btnClear";
-            this.btnClear.Size = new System.Drawing.Size(75, 23);
+            this.btnClear.Size = new System.Drawing.Size(126, 40);
             this.btnClear.TabIndex = 7;
             this.btnClear.Text = "Limpar";
             this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
@@ -146,7 +147,7 @@
             this.btnSaveJson.Enabled = false;
             this.btnSaveJson.Location = new System.Drawing.Point(878, 154);
             this.btnSaveJson.Name = "btnSaveJson";
-            this.btnSaveJson.Size = new System.Drawing.Size(75, 23);
+            this.btnSaveJson.Size = new System.Drawing.Size(126, 40);
             this.btnSaveJson.TabIndex = 8;
             this.btnSaveJson.Text = "Export";
             this.btnSaveJson.Click += new System.EventHandler(this.btnSaveJson_Click);
@@ -155,9 +156,9 @@
             // 
             this.btnLoadJson.Location = new System.Drawing.Point(977, 154);
             this.btnLoadJson.Name = "btnLoadJson";
-            this.btnLoadJson.Size = new System.Drawing.Size(75, 23);
+            this.btnLoadJson.Size = new System.Drawing.Size(126, 40);
             this.btnLoadJson.TabIndex = 8;
-            this.btnLoadJson.Text = "Carregar";
+            this.btnLoadJson.Text = "Importar";
             this.btnLoadJson.Click += new System.EventHandler(this.btnLoadJson_Click);
             // 
             // label1
@@ -165,29 +166,29 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(901, 42);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(19, 13);
+            this.label1.Size = new System.Drawing.Size(89, 24);
             this.label1.TabIndex = 11;
-            this.label1.Text = "F1";
+            this.label1.Text = "Ctrl + F1";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(996, 42);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(19, 13);
+            this.label2.Size = new System.Drawing.Size(89, 24);
             this.label2.TabIndex = 12;
-            this.label2.Text = "F2";
+            this.label2.Text = "Ctrl + F2";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(897, 90);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(19, 13);
+            this.label3.Size = new System.Drawing.Size(89, 24);
             this.label3.TabIndex = 13;
-            this.label3.Text = "F3";
+            this.label3.Text = "Ctrl + F3";
             // 
-            // label4
+            // lblHotKeyF4
             // 
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(998, 90);
@@ -196,7 +197,7 @@
             this.label4.TabIndex = 14;
             this.label4.Text = "F4";
             // 
-            // label5
+            // lblHotKeyF5
             // 
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(896, 138);
@@ -205,7 +206,7 @@
             this.label5.TabIndex = 15;
             this.label5.Text = "F5";
             // 
-            // label6
+            // lblHotKeyF6
             // 
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(997, 138);
@@ -219,7 +220,7 @@
             this.btnEdit.Enabled = false;
             this.btnEdit.Location = new System.Drawing.Point(977, 243);
             this.btnEdit.Name = "btnEdit";
-            this.btnEdit.Size = new System.Drawing.Size(75, 23);
+            this.btnEdit.Size = new System.Drawing.Size(126, 40);
             this.btnEdit.TabIndex = 9;
             this.btnEdit.Text = "Editar";
             this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
@@ -299,7 +300,7 @@
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 23F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1159, 450);
             this.Controls.Add(this.btnRefresh);
@@ -354,9 +355,9 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label lblHotKeyF4;
+        private System.Windows.Forms.Label lblHotKeyF5;
+        private System.Windows.Forms.Label lblHotKeyF6;
         private DevExpress.XtraEditors.SimpleButton btnEdit;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;

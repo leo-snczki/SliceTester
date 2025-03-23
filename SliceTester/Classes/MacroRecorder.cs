@@ -24,15 +24,19 @@ public class MacroRecorder
     public void StartRecording()
     {
         recordedEvents.Clear();
-        stopwatch.Restart(); // Se você usasse apenas Start(), o tempo poderia acumular de gravações anteriores.
+        stopwatch.Restart();
         globalHook = Hook.GlobalEvents();
 
         logManager.Log("[INFO] Iniciando gravação...");
 
+        bool firstKeyDown = false;  // Flag para garantir que um KeyDown ocorra antes de um KeyUp
+        bool firstMouseDown = false; // Flag para garantir que um MouseDown ocorra antes de um MouseUp
+
         // Captura eventos de pressionamento de tecla.
         globalHook.KeyDown += (sender, e) =>
         {
-            // Adiciona os detalhes da tecla a lista de eventos gravados.
+            firstKeyDown = true; // Marca que um KeyDown ocorreu
+
             recordedEvents.Add(new MacroEvent
             {
                 EventType = MacroEventType.KeyDown,
@@ -45,22 +49,25 @@ public class MacroRecorder
         // Captura eventos de soltura de tecla.
         globalHook.KeyUp += (sender, e) =>
         {
-            recordedEvents.Add(new MacroEvent
+            if (firstKeyDown) // Só registra KeyUp se já tiver ocorrido um KeyDown
             {
-                // Adiciona os detalhes da tecla a lista de eventos gravados.
-                EventType = MacroEventType.KeyUp,
-                Key = e.KeyCode,
-                Timestamp = stopwatch.ElapsedMilliseconds
-            });
-            logManager.Log($"[RECORD] KeyUp: {e.KeyCode} ({stopwatch.ElapsedMilliseconds}ms)");
+                recordedEvents.Add(new MacroEvent
+                {
+                    EventType = MacroEventType.KeyUp,
+                    Key = e.KeyCode,
+                    Timestamp = stopwatch.ElapsedMilliseconds
+                });
+                logManager.Log($"[RECORD] KeyUp: {e.KeyCode} ({stopwatch.ElapsedMilliseconds}ms)");
+            }
         };
 
         // Captura eventos de clique do mouse.
         globalHook.MouseDown += (sender, e) =>
         {
+            firstMouseDown = true; // Marca que um MouseDown ocorreu
+
             recordedEvents.Add(new MacroEvent
             {
-                // Adiciona os detalhes do clique a lista de eventos gravados.
                 EventType = MacroEventType.MouseDown,
                 MouseButton = e.Button,
                 MousePosition = e.Location,
@@ -72,16 +79,17 @@ public class MacroRecorder
         // Captura eventos de soltura do botão do mouse.
         globalHook.MouseUp += (sender, e) =>
         {
-            // Adiciona os detalhes do clique a lista de eventos gravados.
-            recordedEvents.Add(new MacroEvent
+            if (firstMouseDown) // Só registra MouseUp se já tiver ocorrido um MouseDown
             {
-                EventType = MacroEventType.MouseUp,
-                MouseButton = e.Button,
-                MousePosition = e.Location,
-                Timestamp = stopwatch.ElapsedMilliseconds
-            });
-            logManager.Log($"[RECORD] MouseUp: {e.Button} em {e.Location} ({stopwatch.ElapsedMilliseconds}ms)");
-
+                recordedEvents.Add(new MacroEvent
+                {
+                    EventType = MacroEventType.MouseUp,
+                    MouseButton = e.Button,
+                    MousePosition = e.Location,
+                    Timestamp = stopwatch.ElapsedMilliseconds
+                });
+                logManager.Log($"[RECORD] MouseUp: {e.Button} em {e.Location} ({stopwatch.ElapsedMilliseconds}ms)");
+            }
         };
     }
 
