@@ -39,7 +39,7 @@
             this.lblMacroRecorder = new DevExpress.XtraEditors.LabelControl();
             this.btnClear = new DevExpress.XtraEditors.SimpleButton();
             this.btnExportJson = new DevExpress.XtraEditors.SimpleButton();
-            this.btnLoadJson = new DevExpress.XtraEditors.SimpleButton();
+            this.btnImportJson = new DevExpress.XtraEditors.SimpleButton();
             this.lblHotKeyF1 = new System.Windows.Forms.Label();
             this.lblHotKeyF2 = new System.Windows.Forms.Label();
             this.lblHotKeyF3 = new System.Windows.Forms.Label();
@@ -161,14 +161,14 @@
             this.btnExportJson.Text = "Exportar";
             this.btnExportJson.Click += new System.EventHandler(this.btnExportJson_Click);
             // 
-            // btnLoadJson
+            // btnImportJson
             // 
-            this.btnLoadJson.Location = new System.Drawing.Point(1027, 209);
-            this.btnLoadJson.Name = "btnLoadJson";
-            this.btnLoadJson.Size = new System.Drawing.Size(111, 40);
-            this.btnLoadJson.TabIndex = 8;
-            this.btnLoadJson.Text = "Importar";
-            this.btnLoadJson.Click += new System.EventHandler(this.btnLoadJson_Click);
+            this.btnImportJson.Location = new System.Drawing.Point(1027, 209);
+            this.btnImportJson.Name = "btnImportJson";
+            this.btnImportJson.Size = new System.Drawing.Size(111, 40);
+            this.btnImportJson.TabIndex = 8;
+            this.btnImportJson.Text = "Importar";
+            this.btnImportJson.Click += new System.EventHandler(this.btnImportJson_Click);
             // 
             // lblHotKeyF1
             // 
@@ -343,7 +343,7 @@
             this.Controls.Add(this.lblHotKeyF2);
             this.Controls.Add(this.lblHotKeyF1);
             this.Controls.Add(this.btnEdit);
-            this.Controls.Add(this.btnLoadJson);
+            this.Controls.Add(this.btnImportJson);
             this.Controls.Add(this.btnExportJson);
             this.Controls.Add(this.btnClear);
             this.Controls.Add(this.lblMacroRecorder);
@@ -375,7 +375,7 @@
         private DevExpress.XtraEditors.LabelControl lblMacroRecorder;
         private DevExpress.XtraEditors.SimpleButton btnClear;
         private DevExpress.XtraEditors.SimpleButton btnExportJson;
-        private DevExpress.XtraEditors.SimpleButton btnLoadJson;
+        private DevExpress.XtraEditors.SimpleButton btnImportJson;
         private System.Windows.Forms.Label lblHotKeyF1;
         private System.Windows.Forms.Label lblHotKeyF2;
         private System.Windows.Forms.Label lblHotKeyF3;

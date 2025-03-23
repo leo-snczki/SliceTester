@@ -39,55 +39,64 @@
             // 
             // btnClose
             // 
-            this.btnClose.Location = new System.Drawing.Point(496, 413);
+            this.btnClose.Location = new System.Drawing.Point(827, 731);
+            this.btnClose.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
             this.btnClose.Name = "btnClose";
-            this.btnClose.Size = new System.Drawing.Size(75, 23);
+            this.btnClose.Size = new System.Drawing.Size(125, 41);
             this.btnClose.TabIndex = 0;
             this.btnClose.Text = "Fechar";
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
             // GridMacroEvents
             // 
+            this.GridMacroEvents.DetailHeight = 619;
             this.GridMacroEvents.GridControl = this.dgvEvents;
             this.GridMacroEvents.Name = "GridMacroEvents";
+            this.GridMacroEvents.OptionsEditForm.PopupEditFormWidth = 1333;
+            this.GridMacroEvents.OptionsView.ShowGroupPanel = false;
             // 
             // dgvEvents
             // 
-            this.dgvEvents.Location = new System.Drawing.Point(41, 12);
+            this.dgvEvents.EmbeddedNavigator.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.dgvEvents.Location = new System.Drawing.Point(68, 21);
             this.dgvEvents.MainView = this.GridMacroEvents;
+            this.dgvEvents.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
             this.dgvEvents.Name = "dgvEvents";
-            this.dgvEvents.Size = new System.Drawing.Size(530, 358);
+            this.dgvEvents.Size = new System.Drawing.Size(883, 633);
             this.dgvEvents.TabIndex = 4;
             this.dgvEvents.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.GridMacroEvents});
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(295, 413);
+            this.btnSave.Location = new System.Drawing.Point(492, 731);
+            this.btnSave.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(75, 23);
+            this.btnSave.Size = new System.Drawing.Size(125, 41);
             this.btnSave.TabIndex = 5;
             this.btnSave.Text = "Salvar";
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // btnSaveClose
             // 
-            this.btnSaveClose.Location = new System.Drawing.Point(388, 413);
+            this.btnSaveClose.Location = new System.Drawing.Point(647, 731);
+            this.btnSaveClose.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
             this.btnSaveClose.Name = "btnSaveClose";
-            this.btnSaveClose.Size = new System.Drawing.Size(90, 23);
+            this.btnSaveClose.Size = new System.Drawing.Size(150, 41);
             this.btnSaveClose.TabIndex = 6;
             this.btnSaveClose.Text = "Fechar e Salvar";
             this.btnSaveClose.Click += new System.EventHandler(this.btnSaveClose_Click);
             // 
             // MacroEventForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 23F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(605, 461);
+            this.ClientSize = new System.Drawing.Size(1008, 816);
             this.Controls.Add(this.btnSaveClose);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.dgvEvents);
             this.Controls.Add(this.btnClose);
+            this.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
             this.Name = "MacroEventForm";
             this.Text = "MacroEventForm";
             ((System.ComponentModel.ISupportInitialize)(this.GridMacroEvents)).EndInit();

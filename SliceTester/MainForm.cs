@@ -49,7 +49,7 @@ namespace SliceTester
                         btnExportJson_Click(sender, e);
                         break;
                     case Keys.F6:
-                        btnLoadJson_Click(sender, e);
+                        btnImportJson_Click(sender, e);
                         break;
                     case Keys.F7:
                         BtnStartLoop_Click(sender, e);
@@ -200,98 +200,18 @@ namespace SliceTester
 
         private void btnExportJson_Click(object sender, EventArgs e)
         {
-            // Cria uma instância de SaveFileDialog para permitir ao utilizador escolher o local e nome do arquivo para salvar.
-            using (SaveFileDialog saveFileDialog = new SaveFileDialog())
-            {
-                // Define o filtro para mostrar apenas arquivos JSON ou todos os arquivos
-                saveFileDialog.Filter = "Arquivos JSON (*.json)|*.json|Todos os Arquivos (*.*)|*.*";
-                saveFileDialog.Title = "Salvar Macro";  // Define o título da janela de salvar.
-                saveFileDialog.FileName = "Nome.json";  // Define o nome padrão para o arquivo como "Nome.json".
+            _logger.Log("[INFO] Exportando arquivo JSON...");
 
-                // Exibe a caixa de diálogo de salvar e verifica se o utilizador clicou em "OK".
-                if (saveFileDialog.ShowDialog() == DialogResult.OK)
-                {
-                    try
-                    {
-                        // Chama o método SaveEvents da classe _macroRecorder para salvar os eventos gravados no arquivo selecionado.
-                        _macroRecorder.SaveEvents(saveFileDialog.FileName);
-
-                        // Exibe uma mensagem de sucesso informando o utilizador de que o arquivo foi salvo com sucesso.
-                        MessageBox.Show("Arquivo salvo com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
-                    catch (Exception ex)
-                    {
-                        // Caso ocorra um erro ao salvar o arquivo, loga a falha e exibe uma mensagem de erro.
-                        _logger.Log($"[ERRO] Falha ao salvar o arquivo: {ex.Message}");
-                        MessageBox.Show($"Erro ao salvar o arquivo:\n{ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                }
-                else
-                {
-                    // Caso o utilizador não escolha um local para salvar, loga a informação e exibe uma mensagem de aviso.
-                    _logger.Log("[INFO] o arquivo não foi salvo.");
-                    MessageBox.Show("O arquivo não foi salvo", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
-            }
+            ExportJson();
         }
 
 
-        private void btnLoadJson_Click(object sender, EventArgs e)
+        private void btnImportJson_Click(object sender, EventArgs e)
         {
             // Regista no log a informação de que o carregamento do arquivo JSON foi iniciado.
             _logger.Log("[INFO] Carregando arquivo JSON...");
 
-            // Cria uma instância de OpenFileDialog para permitir ao utilizador selecionar o arquivo JSON a carregar.
-            using (OpenFileDialog openFileDialog = new OpenFileDialog())
-            {
-                // Define o filtro para mostrar apenas arquivos JSON ou todos os arquivos
-                openFileDialog.Filter = "Arquivos JSON (*.json)|*.json|Todos os Arquivos (*.*)|*.*";
-                openFileDialog.Title = "Carregar Macro";  // Define o título da janela de abrir arquivo.
-
-                // Exibe a caixa de diálogo de abrir arquivo e verifica se o utilizador escolheu um arquivo (clicou em "OK").
-                if (openFileDialog.ShowDialog() == DialogResult.OK)
-                {
-                    try
-                    {
-                        // Cria um objeto FileInfo para verificar o tamanho do arquivo selecionado.
-                        FileInfo fileInfo = new FileInfo(openFileDialog.FileName);
-
-                        // Se o arquivo estiver vazio lança uma exceção.
-                        if (fileInfo.Length == 0)
-                            throw new InvalidOperationException("O arquivo selecionado está vazio.");
-
-                        // Chama o método LoadEvents da classe _macroRecorder para carregar os eventos gravados do arquivo selecionado.
-                        _macroRecorder.LoadEvents(openFileDialog.FileName);
-
-                        // Atualiza a visualização dos eventos na interface.
-                        ViewMacroEventGrid();
-
-                        // Ativa os botões .
-                        btnClear.Enabled = true;
-                        btnPlay.Enabled = true;
-                        btnExportJson.Enabled = true;
-                        btnEdit.Enabled = true;
-
-                        // Regista no log que o processo de carregamento foi concluído com sucesso.
-                        _logger.Log("[INFO] Processo de carregamento de arquivo concluído.");
-
-                        // Exibe uma mensagem de sucesso informando o utilizador de que o arquivo foi carregado com sucesso.
-                        MessageBox.Show("Arquivo carregado com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
-                    catch (Exception ex)
-                    {
-                        // Se ocorrer um erro ao carregar o arquivo, regista a falha no log e exibe uma mensagem de erro.
-                        _logger.Log($"[ERRO] Falha ao carregar o arquivo JSON: {ex.Message}");
-                        MessageBox.Show($"Erro ao carregar o arquivo:\n{ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                }
-                else
-                {
-                    // Se o utilizador não selecionar nenhum arquivo (clicou em "Cancelar"), regista no log e exibe uma mensagem de aviso.
-                    _logger.Log("[INFO] Nenhum arquivo selecionado.");
-                    MessageBox.Show("Nenhum arquivo selecionado", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
-            }
+            ImportJson();
         }
 
         // Método chamado quando o utilizador clica no botão "Salvar" para guardar o arquivo.
@@ -503,7 +423,97 @@ namespace SliceTester
             LoadJsonFiles();
         }
 
+        private void ImportJson()
+        {
+            // Cria uma instância de OpenFileDialog para permitir ao utilizador selecionar o arquivo JSON a carregar.
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            {
+                // Define o filtro para mostrar apenas arquivos JSON ou todos os arquivos
+                openFileDialog.Filter = "Arquivos JSON (*.json)|*.json|Todos os Arquivos (*.*)|*.*";
+                openFileDialog.Title = "Carregar Macro";  // Define o título da janela de abrir arquivo.
 
+                // Exibe a caixa de diálogo de abrir arquivo e verifica se o utilizador escolheu um arquivo (clicou em "OK").
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    try
+                    {
+                        // Cria um objeto FileInfo para verificar o tamanho do arquivo selecionado.
+                        FileInfo fileInfo = new FileInfo(openFileDialog.FileName);
+
+                        // Se o arquivo estiver vazio lança uma exceção.
+                        if (fileInfo.Length == 0)
+                            throw new InvalidOperationException("O arquivo selecionado está vazio.");
+
+                        // Chama o método LoadEvents da classe _macroRecorder para carregar os eventos gravados do arquivo selecionado.
+                        _macroRecorder.LoadEvents(openFileDialog.FileName);
+
+                        // Atualiza a visualização dos eventos na interface.
+                        ViewMacroEventGrid();
+
+                        // Ativa os botões .
+                        btnClear.Enabled = true;
+                        btnPlay.Enabled = true;
+                        btnExportJson.Enabled = true;
+                        btnEdit.Enabled = true;
+
+                        // Regista no log que o processo de carregamento foi concluído com sucesso.
+                        _logger.Log("[INFO] Processo de carregamento de arquivo concluído.");
+
+                        // Exibe uma mensagem de sucesso informando o utilizador de que o arquivo foi carregado com sucesso.
+                        MessageBox.Show("Arquivo carregado com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    catch (Exception ex)
+                    {
+                        // Se ocorrer um erro ao carregar o arquivo, regista a falha no log e exibe uma mensagem de erro.
+                        _logger.Log($"[ERRO] Falha ao carregar o arquivo JSON: {ex.Message}");
+                        MessageBox.Show($"Erro ao carregar o arquivo:\n{ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                else
+                {
+                    // Se o utilizador não selecionar nenhum arquivo (clicou em "Cancelar"), regista no log e exibe uma mensagem de aviso.
+                    _logger.Log("[INFO] Nenhum arquivo selecionado.");
+                    MessageBox.Show("Nenhum arquivo selecionado", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+        }
+
+        private void ExportJson()
+        {
+            // Cria uma instância de SaveFileDialog para permitir ao utilizador escolher o local e nome do arquivo para salvar.
+            using (SaveFileDialog saveFileDialog = new SaveFileDialog())
+            {
+                // Define o filtro para mostrar apenas arquivos JSON ou todos os arquivos
+                saveFileDialog.Filter = "Arquivos JSON (*.json)|*.json|Todos os Arquivos (*.*)|*.*";
+                saveFileDialog.Title = "Salvar Macro";  // Define o título da janela de salvar.
+                saveFileDialog.FileName = "Nome.json";  // Define o nome padrão para o arquivo como "Nome.json".
+
+                // Exibe a caixa de diálogo de salvar e verifica se o utilizador clicou em "OK".
+                if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    try
+                    {
+                        // Chama o método SaveEvents da classe _macroRecorder para salvar os eventos gravados no arquivo selecionado.
+                        _macroRecorder.SaveEvents(saveFileDialog.FileName);
+
+                        // Exibe uma mensagem de sucesso informando o utilizador de que o arquivo foi salvo com sucesso.
+                        MessageBox.Show("Arquivo salvo com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    catch (Exception ex)
+                    {
+                        // Caso ocorra um erro ao salvar o arquivo, loga a falha e exibe uma mensagem de erro.
+                        _logger.Log($"[ERRO] Falha ao salvar o arquivo: {ex.Message}");
+                        MessageBox.Show($"Erro ao salvar o arquivo:\n{ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                else
+                {
+                    // Caso o utilizador não escolha um local para salvar, loga a informação e exibe uma mensagem de aviso.
+                    _logger.Log("[INFO] o arquivo não foi salvo.");
+                    MessageBox.Show("O arquivo não foi salvo", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+        }
 
         private void GlobalHotkeys()
         {
@@ -513,6 +523,7 @@ namespace SliceTester
             // Associa o evento de tecla pressionada ao método GlobalKeyDown.
             _hook.KeyDown += GlobalKeyDown;
         }
+        
 
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)

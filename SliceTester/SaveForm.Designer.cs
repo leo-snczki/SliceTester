@@ -31,45 +31,61 @@ namespace SliceTester
         {
             this.btnOK = new DevExpress.XtraEditors.SimpleButton();
             this.textBox1 = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
+            this.lblNewTestName = new System.Windows.Forms.Label();
+            this.btnCancel = new DevExpress.XtraEditors.SimpleButton();
             this.SuspendLayout();
             // 
             // btnOK
             // 
-            this.btnOK.Location = new System.Drawing.Point(82, 120);
+            this.btnOK.Location = new System.Drawing.Point(300, 83);
+            this.btnOK.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
             this.btnOK.Name = "btnOK";
-            this.btnOK.Size = new System.Drawing.Size(100, 23);
+            this.btnOK.Size = new System.Drawing.Size(167, 41);
             this.btnOK.TabIndex = 0;
-            this.btnOK.Text = "OKButton";
+            this.btnOK.Text = "OK";
             this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(82, 74);
+            this.textBox1.Location = new System.Drawing.Point(93, 22);
+            this.textBox1.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 21);
+            this.textBox1.Size = new System.Drawing.Size(374, 30);
             this.textBox1.TabIndex = 2;
             // 
-            // label1
+            // lblNewTestName
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(79, 34);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(116, 13);
-            this.label1.TabIndex = 3;
-            this.label1.Text = "Insira nome para teste";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
+            this.lblNewTestName.AutoSize = true;
+            this.lblNewTestName.Location = new System.Drawing.Point(21, 25);
+            this.lblNewTestName.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.lblNewTestName.Name = "lblNewTestName";
+            this.lblNewTestName.Size = new System.Drawing.Size(62, 24);
+            this.lblNewTestName.TabIndex = 3;
+            this.lblNewTestName.Text = "Nome";
+            this.lblNewTestName.Click += new System.EventHandler(this.label1_Click);
             // 
-            // Save
+            // btnCancel
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.btnCancel.Location = new System.Drawing.Point(93, 83);
+            this.btnCancel.Margin = new System.Windows.Forms.Padding(5);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(167, 41);
+            this.btnCancel.TabIndex = 0;
+            this.btnCancel.Text = "Fechar";
+            this.btnCancel.Click += new System.EventHandler(this.btnOK_Click);
+            // 
+            // SaveForm
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 23F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(298, 268);
-            this.Controls.Add(this.label1);
+            this.ClientSize = new System.Drawing.Size(497, 160);
+            this.Controls.Add(this.lblNewTestName);
             this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOK);
-            this.Name = "Save";
-            this.Text = "Save";
+            this.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.Name = "SaveForm";
+            this.Text = "Salvar";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -79,6 +95,7 @@ namespace SliceTester
 
         private DevExpress.XtraEditors.SimpleButton btnOK;
         private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblNewTestName;
+        private DevExpress.XtraEditors.SimpleButton btnCancel;
     }
 }
