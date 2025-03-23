@@ -11,6 +11,8 @@ using SliceTester;
 
 public class MacroRecorder
 {
+    public enum MacroEventType { KeyDown, KeyUp, MouseDown, MouseUp }
+
     private IKeyboardMouseEvents globalHook; // Responsável por capturar eventos globais de teclado e mouse.
     private List<MacroEvent> recordedEvents = new List<MacroEvent>();
     private Stopwatch stopwatch = new Stopwatch(); // Cronômetro para medir o tempo e delay entre eventos.
@@ -154,8 +156,8 @@ public class MacroRecorder
     {
         return recordedEvents;
     }
-    
-     public void SaveEvents(string path)
+
+    public void SaveEvents(string path)
     {
         // Serializa a lista de eventos gravados em um arquivo JSON.
         var json = JsonConvert.SerializeObject(recordedEvents);
@@ -173,12 +175,10 @@ public class MacroRecorder
     public void EditRecordedEvents()
     {
         var editor = new MacroEventForm(recordedEvents);
-        editor.ShowDialog();       
+        editor.ShowDialog();
     }
 
-    public enum MacroEventType { KeyDown, KeyUp, MouseDown, MouseUp }
-
-    public class MacroEvent
+    public class MacroEvent // Classe aninhada.
     {
         public MacroEventType EventType { get; set; }
         public Keys Key { get; set; }
