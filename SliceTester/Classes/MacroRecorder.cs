@@ -17,6 +17,8 @@ public class MacroRecorder
     private List<MacroEvent> _recordedEvents = new List<MacroEvent>();
     private Stopwatch _stopwatch = new Stopwatch(); // Cronômetro para medir o tempo e delay entre eventos.
     private LogManager _logManager;
+    private bool _isPlaying = false;
+
 
     public MacroRecorder(LogManager logger)
     {
@@ -104,9 +106,22 @@ public class MacroRecorder
 
     public void Play()
     {
+        if (_isPlaying) // Sem mensagem de log porque o panel já vai estar sendo usado com a execução.
+            return;
+
+        if (_recordedEvents.Count == 0)
+        {
+            _logManager.Log("[INFO] Reprodução não iniciada: A lista de eventos está vazia!");
+            MessageBox.Show("Reprodução não iniciada: A lista de eventos está vazia!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            return;
+        }
+
+        _isPlaying = true;
+
         var inputSimulator = new InputSimulator();
         // Timestamp é um valor que representa um ponto específico no tempo.
         long lastTimestamp = 0;
+
         _logManager.Log("[INFO] Reprodução iniciada.");
         foreach (var ev in _recordedEvents)
         {
@@ -120,7 +135,6 @@ public class MacroRecorder
                 case MacroEventType.KeyDown:
                     inputSimulator.Keyboard.KeyDown((VirtualKeyCode)ev.Key);
                     _logManager.Log($"[PLAY] KeyDown: {ev.Key} ({ev.Timestamp}ms)");
-
                     break;
 
                 case MacroEventType.KeyUp:
@@ -134,18 +148,34 @@ public class MacroRecorder
                     // O inputSimulator mede usando base 2^16 com máximo até 65535.
                     inputSimulator.Mouse.MoveMouseTo(ev.MousePosition.X * 65535 / Screen.PrimaryScreen.Bounds.Width,
                                                      ev.MousePosition.Y * 65535 / Screen.PrimaryScreen.Bounds.Height);
-                    inputSimulator.Mouse.LeftButtonDown();
+
+                    if (ev.MouseButton == MouseButtons.Left)
+                        inputSimulator.Mouse.LeftButtonDown();
+
+                    else if (ev.MouseButton == MouseButtons.Right)
+                        inputSimulator.Mouse.RightButtonDown();
+
                     _logManager.Log($"[PLAY] MouseDown: {ev.MouseButton} em {ev.MousePosition} ({ev.Timestamp}ms)");
                     break;
 
                 case MacroEventType.MouseUp:
-                    inputSimulator.Mouse.LeftButtonUp();
+
+                    if (ev.MouseButton == MouseButtons.Left)
+                        inputSimulator.Mouse.LeftButtonUp();
+
+                    else if (ev.MouseButton == MouseButtons.Right)
+                        inputSimulator.Mouse.RightButtonUp();
+
                     _logManager.Log($"[PLAY] MouseUp: {ev.MouseButton} em {ev.MousePosition} ({ev.Timestamp}ms)");
                     break;
             }
         }
+        _isPlaying = false;
         _logManager.Log("[INFO] Reprodução finalizada.");
     }
+
+
+    //}
     public void ClearEvents()
     {
         _recordedEvents.Clear();

@@ -40,7 +40,7 @@ namespace SliceTester
                         btnStop_Click(sender, e);
                         break;
                     case Keys.F3:
-                        btnPlay_Click(sender, e);
+                        _macroRecorder.Play();
                         break;
                     case Keys.F4:
                         btnClear_Click(sender, e);
