@@ -149,25 +149,48 @@ public class MacroRecorder
                     inputSimulator.Mouse.MoveMouseTo(ev.MousePosition.X * 65535 / Screen.PrimaryScreen.Bounds.Width,
                                                      ev.MousePosition.Y * 65535 / Screen.PrimaryScreen.Bounds.Height);
 
-                    if (ev.MouseButton == MouseButtons.Left)
-                        inputSimulator.Mouse.LeftButtonDown();
-
-                    else if (ev.MouseButton == MouseButtons.Right)
-                        inputSimulator.Mouse.RightButtonDown();
+                    switch (ev.MouseButton)
+                    {
+                        case MouseButtons.Left:
+                            inputSimulator.Mouse.LeftButtonDown();
+                            break;
+                        case MouseButtons.Right:
+                            inputSimulator.Mouse.RightButtonDown();
+                            break;
+                        // Botões laterais do rato.
+                        case MouseButtons.XButton1:
+                            inputSimulator.Mouse.XButtonDown(1);
+                            break;
+                        case MouseButtons.XButton2:
+                            inputSimulator.Mouse.XButtonDown(2);
+                            break;
+                    }
 
                     _logManager.Log($"[PLAY] MouseDown: {ev.MouseButton} em {ev.MousePosition} ({ev.Timestamp}ms)");
                     break;
 
                 case MacroEventType.MouseUp:
 
-                    if (ev.MouseButton == MouseButtons.Left)
-                        inputSimulator.Mouse.LeftButtonUp();
-
-                    else if (ev.MouseButton == MouseButtons.Right)
-                        inputSimulator.Mouse.RightButtonUp();
+                    switch (ev.MouseButton)
+                    {
+                        case MouseButtons.Left:
+                            inputSimulator.Mouse.LeftButtonUp();
+                            break;
+                        case MouseButtons.Right:
+                            inputSimulator.Mouse.RightButtonUp();
+                            break;
+                        // Botões laterais do rato.
+                        case MouseButtons.XButton1:
+                            inputSimulator.Mouse.XButtonUp(1);
+                            break;
+                        case MouseButtons.XButton2:
+                            inputSimulator.Mouse.XButtonUp(2);
+                            break;
+                    }
 
                     _logManager.Log($"[PLAY] MouseUp: {ev.MouseButton} em {ev.MousePosition} ({ev.Timestamp}ms)");
                     break;
+
             }
         }
         _isPlaying = false;
