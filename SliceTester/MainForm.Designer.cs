@@ -218,6 +218,7 @@
             this.gridViewerFormMain.DetailHeight = 198;
             this.gridViewerFormMain.GridControl = this.gridViewer;
             this.gridViewerFormMain.Name = "gridViewerFormMain";
+            this.gridViewerFormMain.OptionsBehavior.Editable = false;
             this.gridViewerFormMain.OptionsEditForm.PopupEditFormWidth = 480;
             this.gridViewerFormMain.OptionsView.ShowGroupPanel = false;
             // 
