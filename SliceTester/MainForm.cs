@@ -102,6 +102,8 @@ namespace SliceTester
                     btnExportJson.Enabled = true;
                     btnClear.Enabled = true;
                     btnEdit.Enabled = true;
+                    btnSave.Enabled = true;
+                    btnStartLoop.Enabled = true;
                 }
                 else
                     // Se não houver eventos gravados, lança uma exceção.
@@ -162,18 +164,43 @@ namespace SliceTester
                     btnPlay.Enabled = false;
                     btnExportJson.Enabled = false;
                     btnEdit.Enabled = false;
+                    btnSave.Enabled = false;
+                    btnStartLoop.Enabled = false;
+                    txtLoopBox.Enabled = false;
                 }
+            }
+            else
+            {
+                _logger.Log("[INFO] Não tem nada para limpar.");
+                MessageBox.Show("Não tem nada para limpar.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         private void btnEdit_Click(object sender, EventArgs e)
         {
+            var events = _macroRecorder.GetRecordedEvents();
+            if (events.Count == 0)
+            {
+                _logger.Log("[INFO] Não há eventos gravados para salvar...");
+                MessageBox.Show($"Não há eventos gravados para salvar...", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                return;
+            }
+
             // Chama o método EditRecordedEvents da classe _macroRecorder para permitir a edição dos eventos gravados.
             _macroRecorder.EditRecordedEvents();
         }
 
         private void BtnStartLoop_Click(object sender, EventArgs e)
         {
+            var events = _macroRecorder.GetRecordedEvents();
+            if (events.Count == 0)
+            {
+                _logger.Log("[INFO] Não há eventos gravados para fazer loop...");
+                MessageBox.Show($"Não há eventos gravados para fazer loop...", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             try
             {
                 //Um loop que vai repetir as vezes que o utilizador inserio na Variavel.
@@ -200,6 +227,16 @@ namespace SliceTester
 
         private void btnExportJson_Click(object sender, EventArgs e)
         {
+
+            var events = _macroRecorder.GetRecordedEvents();
+            if (events.Count == 0)
+            {
+                _logger.Log("[INFO] Não há eventos gravados para exportar...");
+                MessageBox.Show($"Não há eventos gravados para exportar...", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                return;
+            }
+
             _logger.Log("[INFO] Exportando arquivo JSON...");
 
             ExportJson();
@@ -217,6 +254,14 @@ namespace SliceTester
         // Método chamado quando o utilizador clica no botão "Salvar" para guardar o arquivo.
         private void btnSave_Click(object sender, EventArgs e)
         {
+            var events = _macroRecorder.GetRecordedEvents();
+            if (events.Count == 0)
+            {
+                _logger.Log("[INFO] Não há eventos gravados para salvar...");
+                MessageBox.Show($"Não há eventos gravados para salvar...", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                return;
+            }
             try
             {
                 SaveForm save = new SaveForm();
@@ -250,7 +295,7 @@ namespace SliceTester
 
                 // Chama o método SaveEvents da classe _macroRecorder para salvar os eventos no arquivo.
                 _macroRecorder.SaveEvents(fullFilePath);
-
+                LoadJsonFiles();
                 // Exibe uma mensagem informando o utilizador que o arquivo foi salvo com sucesso.
                 MessageBox.Show($"Arquivo salvo com sucesso em:\n{fullFilePath}", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
@@ -265,10 +310,10 @@ namespace SliceTester
         private void ListView1_ItemActivate(object sender, EventArgs e)
         {
             // Verifica se há itens selecionados na listView1.
-            if (listView1.SelectedItems.Count > 0)
+            if (listFiles.SelectedItems.Count > 0)
             {
                 // Obtém o caminho completo do arquivo selecionado.
-                string selectedFilePath = listView1.SelectedItems[0].SubItems[1].Text;
+                string selectedFilePath = listFiles.SelectedItems[0].SubItems[1].Text;
 
                 try
                 {
@@ -290,6 +335,10 @@ namespace SliceTester
                     btnPlay.Enabled = true;
                     btnExportJson.Enabled = true;
                     btnEdit.Enabled = true;
+                    btnStartLoop.Enabled = true;
+                    btnSave.Enabled = true;
+                    txtLoopBox.Enabled = true;
+
 
                     // Regista no log que o processo de carregamento foi concluído.
                     _logger.Log("[INFO] Processo de carregamento de arquivo concluído.");
@@ -315,7 +364,7 @@ namespace SliceTester
             string directoryPath = Path.GetFullPath(binPath);
 
             // Limpa o ListView antes de recarregar os arquivos.
-            listView1.Items.Clear();
+            listFiles.Items.Clear();
 
             // Verifica se a pasta existe.
             if (Directory.Exists(directoryPath))
@@ -337,7 +386,7 @@ namespace SliceTester
                         {
                             SubItems = { filePath } // Adiciona o caminho completo do arquivo.
                         };
-                        listView1.Items.Add(item); // Adiciona o item à ListView.
+                        listFiles.Items.Add(item); // Adiciona o item à ListView.
                     }
 
                     // Se não houver arquivos encontrados informa o utilizador.
@@ -455,6 +504,10 @@ namespace SliceTester
                         btnPlay.Enabled = true;
                         btnExportJson.Enabled = true;
                         btnEdit.Enabled = true;
+                        btnSave.Enabled = true;
+                        btnStartLoop.Enabled = true;
+                        txtLoopBox.Enabled = true;
+                        
 
                         // Regista no log que o processo de carregamento foi concluído com sucesso.
                         _logger.Log("[INFO] Processo de carregamento de arquivo concluído.");
@@ -523,7 +576,7 @@ namespace SliceTester
             // Associa o evento de tecla pressionada ao método GlobalKeyDown.
             _hook.KeyDown += GlobalKeyDown;
         }
-        
+
 
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)

@@ -28,12 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.btnRecord = new DevExpress.XtraEditors.SimpleButton();
             this.btnStop = new DevExpress.XtraEditors.SimpleButton();
             this.btnPlay = new DevExpress.XtraEditors.SimpleButton();
             this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
             this.txtLog = new System.Windows.Forms.TextBox();
-            this.listView1 = new System.Windows.Forms.ListView();
+            this.listFiles = new System.Windows.Forms.ListView();
             this.columnNameFile = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.lblMacroRecorder = new DevExpress.XtraEditors.LabelControl();
@@ -41,7 +42,7 @@
             this.btnExportJson = new DevExpress.XtraEditors.SimpleButton();
             this.btnImportJson = new DevExpress.XtraEditors.SimpleButton();
             this.btnEdit = new DevExpress.XtraEditors.SimpleButton();
-            this.simpleButton1 = new DevExpress.XtraEditors.SimpleButton();
+            this.btnStartLoop = new DevExpress.XtraEditors.SimpleButton();
             this.btnSave = new DevExpress.XtraEditors.SimpleButton();
             this.gridViewer = new DevExpress.XtraGrid.GridControl();
             this.gridViewerFormMain = new DevExpress.XtraGrid.Views.Grid.GridView();
@@ -113,24 +114,24 @@
             this.txtLog.Size = new System.Drawing.Size(1153, 146);
             this.txtLog.TabIndex = 0;
             // 
-            // listView1
+            // listFiles
             // 
-            this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.listFiles.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnNameFile});
-            this.listView1.FullRowSelect = true;
-            this.listView1.GridLines = true;
-            this.listView1.HideSelection = false;
-            this.listView1.Location = new System.Drawing.Point(620, 38);
-            this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(237, 358);
-            this.listView1.TabIndex = 1;
-            this.listView1.UseCompatibleStateImageBehavior = false;
-            this.listView1.View = System.Windows.Forms.View.Details;
-            this.listView1.ItemActivate += new System.EventHandler(this.ListView1_ItemActivate);
+            this.listFiles.FullRowSelect = true;
+            this.listFiles.GridLines = true;
+            this.listFiles.HideSelection = false;
+            this.listFiles.Location = new System.Drawing.Point(620, 38);
+            this.listFiles.Name = "listFiles";
+            this.listFiles.Size = new System.Drawing.Size(237, 358);
+            this.listFiles.TabIndex = 1;
+            this.listFiles.UseCompatibleStateImageBehavior = false;
+            this.listFiles.View = System.Windows.Forms.View.Details;
+            this.listFiles.ItemActivate += new System.EventHandler(this.ListView1_ItemActivate);
             // 
             // columnNameFile
             // 
-            this.columnNameFile.Text = "Ficheiro";
+            this.columnNameFile.Text = "Ficheiros";
             this.columnNameFile.Width = 231;
             // 
             // lblMacroRecorder
@@ -180,17 +181,19 @@
             this.btnEdit.Text = "Editar";
             this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
             // 
-            // simpleButton1
+            // btnStartLoop
             // 
-            this.simpleButton1.Location = new System.Drawing.Point(878, 281);
-            this.simpleButton1.Name = "simpleButton1";
-            this.simpleButton1.Size = new System.Drawing.Size(126, 37);
-            this.simpleButton1.TabIndex = 21;
-            this.simpleButton1.Text = "Iniciar Loop";
-            this.simpleButton1.Click += new System.EventHandler(this.BtnStartLoop_Click);
+            this.btnStartLoop.Enabled = false;
+            this.btnStartLoop.Location = new System.Drawing.Point(878, 281);
+            this.btnStartLoop.Name = "btnStartLoop";
+            this.btnStartLoop.Size = new System.Drawing.Size(126, 37);
+            this.btnStartLoop.TabIndex = 21;
+            this.btnStartLoop.Text = "Iniciar Loop";
+            this.btnStartLoop.Click += new System.EventHandler(this.BtnStartLoop_Click);
             // 
             // btnSave
             // 
+            this.btnSave.Enabled = false;
             this.btnSave.Location = new System.Drawing.Point(878, 356);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(126, 40);
@@ -229,6 +232,7 @@
             // 
             // txtLoopBox
             // 
+            this.txtLoopBox.Enabled = false;
             this.txtLoopBox.Location = new System.Drawing.Point(1028, 284);
             this.txtLoopBox.Name = "txtLoopBox";
             this.txtLoopBox.Size = new System.Drawing.Size(110, 30);
@@ -333,8 +337,8 @@
             this.Controls.Add(this.btnRefresh);
             this.Controls.Add(this.gridViewer);
             this.Controls.Add(this.btnSave);
-            this.Controls.Add(this.listView1);
-            this.Controls.Add(this.simpleButton1);
+            this.Controls.Add(this.listFiles);
+            this.Controls.Add(this.btnStartLoop);
             this.Controls.Add(this.btnEdit);
             this.Controls.Add(this.btnImportJson);
             this.Controls.Add(this.btnExportJson);
@@ -344,9 +348,10 @@
             this.Controls.Add(this.btnPlay);
             this.Controls.Add(this.btnStop);
             this.Controls.Add(this.btnRecord);
+            this.IconOptions.LargeImage = ((System.Drawing.Image)(resources.GetObject("MainForm.IconOptions.LargeImage")));
             this.KeyPreview = true;
             this.Name = "MainForm";
-            this.Text = "JSON Files";
+            this.Text = "SliceTester";
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).EndInit();
             this.panelControl1.ResumeLayout(false);
             this.panelControl1.PerformLayout();
@@ -370,8 +375,8 @@
         private DevExpress.XtraEditors.SimpleButton btnExportJson;
         private DevExpress.XtraEditors.SimpleButton btnImportJson;
         private DevExpress.XtraEditors.SimpleButton btnEdit;
-        private DevExpress.XtraEditors.SimpleButton simpleButton1;
-        private System.Windows.Forms.ListView listView1;
+        private DevExpress.XtraEditors.SimpleButton btnStartLoop;
+        private System.Windows.Forms.ListView listFiles;
         private DevExpress.XtraEditors.SimpleButton btnSave;
         private DevExpress.XtraGrid.GridControl gridViewer;
         private DevExpress.XtraGrid.Views.Grid.GridView gridViewerFormMain;
