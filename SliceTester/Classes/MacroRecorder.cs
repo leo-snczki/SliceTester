@@ -13,93 +13,93 @@ public class MacroRecorder
 {
     public enum MacroEventType { KeyDown, KeyUp, MouseDown, MouseUp }
 
-    private IKeyboardMouseEvents globalHook; // Responsável por capturar eventos globais de teclado e mouse.
-    private List<MacroEvent> recordedEvents = new List<MacroEvent>();
-    private Stopwatch stopwatch = new Stopwatch(); // Cronômetro para medir o tempo e delay entre eventos.
-    private LogManager logManager;
+    private IKeyboardMouseEvents _globalHook; // Responsável por capturar eventos globais de teclado e mouse.
+    private List<MacroEvent> _recordedEvents = new List<MacroEvent>();
+    private Stopwatch _stopwatch = new Stopwatch(); // Cronômetro para medir o tempo e delay entre eventos.
+    private LogManager _logManager;
 
     public MacroRecorder(LogManager logger)
     {
-        logManager = logger;
+        _logManager = logger;
     }
 
     public void StartRecording()
     {
-        recordedEvents.Clear();
-        stopwatch.Restart();
-        globalHook = Hook.GlobalEvents();
+        _recordedEvents.Clear();
+        _stopwatch.Restart();
+        _globalHook = Hook.GlobalEvents();
 
-        logManager.Log("[INFO] Iniciando gravação...");
+        _logManager.Log("[INFO] Iniciando gravação...");
 
         bool firstKeyDown = false;  // Flag para garantir que um KeyDown ocorra antes de um KeyUp
         bool firstMouseDown = false; // Flag para garantir que um MouseDown ocorra antes de um MouseUp
 
         // Captura eventos de pressionamento de tecla.
-        globalHook.KeyDown += (sender, e) =>
+        _globalHook.KeyDown += (sender, e) =>
         {
             firstKeyDown = true; // Marca que um KeyDown ocorreu
 
-            recordedEvents.Add(new MacroEvent
+            _recordedEvents.Add(new MacroEvent
             {
                 EventType = MacroEventType.KeyDown,
                 Key = e.KeyCode,
-                Timestamp = stopwatch.ElapsedMilliseconds
+                Timestamp = _stopwatch.ElapsedMilliseconds
             });
-            logManager.Log($"[RECORD] KeyDown: {e.KeyCode} ({stopwatch.ElapsedMilliseconds}ms)");
+            _logManager.Log($"[RECORD] KeyDown: {e.KeyCode} ({_stopwatch.ElapsedMilliseconds}ms)");
         };
 
         // Captura eventos de soltura de tecla.
-        globalHook.KeyUp += (sender, e) =>
+        _globalHook.KeyUp += (sender, e) =>
         {
             if (firstKeyDown) // Só registra KeyUp se já tiver ocorrido um KeyDown
             {
-                recordedEvents.Add(new MacroEvent
+                _recordedEvents.Add(new MacroEvent
                 {
                     EventType = MacroEventType.KeyUp,
                     Key = e.KeyCode,
-                    Timestamp = stopwatch.ElapsedMilliseconds
+                    Timestamp = _stopwatch.ElapsedMilliseconds
                 });
-                logManager.Log($"[RECORD] KeyUp: {e.KeyCode} ({stopwatch.ElapsedMilliseconds}ms)");
+                _logManager.Log($"[RECORD] KeyUp: {e.KeyCode} ({_stopwatch.ElapsedMilliseconds}ms)");
             }
         };
 
         // Captura eventos de clique do mouse.
-        globalHook.MouseDown += (sender, e) =>
+        _globalHook.MouseDown += (sender, e) =>
         {
             firstMouseDown = true; // Marca que um MouseDown ocorreu
 
-            recordedEvents.Add(new MacroEvent
+            _recordedEvents.Add(new MacroEvent
             {
                 EventType = MacroEventType.MouseDown,
                 MouseButton = e.Button,
                 MousePosition = e.Location,
-                Timestamp = stopwatch.ElapsedMilliseconds
+                Timestamp = _stopwatch.ElapsedMilliseconds
             });
-            logManager.Log($"[RECORD] MouseDown: {e.Button} em {e.Location} ({stopwatch.ElapsedMilliseconds}ms)");
+            _logManager.Log($"[RECORD] MouseDown: {e.Button} em {e.Location} ({_stopwatch.ElapsedMilliseconds}ms)");
         };
 
         // Captura eventos de soltura do botão do mouse.
-        globalHook.MouseUp += (sender, e) =>
+        _globalHook.MouseUp += (sender, e) =>
         {
             if (firstMouseDown) // Só registra MouseUp se já tiver ocorrido um MouseDown
             {
-                recordedEvents.Add(new MacroEvent
+                _recordedEvents.Add(new MacroEvent
                 {
                     EventType = MacroEventType.MouseUp,
                     MouseButton = e.Button,
                     MousePosition = e.Location,
-                    Timestamp = stopwatch.ElapsedMilliseconds
+                    Timestamp = _stopwatch.ElapsedMilliseconds
                 });
-                logManager.Log($"[RECORD] MouseUp: {e.Button} em {e.Location} ({stopwatch.ElapsedMilliseconds}ms)");
+                _logManager.Log($"[RECORD] MouseUp: {e.Button} em {e.Location} ({_stopwatch.ElapsedMilliseconds}ms)");
             }
         };
     }
 
     public void StopRecording()
     {
-        globalHook.Dispose();
-        stopwatch.Stop();
-        logManager.Log("[INFO] Gravação encerrada.");
+        _globalHook.Dispose();
+        _stopwatch.Stop();
+        _logManager.Log("[INFO] Gravação encerrada.");
     }
 
     public void Play()
@@ -107,8 +107,8 @@ public class MacroRecorder
         var inputSimulator = new InputSimulator();
         // Timestamp é um valor que representa um ponto específico no tempo.
         long lastTimestamp = 0;
-        logManager.Log("[INFO] Reprodução iniciada.");
-        foreach (var ev in recordedEvents)
+        _logManager.Log("[INFO] Reprodução iniciada.");
+        foreach (var ev in _recordedEvents)
         {
             long delay = ev.Timestamp - lastTimestamp; // Calcula o tempo de atraso entre o evento atual e o anterior.
             Thread.Sleep((int)delay); // Espera pelo tempo de atraso antes de executar o próximo evento.
@@ -119,13 +119,13 @@ public class MacroRecorder
             {
                 case MacroEventType.KeyDown:
                     inputSimulator.Keyboard.KeyDown((VirtualKeyCode)ev.Key);
-                    logManager.Log($"[PLAY] KeyDown: {ev.Key} ({ev.Timestamp}ms)");
+                    _logManager.Log($"[PLAY] KeyDown: {ev.Key} ({ev.Timestamp}ms)");
 
                     break;
 
                 case MacroEventType.KeyUp:
                     inputSimulator.Keyboard.KeyUp((VirtualKeyCode)ev.Key);
-                    logManager.Log($"[PLAY] KeyUp: {ev.Key} ({ev.Timestamp}ms)");
+                    _logManager.Log($"[PLAY] KeyUp: {ev.Key} ({ev.Timestamp}ms)");
                     break;
 
                 case MacroEventType.MouseDown:
@@ -135,46 +135,46 @@ public class MacroRecorder
                     inputSimulator.Mouse.MoveMouseTo(ev.MousePosition.X * 65535 / Screen.PrimaryScreen.Bounds.Width,
                                                      ev.MousePosition.Y * 65535 / Screen.PrimaryScreen.Bounds.Height);
                     inputSimulator.Mouse.LeftButtonDown();
-                    logManager.Log($"[PLAY] MouseDown: {ev.MouseButton} em {ev.MousePosition} ({ev.Timestamp}ms)");
+                    _logManager.Log($"[PLAY] MouseDown: {ev.MouseButton} em {ev.MousePosition} ({ev.Timestamp}ms)");
                     break;
 
                 case MacroEventType.MouseUp:
                     inputSimulator.Mouse.LeftButtonUp();
-                    logManager.Log($"[PLAY] MouseUp: {ev.MouseButton} em {ev.MousePosition} ({ev.Timestamp}ms)");
+                    _logManager.Log($"[PLAY] MouseUp: {ev.MouseButton} em {ev.MousePosition} ({ev.Timestamp}ms)");
                     break;
             }
         }
-        logManager.Log("[INFO] Reprodução finalizada.");
+        _logManager.Log("[INFO] Reprodução finalizada.");
     }
     public void ClearEvents()
     {
-        recordedEvents.Clear();
-        logManager.Log("[INFO] Eventos gravados apagados.");
+        _recordedEvents.Clear();
+        _logManager.Log("[INFO] Eventos gravados apagados.");
 
     }
     public List<MacroEvent> GetRecordedEvents()
     {
-        return recordedEvents;
+        return _recordedEvents;
     }
 
     public void SaveEvents(string path)
     {
         // Serializa a lista de eventos gravados em um arquivo JSON.
-        var json = JsonConvert.SerializeObject(recordedEvents);
+        var json = JsonConvert.SerializeObject(_recordedEvents);
         System.IO.File.WriteAllText(path, json);
-        logManager.Log($"[INFO] Eventos gravados salvos em {path}");
+        _logManager.Log($"[INFO] Eventos gravados salvos em {path}");
     }
     public void LoadEvents(string path)
     {
         // Lê o arquivo JSON e desserializa a lista de eventos gravados.
         var json = System.IO.File.ReadAllText(path);
-        recordedEvents = JsonConvert.DeserializeObject<List<MacroEvent>>(json);
-        logManager.Log($"[INFO] Eventos gravados carregados de {path}");
+        _recordedEvents = JsonConvert.DeserializeObject<List<MacroEvent>>(json);
+        _logManager.Log($"[INFO] Eventos gravados carregados de {path}");
     }
 
     public void EditRecordedEvents()
     {
-        var editor = new MacroEventForm(recordedEvents);
+        var editor = new MacroEventForm(_recordedEvents);
         editor.ShowDialog();
     }
 
