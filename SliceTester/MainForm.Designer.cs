@@ -40,23 +40,23 @@
             this.btnClear = new DevExpress.XtraEditors.SimpleButton();
             this.btnExportJson = new DevExpress.XtraEditors.SimpleButton();
             this.btnImportJson = new DevExpress.XtraEditors.SimpleButton();
-            this.lblHotKeyF1 = new System.Windows.Forms.Label();
-            this.lblHotKeyF2 = new System.Windows.Forms.Label();
-            this.lblHotKeyF3 = new System.Windows.Forms.Label();
-            this.lblHotKeyF4 = new System.Windows.Forms.Label();
-            this.lblHotKeyF5 = new System.Windows.Forms.Label();
-            this.lblHotKeyF6 = new System.Windows.Forms.Label();
             this.btnEdit = new DevExpress.XtraEditors.SimpleButton();
-            this.lblHotKeyF8 = new System.Windows.Forms.Label();
             this.simpleButton1 = new DevExpress.XtraEditors.SimpleButton();
             this.btnSave = new DevExpress.XtraEditors.SimpleButton();
             this.gridViewer = new DevExpress.XtraGrid.GridControl();
             this.gridViewerFormMain = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.btnRefresh = new DevExpress.XtraEditors.SimpleButton();
-            this.lblHotKeyF7 = new DevExpress.XtraEditors.LabelControl();
-            this.lblHotKeyF9 = new DevExpress.XtraEditors.LabelControl();
             this.txtLoopBox = new System.Windows.Forms.TextBox();
             this.lblLoop = new DevExpress.XtraEditors.LabelControl();
+            this.lblHotKeyF1 = new DevExpress.XtraEditors.LabelControl();
+            this.lblHotKeyF2 = new DevExpress.XtraEditors.LabelControl();
+            this.lblHotKeyF3 = new DevExpress.XtraEditors.LabelControl();
+            this.lblHotKeyF4 = new DevExpress.XtraEditors.LabelControl();
+            this.lblHotKeyF5 = new DevExpress.XtraEditors.LabelControl();
+            this.lblHotKeyF6 = new DevExpress.XtraEditors.LabelControl();
+            this.lblHotKeyF7 = new DevExpress.XtraEditors.LabelControl();
+            this.lblHotKeyF8 = new DevExpress.XtraEditors.LabelControl();
+            this.lblHotKeyF9 = new DevExpress.XtraEditors.LabelControl();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
             this.panelControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewer)).BeginInit();
@@ -170,60 +170,6 @@
             this.btnImportJson.Text = "Importar";
             this.btnImportJson.Click += new System.EventHandler(this.btnImportJson_Click);
             // 
-            // lblHotKeyF1
-            // 
-            this.lblHotKeyF1.AutoSize = true;
-            this.lblHotKeyF1.Location = new System.Drawing.Point(901, 42);
-            this.lblHotKeyF1.Name = "lblHotKeyF1";
-            this.lblHotKeyF1.Size = new System.Drawing.Size(89, 24);
-            this.lblHotKeyF1.TabIndex = 11;
-            this.lblHotKeyF1.Text = "Ctrl + F1";
-            // 
-            // lblHotKeyF2
-            // 
-            this.lblHotKeyF2.AutoSize = true;
-            this.lblHotKeyF2.Location = new System.Drawing.Point(1039, 42);
-            this.lblHotKeyF2.Name = "lblHotKeyF2";
-            this.lblHotKeyF2.Size = new System.Drawing.Size(89, 24);
-            this.lblHotKeyF2.TabIndex = 12;
-            this.lblHotKeyF2.Text = "Ctrl + F2";
-            // 
-            // lblHotKeyF3
-            // 
-            this.lblHotKeyF3.AutoSize = true;
-            this.lblHotKeyF3.Location = new System.Drawing.Point(901, 112);
-            this.lblHotKeyF3.Name = "lblHotKeyF3";
-            this.lblHotKeyF3.Size = new System.Drawing.Size(89, 24);
-            this.lblHotKeyF3.TabIndex = 13;
-            this.lblHotKeyF3.Text = "Ctrl + F3";
-            // 
-            // lblHotKeyF4
-            // 
-            this.lblHotKeyF4.AutoSize = true;
-            this.lblHotKeyF4.Location = new System.Drawing.Point(1039, 112);
-            this.lblHotKeyF4.Name = "lblHotKeyF4";
-            this.lblHotKeyF4.Size = new System.Drawing.Size(89, 24);
-            this.lblHotKeyF4.TabIndex = 14;
-            this.lblHotKeyF4.Text = "Ctrl + F4";
-            // 
-            // lblHotKeyF5
-            // 
-            this.lblHotKeyF5.AutoSize = true;
-            this.lblHotKeyF5.Location = new System.Drawing.Point(901, 182);
-            this.lblHotKeyF5.Name = "lblHotKeyF5";
-            this.lblHotKeyF5.Size = new System.Drawing.Size(89, 24);
-            this.lblHotKeyF5.TabIndex = 15;
-            this.lblHotKeyF5.Text = "Ctrl + F5";
-            // 
-            // lblHotKeyF6
-            // 
-            this.lblHotKeyF6.AutoSize = true;
-            this.lblHotKeyF6.Location = new System.Drawing.Point(1039, 182);
-            this.lblHotKeyF6.Name = "lblHotKeyF6";
-            this.lblHotKeyF6.Size = new System.Drawing.Size(89, 24);
-            this.lblHotKeyF6.TabIndex = 16;
-            this.lblHotKeyF6.Text = "Ctrl + F6";
-            // 
             // btnEdit
             // 
             this.btnEdit.Enabled = false;
@@ -233,15 +179,6 @@
             this.btnEdit.TabIndex = 9;
             this.btnEdit.Text = "Editar";
             this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
-            // 
-            // lblHotKeyF8
-            // 
-            this.lblHotKeyF8.AutoSize = true;
-            this.lblHotKeyF8.Location = new System.Drawing.Point(901, 329);
-            this.lblHotKeyF8.Name = "lblHotKeyF8";
-            this.lblHotKeyF8.Size = new System.Drawing.Size(89, 24);
-            this.lblHotKeyF8.TabIndex = 18;
-            this.lblHotKeyF8.Text = "Ctrl + F8";
             // 
             // simpleButton1
             // 
@@ -290,22 +227,6 @@
             this.btnRefresh.Text = "Atualizar";
             this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
             // 
-            // lblHotKeyF7
-            // 
-            this.lblHotKeyF7.Location = new System.Drawing.Point(905, 252);
-            this.lblHotKeyF7.Name = "lblHotKeyF7";
-            this.lblHotKeyF7.Size = new System.Drawing.Size(74, 23);
-            this.lblHotKeyF7.TabIndex = 26;
-            this.lblHotKeyF7.Text = "Ctrl + F7";
-            // 
-            // lblHotKeyF9
-            // 
-            this.lblHotKeyF9.Location = new System.Drawing.Point(1043, 323);
-            this.lblHotKeyF9.Name = "lblHotKeyF9";
-            this.lblHotKeyF9.Size = new System.Drawing.Size(74, 23);
-            this.lblHotKeyF9.TabIndex = 27;
-            this.lblHotKeyF9.Text = "Ctrl + F9";
-            // 
             // txtLoopBox
             // 
             this.txtLoopBox.Location = new System.Drawing.Point(1028, 284);
@@ -321,27 +242,99 @@
             this.lblLoop.TabIndex = 29;
             this.lblLoop.Text = "Loop";
             // 
+            // lblHotKeyF1
+            // 
+            this.lblHotKeyF1.Location = new System.Drawing.Point(905, 42);
+            this.lblHotKeyF1.Name = "lblHotKeyF1";
+            this.lblHotKeyF1.Size = new System.Drawing.Size(74, 23);
+            this.lblHotKeyF1.TabIndex = 30;
+            this.lblHotKeyF1.Text = "Ctrl + F1";
+            // 
+            // lblHotKeyF2
+            // 
+            this.lblHotKeyF2.Location = new System.Drawing.Point(1043, 42);
+            this.lblHotKeyF2.Name = "lblHotKeyF2";
+            this.lblHotKeyF2.Size = new System.Drawing.Size(74, 23);
+            this.lblHotKeyF2.TabIndex = 30;
+            this.lblHotKeyF2.Text = "Ctrl + F2";
+            // 
+            // lblHotKeyF3
+            // 
+            this.lblHotKeyF3.Location = new System.Drawing.Point(905, 115);
+            this.lblHotKeyF3.Name = "lblHotKeyF3";
+            this.lblHotKeyF3.Size = new System.Drawing.Size(74, 23);
+            this.lblHotKeyF3.TabIndex = 30;
+            this.lblHotKeyF3.Text = "Ctrl + F3";
+            // 
+            // lblHotKeyF4
+            // 
+            this.lblHotKeyF4.Location = new System.Drawing.Point(1043, 115);
+            this.lblHotKeyF4.Name = "lblHotKeyF4";
+            this.lblHotKeyF4.Size = new System.Drawing.Size(74, 23);
+            this.lblHotKeyF4.TabIndex = 30;
+            this.lblHotKeyF4.Text = "Ctrl + F4";
+            // 
+            // lblHotKeyF5
+            // 
+            this.lblHotKeyF5.Location = new System.Drawing.Point(905, 185);
+            this.lblHotKeyF5.Name = "lblHotKeyF5";
+            this.lblHotKeyF5.Size = new System.Drawing.Size(74, 23);
+            this.lblHotKeyF5.TabIndex = 30;
+            this.lblHotKeyF5.Text = "Ctrl + F5";
+            // 
+            // lblHotKeyF6
+            // 
+            this.lblHotKeyF6.Location = new System.Drawing.Point(1043, 185);
+            this.lblHotKeyF6.Name = "lblHotKeyF6";
+            this.lblHotKeyF6.Size = new System.Drawing.Size(74, 23);
+            this.lblHotKeyF6.TabIndex = 30;
+            this.lblHotKeyF6.Text = "Ctrl + F6";
+            // 
+            // lblHotKeyF7
+            // 
+            this.lblHotKeyF7.Location = new System.Drawing.Point(905, 255);
+            this.lblHotKeyF7.Name = "lblHotKeyF7";
+            this.lblHotKeyF7.Size = new System.Drawing.Size(74, 23);
+            this.lblHotKeyF7.TabIndex = 30;
+            this.lblHotKeyF7.Text = "Ctrl + F7";
+            // 
+            // lblHotKeyF8
+            // 
+            this.lblHotKeyF8.Location = new System.Drawing.Point(905, 327);
+            this.lblHotKeyF8.Name = "lblHotKeyF8";
+            this.lblHotKeyF8.Size = new System.Drawing.Size(74, 23);
+            this.lblHotKeyF8.TabIndex = 30;
+            this.lblHotKeyF8.Text = "Ctrl + F8";
+            // 
+            // lblHotKeyF9
+            // 
+            this.lblHotKeyF9.Location = new System.Drawing.Point(1043, 327);
+            this.lblHotKeyF9.Name = "lblHotKeyF9";
+            this.lblHotKeyF9.Size = new System.Drawing.Size(74, 23);
+            this.lblHotKeyF9.TabIndex = 30;
+            this.lblHotKeyF9.Text = "Ctrl + F9";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 23F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1159, 569);
+            this.Controls.Add(this.lblHotKeyF2);
+            this.Controls.Add(this.lblHotKeyF4);
+            this.Controls.Add(this.lblHotKeyF6);
+            this.Controls.Add(this.lblHotKeyF9);
+            this.Controls.Add(this.lblHotKeyF8);
+            this.Controls.Add(this.lblHotKeyF7);
+            this.Controls.Add(this.lblHotKeyF5);
+            this.Controls.Add(this.lblHotKeyF3);
+            this.Controls.Add(this.lblHotKeyF1);
             this.Controls.Add(this.lblLoop);
             this.Controls.Add(this.txtLoopBox);
-            this.Controls.Add(this.lblHotKeyF9);
-            this.Controls.Add(this.lblHotKeyF7);
             this.Controls.Add(this.btnRefresh);
             this.Controls.Add(this.gridViewer);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.listView1);
             this.Controls.Add(this.simpleButton1);
-            this.Controls.Add(this.lblHotKeyF8);
-            this.Controls.Add(this.lblHotKeyF6);
-            this.Controls.Add(this.lblHotKeyF5);
-            this.Controls.Add(this.lblHotKeyF4);
-            this.Controls.Add(this.lblHotKeyF3);
-            this.Controls.Add(this.lblHotKeyF2);
-            this.Controls.Add(this.lblHotKeyF1);
             this.Controls.Add(this.btnEdit);
             this.Controls.Add(this.btnImportJson);
             this.Controls.Add(this.btnExportJson);
@@ -376,25 +369,25 @@
         private DevExpress.XtraEditors.SimpleButton btnClear;
         private DevExpress.XtraEditors.SimpleButton btnExportJson;
         private DevExpress.XtraEditors.SimpleButton btnImportJson;
-        private System.Windows.Forms.Label lblHotKeyF1;
-        private System.Windows.Forms.Label lblHotKeyF2;
-        private System.Windows.Forms.Label lblHotKeyF3;
-        private System.Windows.Forms.Label lblHotKeyF4;
-        private System.Windows.Forms.Label lblHotKeyF5;
-        private System.Windows.Forms.Label lblHotKeyF6;
         private DevExpress.XtraEditors.SimpleButton btnEdit;
-        private System.Windows.Forms.Label lblHotKeyF8;
         private DevExpress.XtraEditors.SimpleButton simpleButton1;
         private System.Windows.Forms.ListView listView1;
         private DevExpress.XtraEditors.SimpleButton btnSave;
         private DevExpress.XtraGrid.GridControl gridViewer;
         private DevExpress.XtraGrid.Views.Grid.GridView gridViewerFormMain;
         private DevExpress.XtraEditors.SimpleButton btnRefresh;
-        private DevExpress.XtraEditors.LabelControl lblHotKeyF7;
-        private DevExpress.XtraEditors.LabelControl lblHotKeyF9;
         private System.Windows.Forms.ColumnHeader columnNameFile;
         private System.Windows.Forms.TextBox txtLoopBox;
         private DevExpress.XtraEditors.LabelControl lblLoop;
+        private DevExpress.XtraEditors.LabelControl lblHotKeyF1;
+        private DevExpress.XtraEditors.LabelControl lblHotKeyF2;
+        private DevExpress.XtraEditors.LabelControl lblHotKeyF3;
+        private DevExpress.XtraEditors.LabelControl lblHotKeyF4;
+        private DevExpress.XtraEditors.LabelControl lblHotKeyF5;
+        private DevExpress.XtraEditors.LabelControl lblHotKeyF6;
+        private DevExpress.XtraEditors.LabelControl lblHotKeyF7;
+        private DevExpress.XtraEditors.LabelControl lblHotKeyF8;
+        private DevExpress.XtraEditors.LabelControl lblHotKeyF9;
     }
 }
 
