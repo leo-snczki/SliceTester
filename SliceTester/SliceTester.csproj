@@ -74,11 +74,11 @@
     <Compile Include="LoopForm.Designer.cs">
       <DependentUpon>LoopForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="MacroEventForm.cs">
+    <Compile Include="MacroModifierForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MacroEventForm.Designer.cs">
-      <DependentUpon>MacroEventForm.cs</DependentUpon>
+    <Compile Include="MacroModifierForm.Designer.cs">
+      <DependentUpon>MacroModifierForm.cs</DependentUpon>
     </Compile>
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
@@ -97,8 +97,8 @@
     <EmbeddedResource Include="LoopForm.resx">
       <DependentUpon>LoopForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MacroEventForm.resx">
-      <DependentUpon>MacroEventForm.cs</DependentUpon>
+    <EmbeddedResource Include="MacroModifierForm.resx">
+      <DependentUpon>MacroModifierForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>

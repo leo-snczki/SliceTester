@@ -227,7 +227,7 @@ public class MacroRecorder
 
     public void EditRecordedEvents()
     {
-        var editor = new MacroEventForm(_recordedEvents);
+        var editor = new MacroModifierForm(_recordedEvents);
         editor.ShowDialog();
     }
 

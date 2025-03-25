@@ -104,6 +104,10 @@ namespace SliceTester
                     btnEdit.Enabled = true;
                     btnSave.Enabled = true;
                     btnStartLoop.Enabled = true;
+
+                    // Atualiza a visualização dos eventos na interface.
+                    ViewMacroEventGrid();
+
                 }
                 else
                     // Se não houver eventos gravados, lança uma exceção.

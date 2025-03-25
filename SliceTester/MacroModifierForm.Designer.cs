@@ -1,6 +1,6 @@
 ﻿namespace SliceTester
 {
-    partial class MacroEventForm
+    partial class MacroModifierForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MacroModifierForm));
             this.btnClose = new DevExpress.XtraEditors.SimpleButton();
             this.GridMacroEvents = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.dgvEvents = new DevExpress.XtraGrid.GridControl();
@@ -40,7 +41,7 @@
             // btnClose
             // 
             this.btnClose.Location = new System.Drawing.Point(827, 731);
-            this.btnClose.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.btnClose.Margin = new System.Windows.Forms.Padding(5);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(125, 41);
             this.btnClose.TabIndex = 0;
@@ -57,10 +58,10 @@
             // 
             // dgvEvents
             // 
-            this.dgvEvents.EmbeddedNavigator.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.dgvEvents.EmbeddedNavigator.Margin = new System.Windows.Forms.Padding(5);
             this.dgvEvents.Location = new System.Drawing.Point(68, 21);
             this.dgvEvents.MainView = this.GridMacroEvents;
-            this.dgvEvents.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.dgvEvents.Margin = new System.Windows.Forms.Padding(5);
             this.dgvEvents.Name = "dgvEvents";
             this.dgvEvents.Size = new System.Drawing.Size(883, 633);
             this.dgvEvents.TabIndex = 4;
@@ -70,7 +71,7 @@
             // btnSave
             // 
             this.btnSave.Location = new System.Drawing.Point(492, 731);
-            this.btnSave.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.btnSave.Margin = new System.Windows.Forms.Padding(5);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(125, 41);
             this.btnSave.TabIndex = 5;
@@ -80,14 +81,14 @@
             // btnSaveClose
             // 
             this.btnSaveClose.Location = new System.Drawing.Point(647, 731);
-            this.btnSaveClose.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.btnSaveClose.Margin = new System.Windows.Forms.Padding(5);
             this.btnSaveClose.Name = "btnSaveClose";
             this.btnSaveClose.Size = new System.Drawing.Size(150, 41);
             this.btnSaveClose.TabIndex = 6;
             this.btnSaveClose.Text = "Fechar e Salvar";
             this.btnSaveClose.Click += new System.EventHandler(this.btnSaveClose_Click);
             // 
-            // MacroEventForm
+            // MacroModifierForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 23F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -96,9 +97,10 @@
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.dgvEvents);
             this.Controls.Add(this.btnClose);
-            this.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
-            this.Name = "MacroEventForm";
-            this.Text = "MacroEventForm";
+            this.IconOptions.LargeImage = ((System.Drawing.Image)(resources.GetObject("MacroModifierForm.IconOptions.LargeImage")));
+            this.Margin = new System.Windows.Forms.Padding(5);
+            this.Name = "MacroModifierForm";
+            this.Text = "Modificar";
             ((System.ComponentModel.ISupportInitialize)(this.GridMacroEvents)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvEvents)).EndInit();
             this.ResumeLayout(false);

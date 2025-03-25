@@ -12,12 +12,12 @@ using SliceTester.Classes;
 
 namespace SliceTester
 {
-    public partial class MacroEventForm : DevExpress.XtraEditors.XtraForm
+    public partial class MacroModifierForm : DevExpress.XtraEditors.XtraForm
     {
         private List<MacroRecorder.MacroEvent> originalEvents; // Referência aos eventos originais.
         private List<MacroRecorder.MacroEvent> tempEvents; // Cópia temporária para edição.
 
-        public MacroEventForm(List<MacroRecorder.MacroEvent> recordedEvents)
+        public MacroModifierForm(List<MacroRecorder.MacroEvent> recordedEvents)
         {
             originalEvents = recordedEvents;
             tempEvents = new List<MacroRecorder.MacroEvent>(); // Inicializa a lista vazia.
