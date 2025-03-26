@@ -17,6 +17,7 @@ public class MacroRecorder
     private List<MacroEvent> _recordedEvents = new List<MacroEvent>();
     private Stopwatch _stopwatch = new Stopwatch(); // Cronômetro para medir o tempo e delay entre eventos.
     private LogManager _logManager;
+    private bool _isRecording = false;
     private bool _isPlaying = false;
 
 
@@ -24,7 +25,10 @@ public class MacroRecorder
     {
         _logManager = logger;
     }
-
+    public ref readonly bool IsRecording()
+    {
+        return ref _isRecording;
+    }
     public void StartRecording()
     {
         _recordedEvents.Clear();
@@ -32,7 +36,7 @@ public class MacroRecorder
         _globalHook = Hook.GlobalEvents();
 
         _logManager.Log("[INFO] Iniciando gravação...");
-
+        _isRecording = true;
         bool firstKeyDown = false;  // Flag para garantir que um KeyDown ocorra antes de um KeyUp
         bool firstMouseDown = false; // Flag para garantir que um MouseDown ocorra antes de um MouseUp
 
@@ -101,6 +105,7 @@ public class MacroRecorder
     {
         _globalHook.Dispose();
         _stopwatch.Stop();
+        _isRecording = false;
         _logManager.Log("[INFO] Gravação encerrada.");
     }
 
@@ -198,7 +203,6 @@ public class MacroRecorder
     }
 
 
-    //}
     public void ClearEvents()
     {
         _recordedEvents.Clear();

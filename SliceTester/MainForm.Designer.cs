@@ -349,8 +349,10 @@
             this.Controls.Add(this.btnPlay);
             this.Controls.Add(this.btnStop);
             this.Controls.Add(this.btnRecord);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.IconOptions.LargeImage = ((System.Drawing.Image)(resources.GetObject("MainForm.IconOptions.LargeImage")));
             this.KeyPreview = true;
+            this.MaximizeBox = false;
             this.Name = "MainForm";
             this.Text = "SliceTester";
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).EndInit();

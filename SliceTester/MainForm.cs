@@ -14,12 +14,10 @@ namespace SliceTester
         private MacroRecorder _macroRecorder;
         private IKeyboardMouseEvents _hook;
 
-
         public MainForm()
         {
             CreateAppFolder();
             InitializeComponent();
-
             _logger = new LogManager(txtLog);
             _macroRecorder = new MacroRecorder(_logger);
             GlobalHotkeys();
@@ -29,15 +27,24 @@ namespace SliceTester
 
         private void GlobalKeyDown(object sender, KeyEventArgs e)
         {
-            if (e.Control)
+            ref readonly bool recording = ref _macroRecorder.IsRecording();
+
+            if (e.Control && e.KeyCode == Keys.F2)
+                btnStop_Click(sender, e);
+
+
+            if (recording)
+            {
+                _logger.Log("[AVISO] A gravação está em andamento.");
+                return;
+            }
+
+            if (e.Control) // Restante das teclas que só podem ser utilizadas se não estiver gravando.
             {
                 switch (e.KeyCode)
                 {
                     case Keys.F1:
                         btnRecord_Click(sender, e);
-                        break;
-                    case Keys.F2:
-                        btnStop_Click(sender, e);
                         break;
                     case Keys.F3:
                         _macroRecorder.Play();
@@ -511,7 +518,7 @@ namespace SliceTester
                         btnSave.Enabled = true;
                         btnStartLoop.Enabled = true;
                         txtLoopBox.Enabled = true;
-                        
+
 
                         // Regista no log que o processo de carregamento foi concluído com sucesso.
                         _logger.Log("[INFO] Processo de carregamento de arquivo concluído.");
