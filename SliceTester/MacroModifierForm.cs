@@ -2,12 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Windows.Forms;
 using DevExpress.XtraGrid.Views.Grid;
-using DevExpress.XtraGrid;
-using System.Drawing;
-using DevExpress.XtraBars.Ribbon;
-using SliceTester.Classes;
 
 
 namespace SliceTester

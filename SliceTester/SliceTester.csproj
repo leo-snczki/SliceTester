@@ -68,12 +68,6 @@
   <ItemGroup>
     <Compile Include="Classes\LogManager.cs" />
     <Compile Include="Classes\MacroRecorder.cs" />
-    <Compile Include="LoopForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="LoopForm.Designer.cs">
-      <DependentUpon>LoopForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="MacroModifierForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -94,9 +88,6 @@
     <Compile Include="SaveForm.Designer.cs">
       <DependentUpon>SaveForm.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="LoopForm.resx">
-      <DependentUpon>LoopForm.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="MacroModifierForm.resx">
       <DependentUpon>MacroModifierForm.cs</DependentUpon>
     </EmbeddedResource>

@@ -127,7 +127,6 @@ namespace SliceTester
             }
         }
 
-
         private void btnPlay_Click(object sender, EventArgs e)
         {
             // Exibe uma caixa de mensagem informando ao utilizador que o reply vai começar após o clique em OK.
@@ -252,7 +251,6 @@ namespace SliceTester
             ExportJson();
         }
 
-
         private void btnImportJson_Click(object sender, EventArgs e)
         {
             // Regista no log a informação de que o carregamento do arquivo JSON foi iniciado.
@@ -317,52 +315,9 @@ namespace SliceTester
             }
         }
 
-        private void ListView1_ItemActivate(object sender, EventArgs e)
+        private void ListFiles_ItemActivate(object sender, EventArgs e)
         {
-            // Verifica se há itens selecionados na listView1.
-            if (listFiles.SelectedItems.Count > 0)
-            {
-                // Obtém o caminho completo do arquivo selecionado.
-                string selectedFilePath = listFiles.SelectedItems[0].SubItems[1].Text;
 
-                try
-                {
-                    // Cria um objeto FileInfo para verificar o tamanho do arquivo selecionado.
-                    FileInfo fileInfo = new FileInfo(selectedFilePath);
-
-                    // Se o arquivo estiver vazio, lança uma exceção.
-                    if (fileInfo.Length == 0)
-                        throw new InvalidOperationException("O arquivo selecionado está vazio.");
-
-                    // Chama o método LoadEvents da classe _macroRecorder para carregar os eventos do arquivo.
-                    _macroRecorder.LoadEvents(selectedFilePath);
-
-                    // Atualiza a visualização dos eventos na interface.
-                    ViewMacroEventGrid();
-
-                    // Ativa os botões.
-                    btnClear.Enabled = true;
-                    btnPlay.Enabled = true;
-                    btnExportJson.Enabled = true;
-                    btnEdit.Enabled = true;
-                    btnStartLoop.Enabled = true;
-                    btnSave.Enabled = true;
-                    txtLoopBox.Enabled = true;
-
-
-                    // Regista no log que o processo de carregamento foi concluído.
-                    _logger.Log("[INFO] Processo de carregamento de arquivo concluído.");
-
-                    // Exibe uma mensagem de sucesso informando o utilizador que o arquivo foi carregado.
-                    MessageBox.Show("Arquivo carregado com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-                catch (Exception ex)
-                {
-                    // Se ocorrer um erro ao carregar o arquivo, regista o erro no log e exibe uma mensagem de erro.
-                    _logger.Log($"[ERRO] Falha ao carregar o arquivo JSON: {ex.Message}");
-                    MessageBox.Show($"Erro ao carregar o arquivo:\n{ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
         }
 
         private void LoadJsonFiles()
@@ -418,7 +373,6 @@ namespace SliceTester
             }
         }
 
-
         private void CreateAppFolder()
         {
             // Garante que o caminho está sempre a apontar para a pasta bin correta.
@@ -436,7 +390,6 @@ namespace SliceTester
                 MessageBox.Show("Pasta criada em: " + jsonLogsPath);
             }
         }
-
 
         private void loadDataGridConfig()
         {
@@ -473,8 +426,6 @@ namespace SliceTester
             // Recarrega os dados na grid para refletir as alterações.
             gridViewer.RefreshDataSource(); // Garante que os dados sejam recarregados corretamente.
         }
-
-
 
         private void btnRefresh_Click(object sender, EventArgs e)
         {
@@ -588,12 +539,9 @@ namespace SliceTester
         }
 
 
-
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            // Verifica se o hook foi inicializado e se afirmativo, libera os recursos.
-            if (_hook != null)
-                _hook.Dispose(); // Libera o hook se estiver inicializado.
+                _hook.Dispose(); // Libera o hook.
         }
     }
 }

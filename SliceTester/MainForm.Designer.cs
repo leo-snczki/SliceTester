@@ -127,7 +127,7 @@
             this.listFiles.TabIndex = 1;
             this.listFiles.UseCompatibleStateImageBehavior = false;
             this.listFiles.View = System.Windows.Forms.View.Details;
-            this.listFiles.ItemActivate += new System.EventHandler(this.ListView1_ItemActivate);
+            this.listFiles.ItemActivate += new System.EventHandler(this.ListFiles_ItemActivate);
             // 
             // columnNameFile
             // 
