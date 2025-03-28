@@ -33,11 +33,9 @@ namespace SliceTester
                 btnStop_Click(sender, e);
 
 
-            if (recording)
-            {
-                _logger.Log("[AVISO] A gravação está em andamento.");
+            if (recording)           
                 return;
-            }
+            
 
             if (e.Control) // Restante das teclas que só podem ser utilizadas se não estiver gravando.
             {
@@ -111,6 +109,7 @@ namespace SliceTester
                     btnEdit.Enabled = true;
                     btnSave.Enabled = true;
                     btnStartLoop.Enabled = true;
+                    txtLoopBox.Enabled = true;
 
                     // Atualiza a visualização dos eventos na interface.
                     ViewMacroEventGrid();
