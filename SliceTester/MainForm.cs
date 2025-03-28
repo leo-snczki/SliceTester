@@ -317,7 +317,50 @@ namespace SliceTester
 
         private void ListFiles_ItemActivate(object sender, EventArgs e)
         {
+            // Verifica se há itens selecionados na listView1.
+            if (listFiles.SelectedItems.Count > 0)
+            {
+                // Obtém o caminho completo do arquivo selecionado.
+                string selectedFilePath = listFiles.SelectedItems[0].SubItems[1].Text;
 
+                try
+                {
+                    // Cria um objeto FileInfo para verificar o tamanho do arquivo selecionado.
+                    FileInfo fileInfo = new FileInfo(selectedFilePath);
+
+                    // Se o arquivo estiver vazio, lança uma exceção.
+                    if (fileInfo.Length == 0)
+                        throw new InvalidOperationException("O arquivo selecionado está vazio.");
+
+                    // Chama o método LoadEvents da classe _macroRecorder para carregar os eventos do arquivo.
+                    _macroRecorder.LoadEvents(selectedFilePath);
+
+                    // Atualiza a visualização dos eventos na interface.
+                    ViewMacroEventGrid();
+
+                    // Ativa os botões.
+                    btnClear.Enabled = true;
+                    btnPlay.Enabled = true;
+                    btnExportJson.Enabled = true;
+                    btnEdit.Enabled = true;
+                    btnStartLoop.Enabled = true;
+                    btnSave.Enabled = true;
+                    txtLoopBox.Enabled = true;
+
+
+                    // Regista no log que o processo de carregamento foi concluído.
+                    _logger.Log("[INFO] Processo de carregamento de arquivo concluído.");
+
+                    // Exibe uma mensagem de sucesso informando o utilizador que o arquivo foi carregado.
+                    MessageBox.Show("Arquivo carregado com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                catch (Exception ex)
+                {
+                    // Se ocorrer um erro ao carregar o arquivo, regista o erro no log e exibe uma mensagem de erro.
+                    _logger.Log($"[ERRO] Falha ao carregar o arquivo JSON: {ex.Message}");
+                    MessageBox.Show($"Erro ao carregar o arquivo:\n{ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
         }
 
         private void LoadJsonFiles()
