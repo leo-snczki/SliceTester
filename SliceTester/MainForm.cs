@@ -30,12 +30,13 @@ namespace SliceTester
             ref readonly bool recording = ref _macroRecorder.IsRecording();
 
             if (e.Control && e.KeyCode == Keys.F2)
+            {
                 btnStop_Click(sender, e);
+            }
 
-
-            if (recording)           
+            if (recording)
                 return;
-            
+
 
             if (e.Control) // Restante das teclas que só podem ser utilizadas se não estiver gravando.
             {
@@ -45,7 +46,7 @@ namespace SliceTester
                         btnRecord_Click(sender, e);
                         break;
                     case Keys.F3:
-                        _macroRecorder.Play();
+                        btnPlay_Click(sender, e);
                         break;
                     case Keys.F4:
                         btnClear_Click(sender, e);
@@ -72,6 +73,7 @@ namespace SliceTester
         private void btnRecord_Click(object sender, EventArgs e)
         {
             // Exibe uma mensagem ao utilizador informando que a gravação começará após a confirmação.
+            WindowState = FormWindowState.Minimized;
             var result = MessageBox.Show("A gravação vai começar depois do OK", "Iniciar Gravação", MessageBoxButtons.OKCancel);
 
             if (result == DialogResult.OK) // Se o utilizador confirmar a ação.
@@ -97,6 +99,8 @@ namespace SliceTester
                 {
                     // Pára a gravação dos eventos que estão em curso.
                     _macroRecorder.StopRecording();
+
+                    WindowState = FormWindowState.Normal;
 
                     // Desativa o botão "Stop" pois a gravação foi concluída.
                     btnStop.Enabled = false;
@@ -129,6 +133,8 @@ namespace SliceTester
 
         private void btnPlay_Click(object sender, EventArgs e)
         {
+            WindowState = FormWindowState.Minimized;
+
             // Exibe uma caixa de mensagem informando ao utilizador que o reply vai começar após o clique em OK.
             var result = MessageBox.Show("A reprodução vai começar depois do OK", "Iniciar Reprodução", MessageBoxButtons.OKCancel);
 
@@ -143,6 +149,8 @@ namespace SliceTester
 
                 //reativa o botão Play.
                 btnPlay.Enabled = true;
+
+                WindowState = FormWindowState.Normal;
             }
             else
             {
@@ -584,7 +592,7 @@ namespace SliceTester
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-                _hook.Dispose(); // Libera o hook.
+            _hook.Dispose(); // Libera o hook.
         }
     }
 }
