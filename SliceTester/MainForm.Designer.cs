@@ -40,7 +40,6 @@
             this.btnExportJson = new DevExpress.XtraEditors.SimpleButton();
             this.btnImportJson = new DevExpress.XtraEditors.SimpleButton();
             this.btnEdit = new DevExpress.XtraEditors.SimpleButton();
-            this.btnStartLoop = new DevExpress.XtraEditors.SimpleButton();
             this.btnSave = new DevExpress.XtraEditors.SimpleButton();
             this.lblLoop = new DevExpress.XtraEditors.LabelControl();
             this.lblHotKeyF1 = new DevExpress.XtraEditors.LabelControl();
@@ -101,7 +100,7 @@
             this.btnPlay.Location = new System.Drawing.Point(569, 101);
             this.btnPlay.Margin = new System.Windows.Forms.Padding(2);
             this.btnPlay.Name = "btnPlay";
-            this.btnPlay.Size = new System.Drawing.Size(145, 23);
+            this.btnPlay.Size = new System.Drawing.Size(78, 23);
             this.btnPlay.TabIndex = 2;
             this.btnPlay.Text = "Iniciar";
             this.btnPlay.Click += new System.EventHandler(this.btnPlay_Click);
@@ -183,17 +182,6 @@
             this.btnEdit.Text = "Editar";
             this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
             // 
-            // btnStartLoop
-            // 
-            this.btnStartLoop.Enabled = false;
-            this.btnStartLoop.Location = new System.Drawing.Point(569, 181);
-            this.btnStartLoop.Margin = new System.Windows.Forms.Padding(2);
-            this.btnStartLoop.Name = "btnStartLoop";
-            this.btnStartLoop.Size = new System.Drawing.Size(145, 21);
-            this.btnStartLoop.TabIndex = 21;
-            this.btnStartLoop.Text = "Iniciar Loop";
-            this.btnStartLoop.Click += new System.EventHandler(this.BtnStartLoop_Click);
-            // 
             // btnSave
             // 
             this.btnSave.Enabled = false;
@@ -207,7 +195,7 @@
             // 
             // lblLoop
             // 
-            this.lblLoop.Location = new System.Drawing.Point(830, 167);
+            this.lblLoop.Location = new System.Drawing.Point(673, 88);
             this.lblLoop.Margin = new System.Windows.Forms.Padding(2);
             this.lblLoop.Name = "lblLoop";
             this.lblLoop.Size = new System.Drawing.Size(23, 13);
@@ -234,7 +222,7 @@
             // 
             // lblHotKeyF3
             // 
-            this.lblHotKeyF3.Location = new System.Drawing.Point(620, 88);
+            this.lblHotKeyF3.Location = new System.Drawing.Point(586, 87);
             this.lblHotKeyF3.Margin = new System.Windows.Forms.Padding(2);
             this.lblHotKeyF3.Name = "lblHotKeyF3";
             this.lblHotKeyF3.Size = new System.Drawing.Size(43, 13);
@@ -426,7 +414,6 @@
             this.panel2.Controls.Add(this.btnImportJson);
             this.panel2.Controls.Add(this.lblHotKeyF7);
             this.panel2.Controls.Add(this.btnClear);
-            this.panel2.Controls.Add(this.btnStartLoop);
             this.panel2.Controls.Add(this.btnStop);
             this.panel2.Controls.Add(this.panelControl1);
             this.panel2.Controls.Add(this.lblHotKeyF5);
@@ -440,14 +427,15 @@
             // 
             // NumLoopBox
             // 
-            this.NumLoopBox.Location = new System.Drawing.Point(771, 181);
+            this.NumLoopBox.Enabled = false;
+            this.NumLoopBox.Location = new System.Drawing.Point(652, 102);
             this.NumLoopBox.Minimum = new decimal(new int[] {
             1,
             0,
             0,
             0});
             this.NumLoopBox.Name = "NumLoopBox";
-            this.NumLoopBox.Size = new System.Drawing.Size(143, 21);
+            this.NumLoopBox.Size = new System.Drawing.Size(64, 21);
             this.NumLoopBox.TabIndex = 31;
             this.NumLoopBox.Value = new decimal(new int[] {
             1,
@@ -500,7 +488,6 @@
         private DevExpress.XtraEditors.SimpleButton btnExportJson;
         private DevExpress.XtraEditors.SimpleButton btnImportJson;
         private DevExpress.XtraEditors.SimpleButton btnEdit;
-        private DevExpress.XtraEditors.SimpleButton btnStartLoop;
         private DevExpress.XtraEditors.SimpleButton btnSave;
         private DevExpress.XtraEditors.LabelControl lblLoop;
         private DevExpress.XtraEditors.LabelControl lblHotKeyF1;

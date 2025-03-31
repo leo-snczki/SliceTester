@@ -6,6 +6,7 @@ using DevExpress.XtraGrid.Views.Grid;
 using Gma.System.MouseKeyHook;
 using SliceTester.Classes;
 using System.Drawing;
+using System.Linq.Expressions;
 
 namespace SliceTester
 {
@@ -95,9 +96,6 @@ namespace SliceTester
                     case Keys.F6:
                         ImportJson();
                         break;
-                    case Keys.F7:
-                        PlayLoopTest();
-                        break;
                     case Keys.F8:
                         SaveTestInDirectory();
                         break;
@@ -109,16 +107,15 @@ namespace SliceTester
         }
 
         private void btnRecord_Click(object sender, EventArgs e) => RecordTest();
-        
+
         private void btnStop_Click(object sender, EventArgs e) => StopTest();
-        
+
         private void btnPlay_Click(object sender, EventArgs e) => PlayTest();
 
         private void btnClear_Click(object sender, EventArgs e) => ClearTest();
 
         private void btnEdit_Click(object sender, EventArgs e) => ModifyTest();
 
-        private void BtnStartLoop_Click(object sender, EventArgs e) => PlayLoopTest();
 
         private void btnExportJson_Click(object sender, EventArgs e) => ExportJson();
 
@@ -207,7 +204,7 @@ namespace SliceTester
                 // Se não houver arquivos encontrados informa o utilizador.
                 if (jsonFiles.Length == 0)
                     MessageBox.Show("Nenhum arquivo JSON encontrado na pasta especificada.", "Informação", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                
+
             }
             catch (Exception ex)
             {
@@ -289,7 +286,7 @@ namespace SliceTester
                 btnStop.Enabled = true;
             }
             else
-                _logger.Log("[INFO] Gravação NÃO iniciada.");           
+                _logger.Log("[INFO] Gravação NÃO iniciada.");
         }
 
         private void StopTest()
@@ -302,7 +299,7 @@ namespace SliceTester
                 // Verifica se há eventos gravados.
                 if (!recordedEvents.Any())
                     throw new Exception("A lista de eventos gravados está vazia!");
-                
+
 
                 // Pára a gravação dos eventos que estão em curso.
                 _macroRecorder.StopRecording();
@@ -329,61 +326,50 @@ namespace SliceTester
 
         private void PlayTest()
         {
-            // Exibe uma caixa de mensagem informando ao utilizador que o reply vai começar após o clique em OK.
-            var result = MessageBox.Show("A reprodução vai começar depois do OK", "Iniciar Reprodução", MessageBoxButtons.OKCancel);
-
-            // Verifica se o utilizador clicou em OK.
-            if (result != DialogResult.OK)
-            {
-                // Caso o utilizador cancele a reprodução, registra no log que a reprodução não foi iniciada.
-                _logger.Log("[INFO] Reprodução NÃO iniciada.");
-                
-                return;
-            }
-            WindowState = FormWindowState.Minimized;
-
-            btnPlay.Enabled = false;
-            _macroRecorder.Play();
-            btnPlay.Enabled = true;
-
-            WindowState = FormWindowState.Normal;
-        }
-
-        private void PlayLoopTest()
-        {
             try
             {
                 var events = _macroRecorder.GetRecordedEvents();
 
                 if (events.Count == 0)
                     throw new Exception("Não há eventos gravados para reproduzir.");
-                
-                //Um loop que vai repetir as vezes que o utilizador inserio na Variavel.
-                for (int i = 0; i < Convert.ToInt32(NumLoopBox); i++)
+
+                // Exibe uma caixa de mensagem informando ao utilizador que o reply vai começar após o clique em OK.
+                var result = MessageBox.Show("A reprodução vai começar depois do OK", "Iniciar Reprodução", MessageBoxButtons.OKCancel);
+
+                // Verifica se o utilizador clicou em OK.
+                if (result != DialogResult.OK)
                 {
-                    // Desativa o botão replay.
+                    // Caso o utilizador cancele a reprodução, registra no log que a reprodução não foi iniciada.
+                    _logger.Log("[INFO] Reprodução NÃO iniciada.");
+
+                    return;
+                }
+
+                WindowState = FormWindowState.Minimized;
+
+                for (int i = 0; i < NumLoopBox.Value; i++)
+                {
                     btnPlay.Enabled = false;
-
-                    // Chama o método Play da classe _macroRecorder para reproduzir os eventos gravados.
                     _macroRecorder.Play();
-
-                    // Reativa o botão.
                     btnPlay.Enabled = true;
                 }
+
+                WindowState = FormWindowState.Normal;
             }
             catch (Exception ex)
             {
-                // Caso ocorra um erro ao salvar o arquivo, loga a falha e exibe uma mensagem de erro.
-                _logger.Log($"[ERRO] Falha no Loop: {ex.Message}");
-                MessageBox.Show($"Erro ao iniciar loop: \n{ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                _logger.Log($"[ERRO] Falha ao reproduzir os eventos: {ex.Message}");
+                MessageBox.Show($"Erro ao reproduzir os eventos:\n{ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         private void ClearTest()
         {
-            // Verifica se há eventos gravados na lista.
-            if (_macroRecorder.GetRecordedEvents().Count > 0)
+            try
             {
+                if (_macroRecorder.GetRecordedEvents().Count == 0)
+                    throw new Exception("Não há eventos gravados para limpar.");
+
                 // Exibe uma caixa de mensagem perguntando se o utilizador tem certeza de que deseja limpar a lista.
                 var result = MessageBox.Show("Tem certeza que deseja limpar a lista de eventos gravados?", "Limpar Eventos", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
@@ -399,10 +385,10 @@ namespace SliceTester
                     DisableButtons();
                 }
             }
-            else
+            catch (Exception ex)
             {
-                _logger.Log("[INFO] Não tem nada para limpar.");
-                MessageBox.Show("Não tem nada para limpar.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                _logger.Log($"[ERRO] Falha ao limpar a lista de eventos: {ex.Message}");
+                MessageBox.Show($"Erro ao limpar a lista de eventos:\n{ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -559,8 +545,8 @@ namespace SliceTester
                 {
                     if (saveFileDialog.ShowDialog() != DialogResult.OK)
                         throw new Exception("O utilizador não escolheu um local para salvar o arquivo.");
-              
-                
+
+
                     // Chama o método SaveEvents da classe _macroRecorder para salvar os eventos gravados no arquivo selecionado.
                     _macroRecorder.SaveEvents(saveFileDialog.FileName);
 
@@ -593,7 +579,6 @@ namespace SliceTester
             btnExportJson.Enabled = false;
             btnEdit.Enabled = false;
             btnSave.Enabled = false;
-            btnStartLoop.Enabled = false;
             NumLoopBox.Enabled = false;
         }
 
@@ -604,7 +589,6 @@ namespace SliceTester
             btnExportJson.Enabled = true;
             btnEdit.Enabled = true;
             btnSave.Enabled = true;
-            btnStartLoop.Enabled = true;
             NumLoopBox.Enabled = true;
         }
     }
