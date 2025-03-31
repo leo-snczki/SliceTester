@@ -69,57 +69,25 @@ namespace SliceTester
             }
         }
 
-        private void btnRecord_Click(object sender, EventArgs e)
-        {
-            RecordTest();
-        }
+        private void btnRecord_Click(object sender, EventArgs e) => RecordTest();
+        
+        private void btnStop_Click(object sender, EventArgs e) => StopTest();
+        
+        private void btnPlay_Click(object sender, EventArgs e) => PlayTest();
 
-        private void btnStop_Click(object sender, EventArgs e)
-        {
-            StopTest();
-        }
+        private void btnClear_Click(object sender, EventArgs e) => ClearTest();
 
-        private void btnPlay_Click(object sender, EventArgs e)
-        {
-            PlayTest();
-        }
+        private void btnEdit_Click(object sender, EventArgs e) => ModifyTest();
 
-        private void btnClear_Click(object sender, EventArgs e)
-        {
-            ClearTest();
-        }
+        private void BtnStartLoop_Click(object sender, EventArgs e) => PlayLoopTest();
 
-        private void btnEdit_Click(object sender, EventArgs e)
-        {
-            ModifyTest();
-        }
+        private void btnExportJson_Click(object sender, EventArgs e) => ExportJson();
 
-        private void BtnStartLoop_Click(object sender, EventArgs e)
-        {
-            PlayLoopTest();
-        }
+        private void btnImportJson_Click(object sender, EventArgs e) => ImportJson();
 
-        private void btnExportJson_Click(object sender, EventArgs e)
-        {
-            ExportJson();
-        }
+        private void btnSave_Click(object sender, EventArgs e) => SaveTestInDirectory();
 
-        private void btnImportJson_Click(object sender, EventArgs e)
-        {
-            ImportJson();
-        }
-
-        // Método chamado quando o utilizador clica no botão "Salvar" para guardar o arquivo.
-        private void btnSave_Click(object sender, EventArgs e)
-        {
-            SaveTestInDirectory();
-        }
-
-        private void btnRefresh_Click(object sender, EventArgs e)
-        {
-            // Chama o método que carrega os arquivos JSON na interface.
-            LoadJsonFiles();
-        }
+        private void btnRefresh_Click(object sender, EventArgs e) => LoadJsonFiles();
 
         private void ListFiles_ItemActivate(object sender, EventArgs e)
         {
@@ -161,10 +129,7 @@ namespace SliceTester
             }
         }
 
-        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            _hook.Dispose(); // Libera o hook.
-        }
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e) => _hook.Dispose();
 
         private void LoadJsonFiles()
         {
@@ -211,7 +176,6 @@ namespace SliceTester
                 MessageBox.Show($"Erro ao carregar os arquivos: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
 
         private void CreateAppFolder()
         {
