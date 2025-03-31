@@ -30,7 +30,6 @@ namespace SliceTester
             ref readonly bool recording = ref _macroRecorder.IsRecording();
 
             if (e.Control && e.KeyCode == Keys.F2)
-
                 StopTest();
 
             if (recording)
@@ -400,6 +399,8 @@ namespace SliceTester
                 string fileName;
                 string binPath;
                 string fullFilePath;
+
+                _logger.Log("[INFO] Salvando arquivo JSON...");
 
                 if (save.ShowDialog() != DialogResult.OK)
                 {
