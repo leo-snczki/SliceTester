@@ -2,7 +2,6 @@
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using DevExpress.Internal.WinApi.Windows.UI.Notifications;
 using DevExpress.XtraGrid.Views.Grid;
 using Gma.System.MouseKeyHook;
 using SliceTester.Classes;
@@ -31,8 +30,9 @@ namespace SliceTester
             ref readonly bool recording = ref _macroRecorder.IsRecording();
 
             if (e.Control && e.KeyCode == Keys.F2)
+
                 StopTest();
-            
+
             if (recording)
                 return;
 
@@ -180,47 +180,38 @@ namespace SliceTester
             // Limpa o ListView antes de recarregar os arquivos.
             listFiles.Items.Clear();
 
-            // Verifica se a pasta existe.
-            if (Directory.Exists(directoryPath))
+            try
             {
-                try
+                // Obtém todos os arquivos JSON na pasta especificada.
+                string[] jsonFiles = Directory.GetFiles(directoryPath, "*.json");
+
+                // Itera através dos arquivos e os adiciona ao ListView.
+                foreach (string file in jsonFiles)
                 {
-                    // Obtém todos os arquivos JSON na pasta especificada.
-                    string[] jsonFiles = Directory.GetFiles(directoryPath, "*.json");
+                    // Obtém o nome do arquivo.
+                    string fileName = Path.GetFileName(file);
+                    string filePath = file;
 
-                    // Itera através dos arquivos e os adiciona ao ListView.
-                    foreach (string file in jsonFiles)
+                    // Adiciona o arquivo ao ListView incluindo o caminho completo.
+                    ListViewItem item = new ListViewItem(fileName)
                     {
-                        // Obtém o nome do arquivo.
-                        string fileName = Path.GetFileName(file);
-                        string filePath = file;
-
-                        // Adiciona o arquivo ao ListView incluindo o caminho completo.
-                        ListViewItem item = new ListViewItem(fileName)
-                        {
-                            SubItems = { filePath } // Adiciona o caminho completo do arquivo.
-                        };
-                        listFiles.Items.Add(item); // Adiciona o item à ListView.
-                    }
-
-                    // Se não houver arquivos encontrados informa o utilizador.
-                    if (jsonFiles.Length == 0)
-                    {
-                        MessageBox.Show("Nenhum arquivo JSON encontrado na pasta especificada.", "Informação", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
+                        SubItems = { filePath } // Adiciona o caminho completo do arquivo.
+                    };
+                    listFiles.Items.Add(item); // Adiciona o item à ListView.
                 }
-                catch (Exception ex)
-                {
-                    // Se ocorrer um erro ao tentar carregar os arquivos, exibe uma mensagem de erro.
-                    MessageBox.Show($"Erro ao carregar os arquivos: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+
+                // Se não houver arquivos encontrados informa o utilizador.
+                if (jsonFiles.Length == 0)
+                    MessageBox.Show("Nenhum arquivo JSON encontrado na pasta especificada.", "Informação", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                
             }
-            else
+            catch (Exception ex)
             {
-                // Caso a pasta não exista, exibe uma mensagem de erro.
-                MessageBox.Show("A pasta especificada não existe.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                _logger.Log($"[ERRO] Falha ao carregar os arquivos: {ex.Message}");
+                MessageBox.Show($"Erro ao carregar os arquivos: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
 
         private void CreateAppFolder()
         {
@@ -311,27 +302,24 @@ namespace SliceTester
                 var recordedEvents = _macroRecorder.GetRecordedEvents();
 
                 // Verifica se há eventos gravados.
-                if (recordedEvents.Any())
-                {
-                    // Pára a gravação dos eventos que estão em curso.
-                    _macroRecorder.StopRecording();
-
-                    WindowState = FormWindowState.Normal;
-
-                    // Desativa o botão "Stop" pois a gravação foi concluída.
-                    btnStop.Enabled = false;
-
-                    // Reativa os outros botões para permitir ações adicionais.
-                    btnRecord.Enabled = true;
-                    EnableButtons();
-
-                    // Atualiza a visualização dos eventos na interface.
-                    ViewMacroEventGrid();
-
-                }
-                else
-                    // Se não houver eventos gravados, lança uma exceção.
+                if (!recordedEvents.Any())
                     throw new Exception("A lista de eventos gravados está vazia!");
+                
+
+                // Pára a gravação dos eventos que estão em curso.
+                _macroRecorder.StopRecording();
+
+                WindowState = FormWindowState.Normal;
+
+                // Desativa o botão "Stop" pois a gravação foi concluída.
+                btnStop.Enabled = false;
+
+                // Reativa os outros botões para permitir ações adicionais.
+                btnRecord.Enabled = true;
+                EnableButtons();
+
+                // Atualiza a visualização dos eventos na interface.
+                ViewMacroEventGrid();
             }
             catch (Exception ex)
             {
@@ -349,40 +337,32 @@ namespace SliceTester
             var result = MessageBox.Show("A reprodução vai começar depois do OK", "Iniciar Reprodução", MessageBoxButtons.OKCancel);
 
             // Verifica se o utilizador clicou em OK.
-            if (result == DialogResult.OK)
-            {
-                // Desativa o botão Play.
-                btnPlay.Enabled = false;
-
-                // Inicia o replay dos eventos gravados chamando o método Play do objeto macroRecorder.
-                _macroRecorder.Play();
-
-                //reativa o botão Play.
-                btnPlay.Enabled = true;
-
-                WindowState = FormWindowState.Normal;
-            }
-            else
+            if (result != DialogResult.OK)
             {
                 WindowState = FormWindowState.Normal;
 
-                // Caso o usuário cancele a reprodução, registra no log que a reprodução não foi iniciada.
+                // Caso o utilizador cancele a reprodução, registra no log que a reprodução não foi iniciada.
                 _logger.Log("[INFO] Reprodução NÃO iniciada.");
+                
+                return;
             }
+
+            btnPlay.Enabled = false;
+            _macroRecorder.Play();
+            btnPlay.Enabled = true;
+
+            WindowState = FormWindowState.Normal;
         }
 
         private void PlayLoopTest()
         {
-            var events = _macroRecorder.GetRecordedEvents();
-            if (events.Count == 0)
-            {
-                _logger.Log("[INFO] Não há eventos gravados para fazer loop...");
-                MessageBox.Show($"Não há eventos gravados para fazer loop...", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
             try
             {
+                var events = _macroRecorder.GetRecordedEvents();
+
+                if (events.Count == 0)
+                    throw new Exception("Não há eventos gravados para reproduzir.");
+                
                 //Um loop que vai repetir as vezes que o utilizador inserio na Variavel.
                 for (int i = 0; i < Convert.ToInt32(txtLoopBox.Text); i++)
                 {
@@ -444,6 +424,7 @@ namespace SliceTester
 
             // Chama o método EditRecordedEvents da classe _macroRecorder para permitir a edição dos eventos gravados.
             _macroRecorder.EditRecordedEvents();
+            _logger.Log("[INFO] Janela de edição aberta.");
         }
 
         private void SaveTestInDirectory()
@@ -466,7 +447,10 @@ namespace SliceTester
 
                 if (save.ShowDialog() != DialogResult.OK)
                 {
+                    // AVISO.
+
                     _logger.Log("[INFO] Nada foi salvo.");
+                    MessageBox.Show("Nada foi salvo.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
                     return;
                 }
@@ -491,12 +475,13 @@ namespace SliceTester
 
                 LoadJsonFiles();
 
-                // Exibe uma mensagem informando o utilizador que o arquivo foi salvo com sucesso.
+                // CONFIRMAÇÃO.
+
+                _logger.Log($"[INFO] Arquivo salvo em: {fullFilePath}");
                 MessageBox.Show($"Arquivo salvo com sucesso em:\n{fullFilePath}", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
-                // Se ocorrer um erro regista o erro no log e exibe uma mensagem ao utilizador.
                 _logger.Log($"[ERRO] Falha ao salvar o arquivo: {ex.Message}");
                 MessageBox.Show($"Erro ao salvar o arquivo:\n{ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
@@ -504,7 +489,6 @@ namespace SliceTester
 
         private void ImportJson()
         {
-            // Regista no log a informação de que o carregamento do arquivo JSON foi iniciado.
             _logger.Log("[INFO] Carregando arquivo JSON...");
 
             // Cria uma instância de OpenFileDialog para permitir ao utilizador selecionar o arquivo JSON a carregar.
@@ -514,44 +498,41 @@ namespace SliceTester
                 openFileDialog.Filter = "Arquivos JSON (*.json)|*.json|Todos os Arquivos (*.*)|*.*";
                 openFileDialog.Title = "Carregar Macro";  // Define o título da janela de abrir arquivo.
 
-                // Exibe a caixa de diálogo de abrir arquivo e verifica se o utilizador escolheu um arquivo (clicou em "OK").
-                if (openFileDialog.ShowDialog() == DialogResult.OK)
-                {
-                    try
-                    {
-                        // Cria um objeto FileInfo para verificar o tamanho do arquivo selecionado.
-                        FileInfo fileInfo = new FileInfo(openFileDialog.FileName);
 
-                        // Se o arquivo estiver vazio lança uma exceção.
-                        if (fileInfo.Length == 0)
-                            throw new InvalidOperationException("O arquivo selecionado está vazio.");
-
-                        // Chama o método LoadEvents da classe _macroRecorder para carregar os eventos gravados do arquivo selecionado.
-                        _macroRecorder.LoadEvents(openFileDialog.FileName);
-
-                        // Atualiza a visualização dos eventos na interface.
-                        ViewMacroEventGrid();
-
-                        EnableButtons();
-
-                        // Regista no log que o processo de carregamento foi concluído com sucesso.
-                        _logger.Log("[INFO] Processo de carregamento de arquivo concluído.");
-
-                        // Exibe uma mensagem de sucesso informando o utilizador de que o arquivo foi carregado com sucesso.
-                        MessageBox.Show("Arquivo carregado com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
-                    catch (Exception ex)
-                    {
-                        // Se ocorrer um erro ao carregar o arquivo, regista a falha no log e exibe uma mensagem de erro.
-                        _logger.Log($"[ERRO] Falha ao carregar o arquivo JSON: {ex.Message}");
-                        MessageBox.Show($"Erro ao carregar o arquivo:\n{ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                }
-                else
+                if (openFileDialog.ShowDialog() != DialogResult.OK)
                 {
                     // Se o utilizador não selecionar nenhum arquivo (clicou em "Cancelar"), regista no log e exibe uma mensagem de aviso.
                     _logger.Log("[INFO] Nenhum arquivo selecionado.");
                     MessageBox.Show("Nenhum arquivo selecionado", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                try
+                {
+                    // Cria um objeto FileInfo para verificar o tamanho do arquivo selecionado.
+                    FileInfo fileInfo = new FileInfo(openFileDialog.FileName);
+
+                    // Se o arquivo estiver vazio lança uma exceção.
+                    if (fileInfo.Length == 0)
+                        throw new InvalidOperationException("O arquivo selecionado está vazio.");
+
+                    // Chama o método LoadEvents da classe _macroRecorder para carregar os eventos gravados do arquivo selecionado.
+                    _macroRecorder.LoadEvents(openFileDialog.FileName);
+
+                    // Atualiza a visualização dos eventos na interface.
+                    ViewMacroEventGrid();
+
+                    EnableButtons();
+
+                    // CONFIRMAÇÃO.
+
+                    _logger.Log($"[INFO] Processo de carregamento de arquivo concluído: {openFileDialog.FileName}");
+                    MessageBox.Show("Arquivo carregado com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                catch (Exception ex)
+                {
+                    _logger.Log($"[ERRO] Falha ao carregar o arquivo JSON: {ex.Message}");
+                    MessageBox.Show($"Erro ao carregar o arquivo:\n{ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
@@ -577,29 +558,24 @@ namespace SliceTester
                 saveFileDialog.Title = "Salvar Macro";  // Define o título da janela de salvar.
                 saveFileDialog.FileName = "Nome.json";  // Define o nome padrão para o arquivo como "Nome.json".
 
-                // Exibe a caixa de diálogo de salvar e verifica se o utilizador clicou em "OK".
-                if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                try
                 {
-                    try
-                    {
-                        // Chama o método SaveEvents da classe _macroRecorder para salvar os eventos gravados no arquivo selecionado.
-                        _macroRecorder.SaveEvents(saveFileDialog.FileName);
+                    if (saveFileDialog.ShowDialog() != DialogResult.OK)
+                        throw new Exception("O utilizador não escolheu um local para salvar o arquivo.");
+              
+                
+                    // Chama o método SaveEvents da classe _macroRecorder para salvar os eventos gravados no arquivo selecionado.
+                    _macroRecorder.SaveEvents(saveFileDialog.FileName);
 
-                        // Exibe uma mensagem de sucesso informando o utilizador de que o arquivo foi salvo com sucesso.
-                        MessageBox.Show("Arquivo salvo com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
-                    catch (Exception ex)
-                    {
-                        // Caso ocorra um erro ao salvar o arquivo, loga a falha e exibe uma mensagem de erro.
-                        _logger.Log($"[ERRO] Falha ao salvar o arquivo: {ex.Message}");
-                        MessageBox.Show($"Erro ao salvar o arquivo:\n{ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
+                    // CONFIRMAÇÃO.
+                    _logger.Log($"[INFO] Eventos gravados salvos em {saveFileDialog.FileName}");
+                    MessageBox.Show($"Arquivo salvo com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
-                else
+                catch (Exception ex)
                 {
-                    // Caso o utilizador não escolha um local para salvar, loga a informação e exibe uma mensagem de aviso.
-                    _logger.Log("[INFO] o arquivo não foi salvo.");
-                    MessageBox.Show("O arquivo não foi salvo", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    // Caso ocorra um erro ao salvar o arquivo, loga a falha e exibe uma mensagem de erro.
+                    _logger.Log($"[ERRO] Falha ao salvar o arquivo: {ex.Message}");
+                    MessageBox.Show($"Erro ao salvar o arquivo:\n{ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
@@ -634,6 +610,5 @@ namespace SliceTester
             btnStartLoop.Enabled = true;
             txtLoopBox.Enabled = true;
         }
-
     }
 }

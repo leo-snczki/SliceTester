@@ -25,10 +25,8 @@ public class MacroRecorder
     {
         _logManager = logger;
     }
-    public ref readonly bool IsRecording()
-    {
-        return ref _isRecording;
-    }
+    public ref readonly bool IsRecording() => ref _isRecording;
+
     public void StartRecording()
     {
         _recordedEvents.Clear();
@@ -102,7 +100,7 @@ public class MacroRecorder
     }
 
     public void StopRecording()
-    {
+    {        
         _globalHook.Dispose();
         _stopwatch.Stop();
         _isRecording = false;
@@ -162,7 +160,7 @@ public class MacroRecorder
                         case MouseButtons.Right:
                             inputSimulator.Mouse.RightButtonDown();
                             break;
-                        // Botões laterais do rato.
+                        // Botões 1 e 2 são laterais do rato.
                         case MouseButtons.XButton1:
                             inputSimulator.Mouse.XButtonDown(1);
                             break;
@@ -184,7 +182,7 @@ public class MacroRecorder
                         case MouseButtons.Right:
                             inputSimulator.Mouse.RightButtonUp();
                             break;
-                        // Botões laterais do rato.
+                        // Botões 1 e 2 são laterais do rato.
                         case MouseButtons.XButton1:
                             inputSimulator.Mouse.XButtonUp(1);
                             break;
@@ -209,24 +207,22 @@ public class MacroRecorder
         _logManager.Log("[INFO] Eventos gravados apagados.");
 
     }
-    public List<MacroEvent> GetRecordedEvents()
-    {
-        return _recordedEvents;
-    }
+
+    public List<MacroEvent> GetRecordedEvents() => _recordedEvents;
+
+    // SaveEvent e LoadEvents sem confirmação porque a mesma está no form com try catch.
+    // SaveEvent e LoadEvents Serializa ou desserializa a lista de eventos ou um arquivo JSON, respetivamente.
 
     public void SaveEvents(string path)
     {
-        // Serializa a lista de eventos gravados em um arquivo JSON.
         var json = JsonConvert.SerializeObject(_recordedEvents);
         System.IO.File.WriteAllText(path, json);
-        _logManager.Log($"[INFO] Eventos gravados salvos em {path}");
     }
+
     public void LoadEvents(string path)
     {
-        // Lê o arquivo JSON e desserializa a lista de eventos gravados.
         var json = System.IO.File.ReadAllText(path);
         _recordedEvents = JsonConvert.DeserializeObject<List<MacroEvent>>(json);
-        _logManager.Log($"[INFO] Eventos gravados carregados de {path}");
     }
 
     public void EditRecordedEvents()
