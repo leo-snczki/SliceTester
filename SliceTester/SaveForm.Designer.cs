@@ -29,61 +29,57 @@ namespace SliceTester
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SaveForm));
             this.btnOK = new DevExpress.XtraEditors.SimpleButton();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.txtSaveFile = new System.Windows.Forms.TextBox();
             this.lblNewTestName = new System.Windows.Forms.Label();
             this.btnCancel = new DevExpress.XtraEditors.SimpleButton();
             this.SuspendLayout();
             // 
             // btnOK
             // 
-            this.btnOK.Location = new System.Drawing.Point(300, 83);
-            this.btnOK.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.btnOK.Location = new System.Drawing.Point(180, 47);
             this.btnOK.Name = "btnOK";
-            this.btnOK.Size = new System.Drawing.Size(167, 41);
+            this.btnOK.Size = new System.Drawing.Size(100, 23);
             this.btnOK.TabIndex = 0;
             this.btnOK.Text = "OK";
             this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
             // 
-            // textBox1
+            // txtSaveFile
             // 
-            this.textBox1.Location = new System.Drawing.Point(93, 22);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(374, 30);
-            this.textBox1.TabIndex = 2;
+            this.txtSaveFile.Location = new System.Drawing.Point(56, 12);
+            this.txtSaveFile.Name = "txtSaveFile";
+            this.txtSaveFile.Size = new System.Drawing.Size(226, 21);
+            this.txtSaveFile.TabIndex = 2;
             // 
             // lblNewTestName
             // 
             this.lblNewTestName.AutoSize = true;
-            this.lblNewTestName.Location = new System.Drawing.Point(21, 25);
-            this.lblNewTestName.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.lblNewTestName.Location = new System.Drawing.Point(13, 14);
             this.lblNewTestName.Name = "lblNewTestName";
-            this.lblNewTestName.Size = new System.Drawing.Size(62, 24);
+            this.lblNewTestName.Size = new System.Drawing.Size(34, 13);
             this.lblNewTestName.TabIndex = 3;
             this.lblNewTestName.Text = "Nome";
-            this.lblNewTestName.Click += new System.EventHandler(this.label1_Click);
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(93, 83);
-            this.btnCancel.Margin = new System.Windows.Forms.Padding(5);
+            this.btnCancel.Location = new System.Drawing.Point(56, 47);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(167, 41);
+            this.btnCancel.Size = new System.Drawing.Size(100, 23);
             this.btnCancel.TabIndex = 0;
             this.btnCancel.Text = "Fechar";
-            this.btnCancel.Click += new System.EventHandler(this.btnOK_Click);
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // SaveForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 23F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(497, 160);
+            this.ClientSize = new System.Drawing.Size(298, 90);
             this.Controls.Add(this.lblNewTestName);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.txtSaveFile);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOK);
-            this.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.IconOptions.LargeImage = ((System.Drawing.Image)(resources.GetObject("SaveForm.IconOptions.LargeImage")));
             this.Name = "SaveForm";
             this.Text = "Salvar";
             this.ResumeLayout(false);
@@ -94,7 +90,7 @@ namespace SliceTester
         #endregion
 
         private DevExpress.XtraEditors.SimpleButton btnOK;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txtSaveFile;
         private System.Windows.Forms.Label lblNewTestName;
         private DevExpress.XtraEditors.SimpleButton btnCancel;
     }

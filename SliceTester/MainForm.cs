@@ -2,6 +2,7 @@
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using DevExpress.Internal.WinApi.Windows.UI.Notifications;
 using DevExpress.XtraGrid.Views.Grid;
 using Gma.System.MouseKeyHook;
 using SliceTester.Classes;
@@ -30,10 +31,8 @@ namespace SliceTester
             ref readonly bool recording = ref _macroRecorder.IsRecording();
 
             if (e.Control && e.KeyCode == Keys.F2)
-            {
-                btnStop_Click(sender, e);
-            }
-
+                StopTest();
+            
             if (recording)
                 return;
 
@@ -43,28 +42,28 @@ namespace SliceTester
                 switch (e.KeyCode)
                 {
                     case Keys.F1:
-                        btnRecord_Click(sender, e);
+                        RecordTest();
                         break;
                     case Keys.F3:
-                        btnPlay_Click(sender, e);
+                        PlayTest();
                         break;
                     case Keys.F4:
-                        btnClear_Click(sender, e);
+                        ClearTest();
                         break;
                     case Keys.F5:
-                        btnExportJson_Click(sender, e);
+                        ExportJson();
                         break;
                     case Keys.F6:
-                        btnImportJson_Click(sender, e);
+                        ImportJson();
                         break;
                     case Keys.F7:
-                        BtnStartLoop_Click(sender, e);
+                        PlayLoopTest();
                         break;
                     case Keys.F8:
-                        btnSave_Click(sender, e);
+                        SaveTestInDirectory();
                         break;
                     case Keys.F9:
-                        btnEdit_Click(sender, e);
+                        ModifyTest();
                         break;
                 }
             }
@@ -72,251 +71,54 @@ namespace SliceTester
 
         private void btnRecord_Click(object sender, EventArgs e)
         {
-            // Exibe uma mensagem ao utilizador informando que a gravação começará após a confirmação.
-            WindowState = FormWindowState.Minimized;
-            var result = MessageBox.Show("A gravação vai começar depois do OK", "Iniciar Gravação", MessageBoxButtons.OKCancel);
-
-            if (result == DialogResult.OK) // Se o utilizador confirmar a ação.
-            {
-                // Desativa o botão "Record" para evitar cliques repetidos.
-                btnRecord.Enabled = false;
-                // Inicia o processo de gravação da função.
-                _macroRecorder.StartRecording();
-                // Ativa o botão Stop.
-                btnStop.Enabled = true;
-            }
-            else
-            {
-                WindowState = FormWindowState.Normal;
-
-                // Caso o utilizador cancele a gravação, regista no log que a gravação não foi iniciada.
-                _logger.Log("[INFO] Gravação NÃO iniciada.");
-            }
+            RecordTest();
         }
 
         private void btnStop_Click(object sender, EventArgs e)
         {
-            try
-            {
-                // Obtém a lista de eventos gravados.
-                var recordedEvents = _macroRecorder.GetRecordedEvents();
-
-                // Verifica se há eventos gravados.
-                if (recordedEvents.Any())
-                {
-                    // Pára a gravação dos eventos que estão em curso.
-                    _macroRecorder.StopRecording();
-
-                    WindowState = FormWindowState.Normal;
-
-                    // Desativa o botão "Stop" pois a gravação foi concluída.
-                    btnStop.Enabled = false;
-
-                    // Reativa os outros botões para permitir ações adicionais.
-                    btnRecord.Enabled = true;
-                    EnableButtons();
-
-                    // Atualiza a visualização dos eventos na interface.
-                    ViewMacroEventGrid();
-
-                }
-                else
-                    // Se não houver eventos gravados, lança uma exceção.
-                    throw new Exception("A lista de eventos gravados está vazia!");
-            }
-            catch (Exception ex)
-            {
-                // Caso ocorra algum erro, registra o erro e exibe uma mensagem.
-                _logger.Log($"[ERRO] Falha ao parar a gravação: {ex.Message}");
-                MessageBox.Show($"Erro ao parar a gravação:\n{ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            StopTest();
         }
 
         private void btnPlay_Click(object sender, EventArgs e)
         {
-            WindowState = FormWindowState.Minimized;
-
-            // Exibe uma caixa de mensagem informando ao utilizador que o reply vai começar após o clique em OK.
-            var result = MessageBox.Show("A reprodução vai começar depois do OK", "Iniciar Reprodução", MessageBoxButtons.OKCancel);
-
-            // Verifica se o utilizador clicou em OK.
-            if (result == DialogResult.OK)
-            {
-                // Desativa o botão Play.
-                btnPlay.Enabled = false;
-
-                // Inicia o replay dos eventos gravados chamando o método Play do objeto macroRecorder.
-                _macroRecorder.Play();
-
-                //reativa o botão Play.
-                btnPlay.Enabled = true;
-
-                WindowState = FormWindowState.Normal;
-            }
-            else
-            {
-                WindowState = FormWindowState.Normal;
-
-                // Caso o usuário cancele a reprodução, registra no log que a reprodução não foi iniciada.
-                _logger.Log("[INFO] Reprodução NÃO iniciada.");
-            }
+            PlayTest();
         }
 
         private void btnClear_Click(object sender, EventArgs e)
         {
-            // Verifica se há eventos gravados na lista.
-            if (_macroRecorder.GetRecordedEvents().Count > 0)
-            {
-                // Exibe uma caixa de mensagem perguntando se o utilizador tem certeza de que deseja limpar a lista.
-                var result = MessageBox.Show("Tem certeza que deseja limpar a lista de eventos gravados?", "Limpar Eventos", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-
-                // Se o utilizador clicar em "Sim", a lista de eventos será limpa.
-                if (result == DialogResult.Yes)
-                {
-                    // Chama o método ClearEvents para apagar os eventos gravados.
-                    _macroRecorder.ClearEvents();
-
-                    // Atualiza a visualização dos eventos na grelha.
-                    ViewMacroEventGrid();
-
-                    DisableButtons();
-                }
-            }
-            else
-            {
-                _logger.Log("[INFO] Não tem nada para limpar.");
-                MessageBox.Show("Não tem nada para limpar.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            ClearTest();
         }
 
         private void btnEdit_Click(object sender, EventArgs e)
         {
-            var events = _macroRecorder.GetRecordedEvents();
-            if (events.Count == 0)
-            {
-                _logger.Log("[INFO] Não há eventos gravados para salvar...");
-                MessageBox.Show($"Não há eventos gravados para salvar...", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-                return;
-            }
-
-            // Chama o método EditRecordedEvents da classe _macroRecorder para permitir a edição dos eventos gravados.
-            _macroRecorder.EditRecordedEvents();
+            ModifyTest();
         }
 
         private void BtnStartLoop_Click(object sender, EventArgs e)
         {
-            var events = _macroRecorder.GetRecordedEvents();
-            if (events.Count == 0)
-            {
-                _logger.Log("[INFO] Não há eventos gravados para fazer loop...");
-                MessageBox.Show($"Não há eventos gravados para fazer loop...", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-            try
-            {
-                //Um loop que vai repetir as vezes que o utilizador inserio na Variavel.
-                for (int i = 0; i < Convert.ToInt32(txtLoopBox.Text); i++)
-                {
-                    // Desativa o botão replay.
-                    btnPlay.Enabled = false;
-
-                    // Chama o método Play da classe _macroRecorder para reproduzir os eventos gravados.
-                    _macroRecorder.Play();
-
-                    // Reativa o botão.
-                    btnPlay.Enabled = true;
-                }
-            }
-            catch (Exception ex)
-            {
-                // Caso ocorra um erro ao salvar o arquivo, loga a falha e exibe uma mensagem de erro.
-                _logger.Log($"[ERRO] Falha no Loop: {ex.Message}");
-                MessageBox.Show($"Erro ao iniciar loop: \n{ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-
+            PlayLoopTest();
         }
 
         private void btnExportJson_Click(object sender, EventArgs e)
         {
-
-            var events = _macroRecorder.GetRecordedEvents();
-            if (events.Count == 0)
-            {
-                _logger.Log("[INFO] Não há eventos gravados para exportar...");
-                MessageBox.Show($"Não há eventos gravados para exportar...", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-                return;
-            }
-
-            _logger.Log("[INFO] Exportando arquivo JSON...");
-
             ExportJson();
         }
 
         private void btnImportJson_Click(object sender, EventArgs e)
         {
-            // Regista no log a informação de que o carregamento do arquivo JSON foi iniciado.
-            _logger.Log("[INFO] Carregando arquivo JSON...");
-
             ImportJson();
         }
 
         // Método chamado quando o utilizador clica no botão "Salvar" para guardar o arquivo.
         private void btnSave_Click(object sender, EventArgs e)
         {
-            var events = _macroRecorder.GetRecordedEvents();
-            if (events.Count == 0)
-            {
-                _logger.Log("[INFO] Não há eventos gravados para salvar...");
-                MessageBox.Show($"Não há eventos gravados para salvar...", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            SaveTestInDirectory();
+        }
 
-                return;
-            }
-            try
-            {
-                SaveForm save = new SaveForm();
-                save.ShowDialog();  // Exibe a janela de diálogo para o utilizador escolher o nome do arquivo.
-
-                // Obtém o nome do arquivo inserido pelo utilizador.
-                string fileName = SaveForm.inputString;
-
-                // Verifica se o nome do arquivo é inválido branco ou nulo.
-                if (string.IsNullOrWhiteSpace(fileName))
-                {
-                    MessageBox.Show("Nome do arquivo inválido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;  // Interrompe a execução se o nome do arquivo for inválido.
-                }
-
-                // Garante que o nome do arquivo tenha a extensão json.
-                if (!fileName.EndsWith(".json", StringComparison.OrdinalIgnoreCase))
-                {
-                    fileName += ".json";
-                }
-
-                // Define o caminho da pasta onde o arquivo será salvo.
-                string binPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\bin\MacroFiles");
-                string fullFilePath = Path.Combine(binPath, fileName);  // Caminho completo do arquivo.
-
-                // Verifica se a pasta existe se não cria.
-                if (!Directory.Exists(binPath))
-                {
-                    Directory.CreateDirectory(binPath);
-                }
-
-                // Chama o método SaveEvents da classe _macroRecorder para salvar os eventos no arquivo.
-                _macroRecorder.SaveEvents(fullFilePath);
-                LoadJsonFiles();
-                // Exibe uma mensagem informando o utilizador que o arquivo foi salvo com sucesso.
-                MessageBox.Show($"Arquivo salvo com sucesso em:\n{fullFilePath}", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            catch (Exception ex)
-            {
-                // Se ocorrer um erro regista o erro no log e exibe uma mensagem ao utilizador.
-                _logger.Log($"[ERRO] Falha ao salvar o arquivo: {ex.Message}");
-                MessageBox.Show($"Erro ao salvar o arquivo:\n{ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+        private void btnRefresh_Click(object sender, EventArgs e)
+        {
+            // Chama o método que carrega os arquivos JSON na interface.
+            LoadJsonFiles();
         }
 
         private void ListFiles_ItemActivate(object sender, EventArgs e)
@@ -359,13 +161,21 @@ namespace SliceTester
             }
         }
 
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            _hook.Dispose(); // Libera o hook.
+        }
+
         private void LoadJsonFiles()
         {
+            string binPath;
+            string directoryPath;
+
             // Obtém o caminho relativo para a pasta "MacroFiles" dentro da pasta bin.
-            string binPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\bin\MacroFiles");
+            binPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\bin\MacroFiles");
 
             // Obtém o caminho completo da pasta
-            string directoryPath = Path.GetFullPath(binPath);
+            directoryPath = Path.GetFullPath(binPath);
 
             // Limpa o ListView antes de recarregar os arquivos.
             listFiles.Items.Clear();
@@ -414,11 +224,14 @@ namespace SliceTester
 
         private void CreateAppFolder()
         {
+            string binPath;
+            string macroFilesPath;
+
             // Garante que o caminho está sempre a apontar para a pasta bin correta.
-            string binPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\bin\MacroFiles");
+            binPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\bin\MacroFiles");
 
             // Obtém o caminho absoluto da pasta.
-            string macroFilesPath = Path.GetFullPath(binPath);
+            macroFilesPath = Path.GetFullPath(binPath);
 
 
             // Cria a pasta se não existir.
@@ -466,14 +279,234 @@ namespace SliceTester
             gridViewer.RefreshDataSource(); // Garante que os dados sejam recarregados corretamente.
         }
 
-        private void btnRefresh_Click(object sender, EventArgs e)
+        private void RecordTest()
         {
-            // Chama o método que carrega os arquivos JSON na interface.
-            LoadJsonFiles();
+            // Exibe uma mensagem ao utilizador informando que a gravação começará após a confirmação.
+            WindowState = FormWindowState.Minimized;
+            var result = MessageBox.Show("A gravação vai começar depois do OK", "Iniciar Gravação", MessageBoxButtons.OKCancel);
+
+            if (result == DialogResult.OK) // Se o utilizador confirmar a ação.
+            {
+                // Desativa o botão "Record" para evitar cliques repetidos.
+                btnRecord.Enabled = false;
+                // Inicia o processo de gravação da função.
+                _macroRecorder.StartRecording();
+                // Ativa o botão Stop.
+                btnStop.Enabled = true;
+            }
+            else
+            {
+                WindowState = FormWindowState.Normal;
+
+                // Caso o utilizador cancele a gravação, regista no log que a gravação não foi iniciada.
+                _logger.Log("[INFO] Gravação NÃO iniciada.");
+            }
+        }
+
+        private void StopTest()
+        {
+            try
+            {
+                // Obtém a lista de eventos gravados.
+                var recordedEvents = _macroRecorder.GetRecordedEvents();
+
+                // Verifica se há eventos gravados.
+                if (recordedEvents.Any())
+                {
+                    // Pára a gravação dos eventos que estão em curso.
+                    _macroRecorder.StopRecording();
+
+                    WindowState = FormWindowState.Normal;
+
+                    // Desativa o botão "Stop" pois a gravação foi concluída.
+                    btnStop.Enabled = false;
+
+                    // Reativa os outros botões para permitir ações adicionais.
+                    btnRecord.Enabled = true;
+                    EnableButtons();
+
+                    // Atualiza a visualização dos eventos na interface.
+                    ViewMacroEventGrid();
+
+                }
+                else
+                    // Se não houver eventos gravados, lança uma exceção.
+                    throw new Exception("A lista de eventos gravados está vazia!");
+            }
+            catch (Exception ex)
+            {
+                // Caso ocorra algum erro, registra o erro e exibe uma mensagem.
+                _logger.Log($"[ERRO] Falha ao parar a gravação: {ex.Message}");
+                MessageBox.Show($"Erro ao parar a gravação:\n{ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void PlayTest()
+        {
+            WindowState = FormWindowState.Minimized;
+
+            // Exibe uma caixa de mensagem informando ao utilizador que o reply vai começar após o clique em OK.
+            var result = MessageBox.Show("A reprodução vai começar depois do OK", "Iniciar Reprodução", MessageBoxButtons.OKCancel);
+
+            // Verifica se o utilizador clicou em OK.
+            if (result == DialogResult.OK)
+            {
+                // Desativa o botão Play.
+                btnPlay.Enabled = false;
+
+                // Inicia o replay dos eventos gravados chamando o método Play do objeto macroRecorder.
+                _macroRecorder.Play();
+
+                //reativa o botão Play.
+                btnPlay.Enabled = true;
+
+                WindowState = FormWindowState.Normal;
+            }
+            else
+            {
+                WindowState = FormWindowState.Normal;
+
+                // Caso o usuário cancele a reprodução, registra no log que a reprodução não foi iniciada.
+                _logger.Log("[INFO] Reprodução NÃO iniciada.");
+            }
+        }
+
+        private void PlayLoopTest()
+        {
+            var events = _macroRecorder.GetRecordedEvents();
+            if (events.Count == 0)
+            {
+                _logger.Log("[INFO] Não há eventos gravados para fazer loop...");
+                MessageBox.Show($"Não há eventos gravados para fazer loop...", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            try
+            {
+                //Um loop que vai repetir as vezes que o utilizador inserio na Variavel.
+                for (int i = 0; i < Convert.ToInt32(txtLoopBox.Text); i++)
+                {
+                    // Desativa o botão replay.
+                    btnPlay.Enabled = false;
+
+                    // Chama o método Play da classe _macroRecorder para reproduzir os eventos gravados.
+                    _macroRecorder.Play();
+
+                    // Reativa o botão.
+                    btnPlay.Enabled = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                // Caso ocorra um erro ao salvar o arquivo, loga a falha e exibe uma mensagem de erro.
+                _logger.Log($"[ERRO] Falha no Loop: {ex.Message}");
+                MessageBox.Show($"Erro ao iniciar loop: \n{ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void ClearTest()
+        {
+            // Verifica se há eventos gravados na lista.
+            if (_macroRecorder.GetRecordedEvents().Count > 0)
+            {
+                // Exibe uma caixa de mensagem perguntando se o utilizador tem certeza de que deseja limpar a lista.
+                var result = MessageBox.Show("Tem certeza que deseja limpar a lista de eventos gravados?", "Limpar Eventos", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                // Se o utilizador clicar em "Sim", a lista de eventos será limpa.
+                if (result == DialogResult.Yes)
+                {
+                    // Chama o método ClearEvents para apagar os eventos gravados.
+                    _macroRecorder.ClearEvents();
+
+                    // Atualiza a visualização dos eventos na grelha.
+                    ViewMacroEventGrid();
+
+                    DisableButtons();
+                }
+            }
+            else
+            {
+                _logger.Log("[INFO] Não tem nada para limpar.");
+                MessageBox.Show("Não tem nada para limpar.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void ModifyTest()
+        {
+            var events = _macroRecorder.GetRecordedEvents();
+            if (events.Count == 0)
+            {
+                _logger.Log("[INFO] Não há eventos gravados para salvar...");
+                MessageBox.Show($"Não há eventos gravados para salvar...", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                return;
+            }
+
+            // Chama o método EditRecordedEvents da classe _macroRecorder para permitir a edição dos eventos gravados.
+            _macroRecorder.EditRecordedEvents();
+        }
+
+        private void SaveTestInDirectory()
+        {
+            var events = _macroRecorder.GetRecordedEvents();
+            if (events.Count == 0)
+            {
+                _logger.Log("[INFO] Não há eventos gravados para salvar...");
+                MessageBox.Show($"Não há eventos gravados para salvar...", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                return;
+            }
+            try
+            {
+                SaveForm save = new SaveForm();
+
+                string fileName;
+                string binPath;
+                string fullFilePath;
+
+                if (save.ShowDialog() != DialogResult.OK)
+                {
+                    _logger.Log("[INFO] Nada foi salvo.");
+
+                    return;
+                }
+
+                fileName = save.fileName;
+
+                // Garante que o nome do arquivo tenha a extensão json.
+                if (!fileName.EndsWith(".json", StringComparison.OrdinalIgnoreCase))
+                    fileName += ".json";
+
+                // Define o caminho da pasta onde o arquivo será salvo.
+                binPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\bin\MacroFiles");
+                fullFilePath = Path.Combine(binPath, fileName);  // Caminho completo do arquivo.
+
+                // Verifica se a pasta existe se não cria.
+                if (!Directory.Exists(binPath))
+                    Directory.CreateDirectory(binPath);
+
+
+                // Chama o método SaveEvents da classe _macroRecorder para salvar os eventos no arquivo.
+                _macroRecorder.SaveEvents(fullFilePath);
+
+                LoadJsonFiles();
+
+                // Exibe uma mensagem informando o utilizador que o arquivo foi salvo com sucesso.
+                MessageBox.Show($"Arquivo salvo com sucesso em:\n{fullFilePath}", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                // Se ocorrer um erro regista o erro no log e exibe uma mensagem ao utilizador.
+                _logger.Log($"[ERRO] Falha ao salvar o arquivo: {ex.Message}");
+                MessageBox.Show($"Erro ao salvar o arquivo:\n{ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void ImportJson()
         {
+            // Regista no log a informação de que o carregamento do arquivo JSON foi iniciado.
+            _logger.Log("[INFO] Carregando arquivo JSON...");
+
             // Cria uma instância de OpenFileDialog para permitir ao utilizador selecionar o arquivo JSON a carregar.
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
             {
@@ -525,6 +558,17 @@ namespace SliceTester
 
         private void ExportJson()
         {
+            var events = _macroRecorder.GetRecordedEvents();
+            if (events.Count == 0)
+            {
+                _logger.Log("[INFO] Não há eventos gravados para exportar...");
+                MessageBox.Show($"Não há eventos gravados para exportar...", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                return;
+            }
+
+            _logger.Log("[INFO] Exportando arquivo JSON...");
+
             // Cria uma instância de SaveFileDialog para permitir ao utilizador escolher o local e nome do arquivo para salvar.
             using (SaveFileDialog saveFileDialog = new SaveFileDialog())
             {
@@ -591,10 +635,5 @@ namespace SliceTester
             txtLoopBox.Enabled = true;
         }
 
-
-        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            _hook.Dispose(); // Libera o hook.
-        }
     }
 }

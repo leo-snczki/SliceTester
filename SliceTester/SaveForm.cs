@@ -13,23 +13,30 @@ namespace SliceTester
 {
     public partial class SaveForm : DevExpress.XtraEditors.XtraForm
     {
+        public string fileName;
         public SaveForm()
         {
             InitializeComponent();
         }
 
-        public static string inputString;
-
         private void btnOK_Click(object sender, EventArgs e)
         {
-            inputString = textBox1.Text;
+            fileName = txtSaveFile.Text;
 
-            this.Close();
+            // Verifica se o nome do arquivo é inválido branco ou nulo.
+            if (string.IsNullOrWhiteSpace(fileName))
+            {
+                MessageBox.Show("Nome do arquivo inválido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            DialogResult = DialogResult.OK;
+            Close();
         }
 
-        private void label1_Click(object sender, EventArgs e)
+        private void btnCancel_Click(object sender, EventArgs e)
         {
-
+            Close();
         }
     }
 }
