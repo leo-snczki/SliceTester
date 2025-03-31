@@ -5,6 +5,7 @@ using System.Windows.Forms;
 using DevExpress.XtraGrid.Views.Grid;
 using Gma.System.MouseKeyHook;
 using SliceTester.Classes;
+using System.Drawing;
 
 namespace SliceTester
 {
@@ -23,6 +24,45 @@ namespace SliceTester
             GlobalHotkeys();
             LoadJsonFiles();
 
+        }
+
+        // Mouse drag logic
+        private bool isDragging = false;
+        private Point lastLocation;
+
+        private void TitleBarPanel_MouseDown(object sender, MouseEventArgs e)
+        {
+            isDragging = true;
+            lastLocation = e.Location;
+        }
+
+        private void TitleBarPanel_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (isDragging)
+            {
+                this.Location = new Point(
+                    (this.Location.X - lastLocation.X) + e.X,
+                    (this.Location.Y - lastLocation.Y) + e.Y);
+
+                this.Update();
+            }
+        }
+
+        private void TitleBarPanel_MouseUp(object sender, MouseEventArgs e)
+        {
+            isDragging = false;
+        }
+
+
+        private void MinimizeButton_Click(object sender, EventArgs e)
+        {
+            this.WindowState = FormWindowState.Minimized;
+        }
+
+
+        private void CloseButton_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
 
         private void GlobalKeyDown(object sender, KeyEventArgs e)
