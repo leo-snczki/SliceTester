@@ -114,13 +114,7 @@ namespace SliceTester
 
                     // Reativa os outros botões para permitir ações adicionais.
                     btnRecord.Enabled = true;
-                    btnPlay.Enabled = true;
-                    btnExportJson.Enabled = true;
-                    btnClear.Enabled = true;
-                    btnEdit.Enabled = true;
-                    btnSave.Enabled = true;
-                    btnStartLoop.Enabled = true;
-                    txtLoopBox.Enabled = true;
+                    EnableButtons();
 
                     // Atualiza a visualização dos eventos na interface.
                     ViewMacroEventGrid();
@@ -185,14 +179,7 @@ namespace SliceTester
                     // Atualiza a visualização dos eventos na grelha.
                     ViewMacroEventGrid();
 
-                    // Desativa os botões 
-                    btnClear.Enabled = false;
-                    btnPlay.Enabled = false;
-                    btnExportJson.Enabled = false;
-                    btnEdit.Enabled = false;
-                    btnSave.Enabled = false;
-                    btnStartLoop.Enabled = false;
-                    txtLoopBox.Enabled = false;
+                    DisableButtons();
                 }
             }
             else
@@ -355,15 +342,7 @@ namespace SliceTester
                     // Atualiza a visualização dos eventos na interface.
                     ViewMacroEventGrid();
 
-                    // Ativa os botões.
-                    btnClear.Enabled = true;
-                    btnPlay.Enabled = true;
-                    btnExportJson.Enabled = true;
-                    btnEdit.Enabled = true;
-                    btnStartLoop.Enabled = true;
-                    btnSave.Enabled = true;
-                    txtLoopBox.Enabled = true;
-
+                    EnableButtons();
 
                     // Regista no log que o processo de carregamento foi concluído.
                     _logger.Log("[INFO] Processo de carregamento de arquivo concluído.");
@@ -520,15 +499,7 @@ namespace SliceTester
                         // Atualiza a visualização dos eventos na interface.
                         ViewMacroEventGrid();
 
-                        // Ativa os botões .
-                        btnClear.Enabled = true;
-                        btnPlay.Enabled = true;
-                        btnExportJson.Enabled = true;
-                        btnEdit.Enabled = true;
-                        btnSave.Enabled = true;
-                        btnStartLoop.Enabled = true;
-                        txtLoopBox.Enabled = true;
-
+                        EnableButtons();
 
                         // Regista no log que o processo de carregamento foi concluído com sucesso.
                         _logger.Log("[INFO] Processo de carregamento de arquivo concluído.");
@@ -596,6 +567,28 @@ namespace SliceTester
 
             // Associa o evento de tecla pressionada ao método GlobalKeyDown.
             _hook.KeyDown += GlobalKeyDown;
+        }
+
+        private void DisableButtons()
+        {
+            btnClear.Enabled = false;
+            btnPlay.Enabled = false;
+            btnExportJson.Enabled = false;
+            btnEdit.Enabled = false;
+            btnSave.Enabled = false;
+            btnStartLoop.Enabled = false;
+            txtLoopBox.Enabled = false;
+        }
+
+        private void EnableButtons()
+        {
+            btnClear.Enabled = true;
+            btnPlay.Enabled = true;
+            btnExportJson.Enabled = true;
+            btnEdit.Enabled = true;
+            btnSave.Enabled = true;
+            btnStartLoop.Enabled = true;
+            txtLoopBox.Enabled = true;
         }
 
 
