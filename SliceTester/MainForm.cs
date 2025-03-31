@@ -85,6 +85,13 @@ namespace SliceTester
                 // Ativa o botão Stop.
                 btnStop.Enabled = true;
             }
+            else
+            {
+                WindowState = FormWindowState.Normal;
+
+                // Caso o utilizador cancele a gravação, regista no log que a gravação não foi iniciada.
+                _logger.Log("[INFO] Gravação NÃO iniciada.");
+            }
         }
 
         private void btnStop_Click(object sender, EventArgs e)
@@ -154,6 +161,8 @@ namespace SliceTester
             }
             else
             {
+                WindowState = FormWindowState.Normal;
+
                 // Caso o usuário cancele a reprodução, registra no log que a reprodução não foi iniciada.
                 _logger.Log("[INFO] Reprodução NÃO iniciada.");
             }
@@ -300,7 +309,7 @@ namespace SliceTester
                 }
 
                 // Define o caminho da pasta onde o arquivo será salvo.
-                string binPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\bin\JsonLogs");
+                string binPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\bin\MacroFiles");
                 string fullFilePath = Path.Combine(binPath, fileName);  // Caminho completo do arquivo.
 
                 // Verifica se a pasta existe se não cria.
@@ -373,8 +382,8 @@ namespace SliceTester
 
         private void LoadJsonFiles()
         {
-            // Obtém o caminho relativo para a pasta "JsonLogs" dentro da pasta bin.
-            string binPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\bin\JsonLogs");
+            // Obtém o caminho relativo para a pasta "MacroFiles" dentro da pasta bin.
+            string binPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\bin\MacroFiles");
 
             // Obtém o caminho completo da pasta
             string directoryPath = Path.GetFullPath(binPath);
@@ -427,18 +436,18 @@ namespace SliceTester
         private void CreateAppFolder()
         {
             // Garante que o caminho está sempre a apontar para a pasta bin correta.
-            string binPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\bin\JsonLogs");
+            string binPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\bin\MacroFiles");
 
             // Obtém o caminho absoluto da pasta.
-            string jsonLogsPath = Path.GetFullPath(binPath);
+            string macroFilesPath = Path.GetFullPath(binPath);
 
 
             // Cria a pasta se não existir.
-            if (!Directory.Exists(jsonLogsPath))
+            if (!Directory.Exists(macroFilesPath))
             {
-                Directory.CreateDirectory(jsonLogsPath);
+                Directory.CreateDirectory(macroFilesPath);
                 // Exibe uma mensagem indicando que a pasta foi criada.
-                MessageBox.Show("Pasta criada em: " + jsonLogsPath);
+                MessageBox.Show("Pasta criada em: " + macroFilesPath);
             }
         }
 
