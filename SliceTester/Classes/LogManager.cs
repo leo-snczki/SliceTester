@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Windows.Forms;
 
 namespace SliceTester.Classes
@@ -27,6 +28,18 @@ namespace SliceTester.Classes
             logTextBox.AppendText(message + Environment.NewLine); // Adiciona o texto da mensagem ao final do conteúdo atual do TextBox
             logTextBox.ScrollToCaret(); // Rola a barra de rolagem para a última linha inserida no TextBox
 
+        }
+        public void ExportLogToFile()
+        {
+            using (SaveFileDialog saveFileDialog = new SaveFileDialog())
+            {
+                saveFileDialog.Filter = "Arquivos TXT (*.txt)|*.txt|Todos os Arquivos (*.*)|*.*";
+                saveFileDialog.Title = "Salvar Log";
+                saveFileDialog.FileName = "Log.txt";
+
+                if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                    File.WriteAllLines(saveFileDialog.FileName, logTextBox.Lines);                
+            }
         }
     }
 }

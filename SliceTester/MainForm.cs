@@ -240,7 +240,7 @@ namespace SliceTester
         private void loadDataGridConfig()
         {
             // Obter a GridView associada ao GridControl.
-            var gridView = gridViewer.MainView as GridView;
+            var gridView = gridControl.MainView as GridView;
 
             // Verifica se a GridView foi obtida corretamente.
             if (gridView != null)
@@ -267,10 +267,10 @@ namespace SliceTester
             loadDataGridConfig();
 
             // Atribui a lista de eventos gravados como fonte de dados para a grid
-            gridViewer.DataSource = _macroRecorder.GetRecordedEvents();
+            gridControl.DataSource = _macroRecorder.GetRecordedEvents();
 
             // Recarrega os dados na grid para refletir as alterações.
-            gridViewer.RefreshDataSource(); // Garante que os dados sejam recarregados corretamente.
+            gridControl.RefreshDataSource(); // Garante que os dados sejam recarregados corretamente.
         }
 
         private void RecordTest()
@@ -359,7 +359,7 @@ namespace SliceTester
                     throw new Exception("Não há eventos gravados para reproduzir.");
                 
                 //Um loop que vai repetir as vezes que o utilizador inserio na Variavel.
-                for (int i = 0; i < Convert.ToInt32(txtLoopBox.Text); i++)
+                for (int i = 0; i < Convert.ToInt32(NumLoopBox); i++)
                 {
                     // Desativa o botão replay.
                     btnPlay.Enabled = false;
@@ -594,7 +594,7 @@ namespace SliceTester
             btnEdit.Enabled = false;
             btnSave.Enabled = false;
             btnStartLoop.Enabled = false;
-            txtLoopBox.Enabled = false;
+            NumLoopBox.Enabled = false;
         }
 
         private void EnableButtons()
@@ -605,7 +605,7 @@ namespace SliceTester
             btnEdit.Enabled = true;
             btnSave.Enabled = true;
             btnStartLoop.Enabled = true;
-            txtLoopBox.Enabled = true;
+            NumLoopBox.Enabled = true;
         }
     }
 }

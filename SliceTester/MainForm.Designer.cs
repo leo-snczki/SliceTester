@@ -42,7 +42,6 @@
             this.btnEdit = new DevExpress.XtraEditors.SimpleButton();
             this.btnStartLoop = new DevExpress.XtraEditors.SimpleButton();
             this.btnSave = new DevExpress.XtraEditors.SimpleButton();
-            this.txtLoopBox = new System.Windows.Forms.TextBox();
             this.lblLoop = new DevExpress.XtraEditors.LabelControl();
             this.lblHotKeyF1 = new DevExpress.XtraEditors.LabelControl();
             this.lblHotKeyF2 = new DevExpress.XtraEditors.LabelControl();
@@ -54,23 +53,25 @@
             this.lblHotKeyF8 = new DevExpress.XtraEditors.LabelControl();
             this.lblHotKeyF9 = new DevExpress.XtraEditors.LabelControl();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.labelControl2 = new DevExpress.XtraEditors.LabelControl();
             this.simpleButton1 = new DevExpress.XtraEditors.SimpleButton();
             this.simpleButton2 = new DevExpress.XtraEditors.SimpleButton();
             this.btnRefresh = new DevExpress.XtraEditors.SimpleButton();
             this.listFiles = new System.Windows.Forms.ListView();
             this.columnNameFile = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.gridViewer = new DevExpress.XtraGrid.GridControl();
+            this.gridControl = new DevExpress.XtraGrid.GridControl();
             this.gridViewerFormMain = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.labelControl2 = new DevExpress.XtraEditors.LabelControl();
+            this.NumLoopBox = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
             this.panelControl1.SuspendLayout();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.gridViewer)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridControl)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewerFormMain)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
             this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.NumLoopBox)).BeginInit();
             this.SuspendLayout();
             // 
             // btnRecord
@@ -204,15 +205,6 @@
             this.btnSave.Text = "Salvar";
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
-            // txtLoopBox
-            // 
-            this.txtLoopBox.Enabled = false;
-            this.txtLoopBox.Location = new System.Drawing.Point(770, 181);
-            this.txtLoopBox.Margin = new System.Windows.Forms.Padding(2);
-            this.txtLoopBox.Name = "txtLoopBox";
-            this.txtLoopBox.Size = new System.Drawing.Size(145, 21);
-            this.txtLoopBox.TabIndex = 28;
-            // 
             // lblLoop
             // 
             this.lblLoop.Location = new System.Drawing.Point(830, 167);
@@ -318,6 +310,19 @@
             this.panel1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.TitleBarPanel_MouseMove);
             this.panel1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.TitleBarPanel_MouseUp);
             // 
+            // labelControl2
+            // 
+            this.labelControl2.Appearance.Font = new System.Drawing.Font("Cascadia Code SemiLight", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelControl2.Appearance.ForeColor = System.Drawing.Color.Black;
+            this.labelControl2.Appearance.Options.UseFont = true;
+            this.labelControl2.Appearance.Options.UseForeColor = true;
+            this.labelControl2.Location = new System.Drawing.Point(2, 2);
+            this.labelControl2.Margin = new System.Windows.Forms.Padding(2);
+            this.labelControl2.Name = "labelControl2";
+            this.labelControl2.Size = new System.Drawing.Size(121, 25);
+            this.labelControl2.TabIndex = 31;
+            this.labelControl2.Text = "SliceTester";
+            // 
             // simpleButton1
             // 
             this.simpleButton1.Appearance.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(179)))), ((int)(((byte)(59)))));
@@ -371,23 +376,23 @@
             this.columnNameFile.Text = "Ficheiros";
             this.columnNameFile.Width = 231;
             // 
-            // gridViewer
+            // gridControl
             // 
-            this.gridViewer.EmbeddedNavigator.Margin = new System.Windows.Forms.Padding(1);
-            this.gridViewer.Location = new System.Drawing.Point(7, 10);
-            this.gridViewer.MainView = this.gridViewerFormMain;
-            this.gridViewer.Margin = new System.Windows.Forms.Padding(1);
-            this.gridViewer.Name = "gridViewer";
-            this.gridViewer.Size = new System.Drawing.Size(368, 338);
-            this.gridViewer.TabIndex = 24;
-            this.gridViewer.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
+            this.gridControl.EmbeddedNavigator.Margin = new System.Windows.Forms.Padding(1);
+            this.gridControl.Location = new System.Drawing.Point(7, 10);
+            this.gridControl.MainView = this.gridViewerFormMain;
+            this.gridControl.Margin = new System.Windows.Forms.Padding(1);
+            this.gridControl.Name = "gridControl";
+            this.gridControl.Size = new System.Drawing.Size(368, 338);
+            this.gridControl.TabIndex = 24;
+            this.gridControl.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridViewerFormMain,
             this.gridView1});
             // 
             // gridViewerFormMain
             // 
             this.gridViewerFormMain.DetailHeight = 112;
-            this.gridViewerFormMain.GridControl = this.gridViewer;
+            this.gridViewerFormMain.GridControl = this.gridControl;
             this.gridViewerFormMain.Name = "gridViewerFormMain";
             this.gridViewerFormMain.OptionsBehavior.Editable = false;
             this.gridViewerFormMain.OptionsEditForm.PopupEditFormWidth = 288;
@@ -396,14 +401,15 @@
             // 
             // gridView1
             // 
-            this.gridView1.GridControl = this.gridViewer;
+            this.gridView1.GridControl = this.gridControl;
             this.gridView1.Name = "gridView1";
             // 
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(255)))), ((int)(((byte)(222)))), ((int)(((byte)(174)))));
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel2.Controls.Add(this.gridViewer);
+            this.panel2.Controls.Add(this.NumLoopBox);
+            this.panel2.Controls.Add(this.gridControl);
             this.panel2.Controls.Add(this.lblHotKeyF2);
             this.panel2.Controls.Add(this.listFiles);
             this.panel2.Controls.Add(this.lblHotKeyF4);
@@ -414,7 +420,6 @@
             this.panel2.Controls.Add(this.btnPlay);
             this.panel2.Controls.Add(this.lblLoop);
             this.panel2.Controls.Add(this.lblMacroRecorder);
-            this.panel2.Controls.Add(this.txtLoopBox);
             this.panel2.Controls.Add(this.lblHotKeyF8);
             this.panel2.Controls.Add(this.btnEdit);
             this.panel2.Controls.Add(this.btnExportJson);
@@ -433,18 +438,22 @@
             this.panel2.Size = new System.Drawing.Size(927, 351);
             this.panel2.TabIndex = 32;
             // 
-            // labelControl2
+            // NumLoopBox
             // 
-            this.labelControl2.Appearance.Font = new System.Drawing.Font("Cascadia Code SemiLight", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelControl2.Appearance.ForeColor = System.Drawing.Color.Black;
-            this.labelControl2.Appearance.Options.UseFont = true;
-            this.labelControl2.Appearance.Options.UseForeColor = true;
-            this.labelControl2.Location = new System.Drawing.Point(2, 2);
-            this.labelControl2.Margin = new System.Windows.Forms.Padding(2);
-            this.labelControl2.Name = "labelControl2";
-            this.labelControl2.Size = new System.Drawing.Size(121, 25);
-            this.labelControl2.TabIndex = 31;
-            this.labelControl2.Text = "SliceTester";
+            this.NumLoopBox.Location = new System.Drawing.Point(771, 181);
+            this.NumLoopBox.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.NumLoopBox.Name = "NumLoopBox";
+            this.NumLoopBox.Size = new System.Drawing.Size(143, 21);
+            this.NumLoopBox.TabIndex = 31;
+            this.NumLoopBox.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             // 
             // MainForm
             // 
@@ -468,11 +477,12 @@
             this.panelControl1.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.gridViewer)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridControl)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewerFormMain)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.NumLoopBox)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -492,7 +502,6 @@
         private DevExpress.XtraEditors.SimpleButton btnEdit;
         private DevExpress.XtraEditors.SimpleButton btnStartLoop;
         private DevExpress.XtraEditors.SimpleButton btnSave;
-        private System.Windows.Forms.TextBox txtLoopBox;
         private DevExpress.XtraEditors.LabelControl lblLoop;
         private DevExpress.XtraEditors.LabelControl lblHotKeyF1;
         private DevExpress.XtraEditors.LabelControl lblHotKeyF2;
@@ -509,11 +518,12 @@
         private DevExpress.XtraEditors.SimpleButton btnRefresh;
         private System.Windows.Forms.ListView listFiles;
         private System.Windows.Forms.ColumnHeader columnNameFile;
-        private DevExpress.XtraGrid.GridControl gridViewer;
+        private DevExpress.XtraGrid.GridControl gridControl;
         private DevExpress.XtraGrid.Views.Grid.GridView gridViewerFormMain;
         private DevExpress.XtraGrid.Views.Grid.GridView gridView1;
         private System.Windows.Forms.Panel panel2;
         private DevExpress.XtraEditors.LabelControl labelControl2;
+        private System.Windows.Forms.NumericUpDown NumLoopBox;
     }
 }
 
