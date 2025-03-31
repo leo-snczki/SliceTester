@@ -237,11 +237,11 @@ namespace SliceTester
         private void RecordTest()
         {
             // Exibe uma mensagem ao utilizador informando que a gravação começará após a confirmação.
-            WindowState = FormWindowState.Minimized;
             var result = MessageBox.Show("A gravação vai começar depois do OK", "Iniciar Gravação", MessageBoxButtons.OKCancel);
 
             if (result == DialogResult.OK) // Se o utilizador confirmar a ação.
             {
+                WindowState = FormWindowState.Minimized;
                 // Desativa o botão "Record" para evitar cliques repetidos.
                 btnRecord.Enabled = false;
                 // Inicia o processo de gravação da função.
@@ -250,12 +250,7 @@ namespace SliceTester
                 btnStop.Enabled = true;
             }
             else
-            {
-                WindowState = FormWindowState.Normal;
-
-                // Caso o utilizador cancele a gravação, regista no log que a gravação não foi iniciada.
-                _logger.Log("[INFO] Gravação NÃO iniciada.");
-            }
+                _logger.Log("[INFO] Gravação NÃO iniciada.");           
         }
 
         private void StopTest()
@@ -295,21 +290,18 @@ namespace SliceTester
 
         private void PlayTest()
         {
-            WindowState = FormWindowState.Minimized;
-
             // Exibe uma caixa de mensagem informando ao utilizador que o reply vai começar após o clique em OK.
             var result = MessageBox.Show("A reprodução vai começar depois do OK", "Iniciar Reprodução", MessageBoxButtons.OKCancel);
 
             // Verifica se o utilizador clicou em OK.
             if (result != DialogResult.OK)
             {
-                WindowState = FormWindowState.Normal;
-
                 // Caso o utilizador cancele a reprodução, registra no log que a reprodução não foi iniciada.
                 _logger.Log("[INFO] Reprodução NÃO iniciada.");
                 
                 return;
             }
+            WindowState = FormWindowState.Minimized;
 
             btnPlay.Enabled = false;
             _macroRecorder.Play();
