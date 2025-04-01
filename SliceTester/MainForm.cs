@@ -153,8 +153,7 @@ namespace SliceTester
                     // Regista no log que o processo de carregamento foi concluído.
                     _logger.Log("[INFO] Processo de carregamento de arquivo concluído.");
 
-                    // Exibe uma mensagem de sucesso informando o utilizador que o arquivo foi carregado.
-                    MessageBox.Show("Arquivo carregado com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
                 }
                 catch (Exception ex)
                 {
