@@ -96,10 +96,10 @@ namespace SliceTester
                     case Keys.F6:
                         ImportJson();
                         break;
-                    case Keys.F8:
+                    case Keys.F7:
                         SaveTestInDirectory();
                         break;
-                    case Keys.F9:
+                    case Keys.F8:
                         ModifyTest();
                         break;
                 }

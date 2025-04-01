@@ -35,13 +35,13 @@ public class MacroRecorder
 
         _logManager.Log("[INFO] Iniciando gravação...");
         _isRecording = true;
-        bool firstKeyDown = false;  // Flag para garantir que um KeyDown ocorra antes de um KeyUp
-        bool firstMouseDown = false; // Flag para garantir que um MouseDown ocorra antes de um MouseUp
+        bool firstKeyDown = false;  // Flag para garantir que um KeyDown ocorra antes de um KeyUp.
+        bool firstMouseDown = false; // Flag para garantir que um MouseDown ocorra antes de um MouseUp.
 
         // Captura eventos de pressionamento de tecla.
         _globalHook.KeyDown += (sender, e) =>
         {
-            firstKeyDown = true; // Marca que um KeyDown ocorreu
+            firstKeyDown = true; // Marca que um KeyDown ocorreu.
 
             _recordedEvents.Add(new MacroEvent
             {
@@ -55,7 +55,7 @@ public class MacroRecorder
         // Captura eventos de soltura de tecla.
         _globalHook.KeyUp += (sender, e) =>
         {
-            if (firstKeyDown) // Só registra KeyUp se já tiver ocorrido um KeyDown
+            if (firstKeyDown) // Só registra KeyUp se já tiver ocorrido um KeyDown.
             {
                 _recordedEvents.Add(new MacroEvent
                 {
@@ -70,7 +70,7 @@ public class MacroRecorder
         // Captura eventos de clique do mouse.
         _globalHook.MouseDown += (sender, e) =>
         {
-            firstMouseDown = true; // Marca que um MouseDown ocorreu
+            firstMouseDown = true; // Marca que um MouseDown ocorreu.
 
             _recordedEvents.Add(new MacroEvent
             {
@@ -85,7 +85,7 @@ public class MacroRecorder
         // Captura eventos de soltura do botão do mouse.
         _globalHook.MouseUp += (sender, e) =>
         {
-            if (firstMouseDown) // Só registra MouseUp se já tiver ocorrido um MouseDown
+            if (firstMouseDown) // Só registra MouseUp se já tiver ocorrido um MouseDown.
             {
                 _recordedEvents.Add(new MacroEvent
                 {
@@ -100,7 +100,32 @@ public class MacroRecorder
     }
 
     public void StopRecording()
-    {        
+    {
+        List<int> indexesToRemove = new List<int>();
+
+        for (int i = 0; i < _recordedEvents.Count - 1; i++)
+        {
+            if (_recordedEvents[i].EventType == MacroEventType.KeyDown && _recordedEvents[i].Key == Keys.LControlKey)
+            {
+                // Procura pelo próximo KeyDown de F2 após Ctrl.
+                for (int j = i + 1; j < _recordedEvents.Count; j++)
+                {
+                    if (_recordedEvents[j].EventType == MacroEventType.KeyDown && _recordedEvents[j].Key == Keys.F2)
+                    {
+                        // Marca para remoção
+                        indexesToRemove.Add(i); // KeyDown de Ctrl.
+                        indexesToRemove.Add(j); // KeyDown de F2.
+                        break;
+                    }
+                }
+            }
+        }
+
+        // Remove os eventos KeyDown de Ctrl e F2.
+        _recordedEvents.RemoveAll(e =>
+            indexesToRemove.Contains(_recordedEvents.IndexOf(e)) // Remove KeyDowns encontrados.
+        );
+
         _globalHook.Dispose();
         _stopwatch.Stop();
         _isRecording = false;
@@ -130,7 +155,7 @@ public class MacroRecorder
         {
             long delay = ev.Timestamp - lastTimestamp; // Calcula o tempo de atraso entre o evento atual e o anterior.
             Thread.Sleep((int)delay); // Espera pelo tempo de atraso antes de executar o próximo evento.
-            lastTimestamp = ev.Timestamp; // Atualiza o timestamp do último evento
+            lastTimestamp = ev.Timestamp; // Atualiza o timestamp do último evento.
 
             // Simula o evento de acordo com o tipo.
             switch (ev.EventType)

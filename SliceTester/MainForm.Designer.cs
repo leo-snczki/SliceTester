@@ -50,7 +50,6 @@
             this.lblHotKeyF6 = new DevExpress.XtraEditors.LabelControl();
             this.lblHotKeyF7 = new DevExpress.XtraEditors.LabelControl();
             this.lblHotKeyF8 = new DevExpress.XtraEditors.LabelControl();
-            this.lblHotKeyF9 = new DevExpress.XtraEditors.LabelControl();
             this.panel1 = new System.Windows.Forms.Panel();
             this.labelControl2 = new DevExpress.XtraEditors.LabelControl();
             this.simpleButton1 = new DevExpress.XtraEditors.SimpleButton();
@@ -174,7 +173,7 @@
             // btnEdit
             // 
             this.btnEdit.Enabled = false;
-            this.btnEdit.Location = new System.Drawing.Point(771, 223);
+            this.btnEdit.Location = new System.Drawing.Point(770, 184);
             this.btnEdit.Margin = new System.Windows.Forms.Padding(2);
             this.btnEdit.Name = "btnEdit";
             this.btnEdit.Size = new System.Drawing.Size(145, 23);
@@ -185,7 +184,7 @@
             // btnSave
             // 
             this.btnSave.Enabled = false;
-            this.btnSave.Location = new System.Drawing.Point(569, 223);
+            this.btnSave.Location = new System.Drawing.Point(571, 184);
             this.btnSave.Margin = new System.Windows.Forms.Padding(2);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(145, 23);
@@ -258,7 +257,7 @@
             // 
             // lblHotKeyF7
             // 
-            this.lblHotKeyF7.Location = new System.Drawing.Point(620, 164);
+            this.lblHotKeyF7.Location = new System.Drawing.Point(620, 167);
             this.lblHotKeyF7.Margin = new System.Windows.Forms.Padding(2);
             this.lblHotKeyF7.Name = "lblHotKeyF7";
             this.lblHotKeyF7.Size = new System.Drawing.Size(43, 13);
@@ -267,21 +266,12 @@
             // 
             // lblHotKeyF8
             // 
-            this.lblHotKeyF8.Location = new System.Drawing.Point(620, 206);
+            this.lblHotKeyF8.Location = new System.Drawing.Point(820, 167);
             this.lblHotKeyF8.Margin = new System.Windows.Forms.Padding(2);
             this.lblHotKeyF8.Name = "lblHotKeyF8";
             this.lblHotKeyF8.Size = new System.Drawing.Size(43, 13);
             this.lblHotKeyF8.TabIndex = 30;
             this.lblHotKeyF8.Text = "Ctrl + F8";
-            // 
-            // lblHotKeyF9
-            // 
-            this.lblHotKeyF9.Location = new System.Drawing.Point(820, 208);
-            this.lblHotKeyF9.Margin = new System.Windows.Forms.Padding(2);
-            this.lblHotKeyF9.Name = "lblHotKeyF9";
-            this.lblHotKeyF9.Size = new System.Drawing.Size(43, 13);
-            this.lblHotKeyF9.TabIndex = 30;
-            this.lblHotKeyF9.Text = "Ctrl + F9";
             // 
             // panel1
             // 
@@ -404,7 +394,6 @@
             this.panel2.Controls.Add(this.btnRefresh);
             this.panel2.Controls.Add(this.lblHotKeyF6);
             this.panel2.Controls.Add(this.btnRecord);
-            this.panel2.Controls.Add(this.lblHotKeyF9);
             this.panel2.Controls.Add(this.btnPlay);
             this.panel2.Controls.Add(this.lblLoop);
             this.panel2.Controls.Add(this.lblMacroRecorder);
@@ -449,7 +438,7 @@
             this.Appearance.Options.UseBackColor = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(927, 382);
+            this.ClientSize = new System.Drawing.Size(927, 387);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.FormBorderEffect = DevExpress.XtraEditors.FormBorderEffect.None;
@@ -498,7 +487,6 @@
         private DevExpress.XtraEditors.LabelControl lblHotKeyF6;
         private DevExpress.XtraEditors.LabelControl lblHotKeyF7;
         private DevExpress.XtraEditors.LabelControl lblHotKeyF8;
-        private DevExpress.XtraEditors.LabelControl lblHotKeyF9;
         private System.Windows.Forms.Panel panel1;
         private DevExpress.XtraEditors.SimpleButton simpleButton2;
         private DevExpress.XtraEditors.SimpleButton simpleButton1;
