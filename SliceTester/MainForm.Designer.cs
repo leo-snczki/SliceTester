@@ -52,8 +52,8 @@
             this.lblHotKeyF8 = new DevExpress.XtraEditors.LabelControl();
             this.panel1 = new System.Windows.Forms.Panel();
             this.labelControl2 = new DevExpress.XtraEditors.LabelControl();
-            this.simpleButton1 = new DevExpress.XtraEditors.SimpleButton();
-            this.simpleButton2 = new DevExpress.XtraEditors.SimpleButton();
+            this.btnClose = new DevExpress.XtraEditors.SimpleButton();
+            this.btnMinimize = new DevExpress.XtraEditors.SimpleButton();
             this.btnRefresh = new DevExpress.XtraEditors.SimpleButton();
             this.listFiles = new System.Windows.Forms.ListView();
             this.columnNameFile = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -62,6 +62,8 @@
             this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.panel2 = new System.Windows.Forms.Panel();
             this.NumLoopBox = new System.Windows.Forms.NumericUpDown();
+            this.btnDeleteTest = new DevExpress.XtraEditors.SimpleButton();
+            this.btnRenameTest = new DevExpress.XtraEditors.SimpleButton();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
             this.panelControl1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -278,8 +280,8 @@
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(255)))), ((int)(((byte)(185)))), ((int)(((byte)(83)))));
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel1.Controls.Add(this.labelControl2);
-            this.panel1.Controls.Add(this.simpleButton1);
-            this.panel1.Controls.Add(this.simpleButton2);
+            this.panel1.Controls.Add(this.btnClose);
+            this.panel1.Controls.Add(this.btnMinimize);
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(977, 31);
@@ -301,37 +303,38 @@
             this.labelControl2.TabIndex = 31;
             this.labelControl2.Text = "SliceTester";
             // 
-            // simpleButton1
+            // btnClose
             // 
-            this.simpleButton1.Appearance.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(179)))), ((int)(((byte)(59)))));
-            this.simpleButton1.Appearance.Options.UseBackColor = true;
-            this.simpleButton1.Location = new System.Drawing.Point(899, 4);
-            this.simpleButton1.Name = "simpleButton1";
-            this.simpleButton1.Size = new System.Drawing.Size(24, 23);
-            this.simpleButton1.TabIndex = 2;
-            this.simpleButton1.Text = "X";
-            this.simpleButton1.Click += new System.EventHandler(this.CloseButton_Click);
+            this.btnClose.Appearance.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(179)))), ((int)(((byte)(59)))));
+            this.btnClose.Appearance.Options.UseBackColor = true;
+            this.btnClose.Location = new System.Drawing.Point(899, 4);
+            this.btnClose.Name = "btnClose";
+            this.btnClose.Size = new System.Drawing.Size(24, 23);
+            this.btnClose.TabIndex = 2;
+            this.btnClose.Text = "X";
+            this.btnClose.Click += new System.EventHandler(this.CloseButton_Click);
             // 
-            // simpleButton2
+            // btnMinimize
             // 
-            this.simpleButton2.Appearance.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(179)))), ((int)(((byte)(59)))));
-            this.simpleButton2.Appearance.Options.UseBackColor = true;
-            this.simpleButton2.Location = new System.Drawing.Point(869, 4);
-            this.simpleButton2.Name = "simpleButton2";
-            this.simpleButton2.Size = new System.Drawing.Size(24, 23);
-            this.simpleButton2.TabIndex = 3;
-            this.simpleButton2.Text = "_";
-            this.simpleButton2.Click += new System.EventHandler(this.MinimizeButton_Click);
+            this.btnMinimize.Appearance.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(179)))), ((int)(((byte)(59)))));
+            this.btnMinimize.Appearance.Options.UseBackColor = true;
+            this.btnMinimize.Location = new System.Drawing.Point(869, 4);
+            this.btnMinimize.Name = "btnMinimize";
+            this.btnMinimize.Size = new System.Drawing.Size(24, 23);
+            this.btnMinimize.TabIndex = 3;
+            this.btnMinimize.Text = "_";
+            this.btnMinimize.Click += new System.EventHandler(this.MinimizeButton_Click);
             // 
             // btnRefresh
             // 
+            this.btnRefresh.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.btnRefresh.ImageOptions.Location = DevExpress.XtraEditors.ImageLocation.MiddleCenter;
+            this.btnRefresh.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnRefresh.ImageOptions.SvgImage")));
             this.btnRefresh.Location = new System.Drawing.Point(378, 10);
             this.btnRefresh.Margin = new System.Windows.Forms.Padding(2);
             this.btnRefresh.Name = "btnRefresh";
-            this.btnRefresh.Size = new System.Drawing.Size(177, 22);
+            this.btnRefresh.Size = new System.Drawing.Size(56, 31);
             this.btnRefresh.TabIndex = 25;
-            this.btnRefresh.Text = "Atualizar";
-            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
             // 
             // listFiles
             // 
@@ -340,10 +343,10 @@
             this.listFiles.FullRowSelect = true;
             this.listFiles.GridLines = true;
             this.listFiles.HideSelection = false;
-            this.listFiles.Location = new System.Drawing.Point(378, 34);
+            this.listFiles.Location = new System.Drawing.Point(378, 45);
             this.listFiles.Margin = new System.Windows.Forms.Padding(2);
             this.listFiles.Name = "listFiles";
-            this.listFiles.Size = new System.Drawing.Size(177, 314);
+            this.listFiles.Size = new System.Drawing.Size(177, 303);
             this.listFiles.TabIndex = 1;
             this.listFiles.UseCompatibleStateImageBehavior = false;
             this.listFiles.View = System.Windows.Forms.View.Details;
@@ -391,6 +394,8 @@
             this.panel2.Controls.Add(this.lblHotKeyF2);
             this.panel2.Controls.Add(this.listFiles);
             this.panel2.Controls.Add(this.lblHotKeyF4);
+            this.panel2.Controls.Add(this.btnRenameTest);
+            this.panel2.Controls.Add(this.btnDeleteTest);
             this.panel2.Controls.Add(this.btnRefresh);
             this.panel2.Controls.Add(this.lblHotKeyF6);
             this.panel2.Controls.Add(this.btnRecord);
@@ -431,6 +436,28 @@
             0,
             0,
             0});
+            // 
+            // btnDeleteTest
+            // 
+            this.btnDeleteTest.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.btnDeleteTest.ImageOptions.Location = DevExpress.XtraEditors.ImageLocation.MiddleCenter;
+            this.btnDeleteTest.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("simpleButton3.ImageOptions.SvgImage")));
+            this.btnDeleteTest.Location = new System.Drawing.Point(438, 10);
+            this.btnDeleteTest.Margin = new System.Windows.Forms.Padding(2);
+            this.btnDeleteTest.Name = "btnDeleteTest";
+            this.btnDeleteTest.Size = new System.Drawing.Size(56, 31);
+            this.btnDeleteTest.TabIndex = 25;
+            // 
+            // btnRenameTest
+            // 
+            this.btnRenameTest.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.btnRenameTest.ImageOptions.Location = DevExpress.XtraEditors.ImageLocation.MiddleCenter;
+            this.btnRenameTest.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("simpleButton4.ImageOptions.SvgImage")));
+            this.btnRenameTest.Location = new System.Drawing.Point(498, 10);
+            this.btnRenameTest.Margin = new System.Windows.Forms.Padding(2);
+            this.btnRenameTest.Name = "btnRenameTest";
+            this.btnRenameTest.Size = new System.Drawing.Size(56, 31);
+            this.btnRenameTest.TabIndex = 25;
             // 
             // MainForm
             // 
@@ -488,8 +515,8 @@
         private DevExpress.XtraEditors.LabelControl lblHotKeyF7;
         private DevExpress.XtraEditors.LabelControl lblHotKeyF8;
         private System.Windows.Forms.Panel panel1;
-        private DevExpress.XtraEditors.SimpleButton simpleButton2;
-        private DevExpress.XtraEditors.SimpleButton simpleButton1;
+        private DevExpress.XtraEditors.SimpleButton btnMinimize;
+        private DevExpress.XtraEditors.SimpleButton btnClose;
         private DevExpress.XtraEditors.SimpleButton btnRefresh;
         private System.Windows.Forms.ListView listFiles;
         private System.Windows.Forms.ColumnHeader columnNameFile;
@@ -499,6 +526,8 @@
         private System.Windows.Forms.Panel panel2;
         private DevExpress.XtraEditors.LabelControl labelControl2;
         private System.Windows.Forms.NumericUpDown NumLoopBox;
+        private DevExpress.XtraEditors.SimpleButton btnRenameTest;
+        private DevExpress.XtraEditors.SimpleButton btnDeleteTest;
     }
 }
 
