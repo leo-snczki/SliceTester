@@ -152,8 +152,6 @@ namespace SliceTester
 
                     // Regista no log que o processo de carregamento foi concluído.
                     _logger.Log("[INFO] Processo de carregamento de arquivo concluído.");
-
-
                 }
                 catch (Exception ex)
                 {
@@ -599,7 +597,7 @@ namespace SliceTester
                 string selectedFilePath = listFiles.SelectedItems[0].SubItems[1].Text;
 
                 // Solicita confirmação do usuário antes de excluir o arquivo
-                DialogResult result = MessageBox.Show("Tem certeza de que deseja excluir este arquivo?", "Confirmar Exclusão", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                DialogResult result = MessageBox.Show("Tem certeza de que deseja apagar este arquivo?", "Confirmar Apagar", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
                 if (result == DialogResult.Yes)
                 {
@@ -607,8 +605,8 @@ namespace SliceTester
                     {
                         // Exclui o arquivo
                         File.Delete(selectedFilePath);
-                        _logger.Log($"[INFO] Arquivo excluído: {selectedFilePath}");
-                        MessageBox.Show("Arquivo excluído com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        _logger.Log($"[INFO] Arquivo apagado: {selectedFilePath}");
+                        MessageBox.Show("Arquivo apagado com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                         // Remove o item da ListView
                         listFiles.Items.Remove(listFiles.SelectedItems[0]);
@@ -616,8 +614,8 @@ namespace SliceTester
                     catch (Exception ex)
                     {
                         // Registra erro no log e exibe uma mensagem de erro ao usuário
-                        _logger.Log($"[ERRO] Falha ao excluir o arquivo: {ex.Message}");
-                        MessageBox.Show($"Erro ao excluir o arquivo:\n{ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        _logger.Log($"[ERRO] Falha ao apagar o arquivo: {ex.Message}");
+                        MessageBox.Show($"Erro ao apagar o arquivo:\n{ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
             }
