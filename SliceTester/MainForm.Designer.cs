@@ -35,7 +35,6 @@
             this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
             this.txtLog = new System.Windows.Forms.TextBox();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
-            this.lblMacroRecorder = new DevExpress.XtraEditors.LabelControl();
             this.btnClear = new DevExpress.XtraEditors.SimpleButton();
             this.btnExportJson = new DevExpress.XtraEditors.SimpleButton();
             this.btnImportJson = new DevExpress.XtraEditors.SimpleButton();
@@ -76,10 +75,11 @@
             // 
             // btnRecord
             // 
-            this.btnRecord.Location = new System.Drawing.Point(569, 61);
+            this.btnRecord.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnRecord.ImageOptions.SvgImage")));
+            this.btnRecord.Location = new System.Drawing.Point(569, 45);
             this.btnRecord.Margin = new System.Windows.Forms.Padding(2);
             this.btnRecord.Name = "btnRecord";
-            this.btnRecord.Size = new System.Drawing.Size(145, 23);
+            this.btnRecord.Size = new System.Drawing.Size(147, 36);
             this.btnRecord.TabIndex = 0;
             this.btnRecord.Text = "Gravar";
             this.btnRecord.Click += new System.EventHandler(this.btnRecord_Click);
@@ -87,10 +87,11 @@
             // btnStop
             // 
             this.btnStop.Enabled = false;
-            this.btnStop.Location = new System.Drawing.Point(771, 61);
+            this.btnStop.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnStop.ImageOptions.SvgImage")));
+            this.btnStop.Location = new System.Drawing.Point(770, 45);
             this.btnStop.Margin = new System.Windows.Forms.Padding(2);
             this.btnStop.Name = "btnStop";
-            this.btnStop.Size = new System.Drawing.Size(145, 23);
+            this.btnStop.Size = new System.Drawing.Size(145, 36);
             this.btnStop.TabIndex = 1;
             this.btnStop.Text = "Parar";
             this.btnStop.Click += new System.EventHandler(this.btnStop_Click);
@@ -98,10 +99,11 @@
             // btnPlay
             // 
             this.btnPlay.Enabled = false;
+            this.btnPlay.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnPlay.ImageOptions.SvgImage")));
             this.btnPlay.Location = new System.Drawing.Point(569, 101);
             this.btnPlay.Margin = new System.Windows.Forms.Padding(2);
             this.btnPlay.Name = "btnPlay";
-            this.btnPlay.Size = new System.Drawing.Size(78, 23);
+            this.btnPlay.Size = new System.Drawing.Size(78, 36);
             this.btnPlay.TabIndex = 2;
             this.btnPlay.Text = "Iniciar";
             this.btnPlay.Click += new System.EventHandler(this.btnPlay_Click);
@@ -127,26 +129,14 @@
             this.txtLog.Size = new System.Drawing.Size(362, 90);
             this.txtLog.TabIndex = 0;
             // 
-            // lblMacroRecorder
-            // 
-            this.lblMacroRecorder.Appearance.Font = new System.Drawing.Font("Cascadia Code SemiLight", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblMacroRecorder.Appearance.ForeColor = System.Drawing.Color.Black;
-            this.lblMacroRecorder.Appearance.Options.UseFont = true;
-            this.lblMacroRecorder.Appearance.Options.UseForeColor = true;
-            this.lblMacroRecorder.Location = new System.Drawing.Point(668, 10);
-            this.lblMacroRecorder.Margin = new System.Windows.Forms.Padding(2);
-            this.lblMacroRecorder.Name = "lblMacroRecorder";
-            this.lblMacroRecorder.Size = new System.Drawing.Size(143, 25);
-            this.lblMacroRecorder.TabIndex = 6;
-            this.lblMacroRecorder.Text = "MacroRecorder";
-            // 
             // btnClear
             // 
             this.btnClear.Enabled = false;
-            this.btnClear.Location = new System.Drawing.Point(771, 101);
+            this.btnClear.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnClear.ImageOptions.SvgImage")));
+            this.btnClear.Location = new System.Drawing.Point(770, 101);
             this.btnClear.Margin = new System.Windows.Forms.Padding(2);
             this.btnClear.Name = "btnClear";
-            this.btnClear.Size = new System.Drawing.Size(145, 23);
+            this.btnClear.Size = new System.Drawing.Size(145, 36);
             this.btnClear.TabIndex = 7;
             this.btnClear.Text = "Limpar";
             this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
@@ -154,20 +144,22 @@
             // btnExportJson
             // 
             this.btnExportJson.Enabled = false;
-            this.btnExportJson.Location = new System.Drawing.Point(569, 140);
+            this.btnExportJson.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnExportJson.ImageOptions.SvgImage")));
+            this.btnExportJson.Location = new System.Drawing.Point(569, 158);
             this.btnExportJson.Margin = new System.Windows.Forms.Padding(2);
             this.btnExportJson.Name = "btnExportJson";
-            this.btnExportJson.Size = new System.Drawing.Size(145, 23);
+            this.btnExportJson.Size = new System.Drawing.Size(145, 36);
             this.btnExportJson.TabIndex = 8;
             this.btnExportJson.Text = "Exportar";
             this.btnExportJson.Click += new System.EventHandler(this.btnExportJson_Click);
             // 
             // btnImportJson
             // 
-            this.btnImportJson.Location = new System.Drawing.Point(771, 140);
+            this.btnImportJson.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnImportJson.ImageOptions.SvgImage")));
+            this.btnImportJson.Location = new System.Drawing.Point(770, 158);
             this.btnImportJson.Margin = new System.Windows.Forms.Padding(2);
             this.btnImportJson.Name = "btnImportJson";
-            this.btnImportJson.Size = new System.Drawing.Size(145, 23);
+            this.btnImportJson.Size = new System.Drawing.Size(145, 36);
             this.btnImportJson.TabIndex = 8;
             this.btnImportJson.Text = "Importar";
             this.btnImportJson.Click += new System.EventHandler(this.btnImportJson_Click);
@@ -175,10 +167,11 @@
             // btnEdit
             // 
             this.btnEdit.Enabled = false;
-            this.btnEdit.Location = new System.Drawing.Point(770, 184);
+            this.btnEdit.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnEdit.ImageOptions.SvgImage")));
+            this.btnEdit.Location = new System.Drawing.Point(770, 216);
             this.btnEdit.Margin = new System.Windows.Forms.Padding(2);
             this.btnEdit.Name = "btnEdit";
-            this.btnEdit.Size = new System.Drawing.Size(145, 23);
+            this.btnEdit.Size = new System.Drawing.Size(145, 36);
             this.btnEdit.TabIndex = 9;
             this.btnEdit.Text = "Editar";
             this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
@@ -186,17 +179,18 @@
             // btnSave
             // 
             this.btnSave.Enabled = false;
-            this.btnSave.Location = new System.Drawing.Point(571, 184);
+            this.btnSave.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnSave.ImageOptions.SvgImage")));
+            this.btnSave.Location = new System.Drawing.Point(571, 216);
             this.btnSave.Margin = new System.Windows.Forms.Padding(2);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(145, 23);
+            this.btnSave.Size = new System.Drawing.Size(145, 36);
             this.btnSave.TabIndex = 23;
             this.btnSave.Text = "Salvar";
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // lblLoop
             // 
-            this.lblLoop.Location = new System.Drawing.Point(673, 88);
+            this.lblLoop.Location = new System.Drawing.Point(670, 92);
             this.lblLoop.Margin = new System.Windows.Forms.Padding(2);
             this.lblLoop.Name = "lblLoop";
             this.lblLoop.Size = new System.Drawing.Size(23, 13);
@@ -205,7 +199,7 @@
             // 
             // lblHotKeyF1
             // 
-            this.lblHotKeyF1.Location = new System.Drawing.Point(620, 46);
+            this.lblHotKeyF1.Location = new System.Drawing.Point(622, 28);
             this.lblHotKeyF1.Margin = new System.Windows.Forms.Padding(2);
             this.lblHotKeyF1.Name = "lblHotKeyF1";
             this.lblHotKeyF1.Size = new System.Drawing.Size(43, 13);
@@ -214,7 +208,7 @@
             // 
             // lblHotKeyF2
             // 
-            this.lblHotKeyF2.Location = new System.Drawing.Point(820, 46);
+            this.lblHotKeyF2.Location = new System.Drawing.Point(822, 28);
             this.lblHotKeyF2.Margin = new System.Windows.Forms.Padding(2);
             this.lblHotKeyF2.Name = "lblHotKeyF2";
             this.lblHotKeyF2.Size = new System.Drawing.Size(43, 13);
@@ -223,7 +217,7 @@
             // 
             // lblHotKeyF3
             // 
-            this.lblHotKeyF3.Location = new System.Drawing.Point(586, 87);
+            this.lblHotKeyF3.Location = new System.Drawing.Point(586, 84);
             this.lblHotKeyF3.Margin = new System.Windows.Forms.Padding(2);
             this.lblHotKeyF3.Name = "lblHotKeyF3";
             this.lblHotKeyF3.Size = new System.Drawing.Size(43, 13);
@@ -232,7 +226,7 @@
             // 
             // lblHotKeyF4
             // 
-            this.lblHotKeyF4.Location = new System.Drawing.Point(820, 88);
+            this.lblHotKeyF4.Location = new System.Drawing.Point(822, 84);
             this.lblHotKeyF4.Margin = new System.Windows.Forms.Padding(2);
             this.lblHotKeyF4.Name = "lblHotKeyF4";
             this.lblHotKeyF4.Size = new System.Drawing.Size(43, 13);
@@ -241,7 +235,7 @@
             // 
             // lblHotKeyF5
             // 
-            this.lblHotKeyF5.Location = new System.Drawing.Point(620, 127);
+            this.lblHotKeyF5.Location = new System.Drawing.Point(622, 141);
             this.lblHotKeyF5.Margin = new System.Windows.Forms.Padding(2);
             this.lblHotKeyF5.Name = "lblHotKeyF5";
             this.lblHotKeyF5.Size = new System.Drawing.Size(43, 13);
@@ -250,7 +244,7 @@
             // 
             // lblHotKeyF6
             // 
-            this.lblHotKeyF6.Location = new System.Drawing.Point(820, 127);
+            this.lblHotKeyF6.Location = new System.Drawing.Point(822, 141);
             this.lblHotKeyF6.Margin = new System.Windows.Forms.Padding(2);
             this.lblHotKeyF6.Name = "lblHotKeyF6";
             this.lblHotKeyF6.Size = new System.Drawing.Size(43, 13);
@@ -259,7 +253,7 @@
             // 
             // lblHotKeyF7
             // 
-            this.lblHotKeyF7.Location = new System.Drawing.Point(620, 167);
+            this.lblHotKeyF7.Location = new System.Drawing.Point(622, 198);
             this.lblHotKeyF7.Margin = new System.Windows.Forms.Padding(2);
             this.lblHotKeyF7.Name = "lblHotKeyF7";
             this.lblHotKeyF7.Size = new System.Drawing.Size(43, 13);
@@ -268,7 +262,7 @@
             // 
             // lblHotKeyF8
             // 
-            this.lblHotKeyF8.Location = new System.Drawing.Point(820, 167);
+            this.lblHotKeyF8.Location = new System.Drawing.Point(822, 198);
             this.lblHotKeyF8.Margin = new System.Windows.Forms.Padding(2);
             this.lblHotKeyF8.Name = "lblHotKeyF8";
             this.lblHotKeyF8.Size = new System.Drawing.Size(43, 13);
@@ -330,7 +324,7 @@
             this.btnRefresh.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.btnRefresh.ImageOptions.Location = DevExpress.XtraEditors.ImageLocation.MiddleCenter;
             this.btnRefresh.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnRefresh.ImageOptions.SvgImage")));
-            this.btnRefresh.Location = new System.Drawing.Point(378, 10);
+            this.btnRefresh.Location = new System.Drawing.Point(379, 10);
             this.btnRefresh.Margin = new System.Windows.Forms.Padding(2);
             this.btnRefresh.Name = "btnRefresh";
             this.btnRefresh.Size = new System.Drawing.Size(56, 31);
@@ -401,7 +395,6 @@
             this.panel2.Controls.Add(this.btnRecord);
             this.panel2.Controls.Add(this.btnPlay);
             this.panel2.Controls.Add(this.lblLoop);
-            this.panel2.Controls.Add(this.lblMacroRecorder);
             this.panel2.Controls.Add(this.lblHotKeyF8);
             this.panel2.Controls.Add(this.btnEdit);
             this.panel2.Controls.Add(this.btnExportJson);
@@ -422,7 +415,7 @@
             // NumLoopBox
             // 
             this.NumLoopBox.Enabled = false;
-            this.NumLoopBox.Location = new System.Drawing.Point(652, 102);
+            this.NumLoopBox.Location = new System.Drawing.Point(652, 110);
             this.NumLoopBox.Minimum = new decimal(new int[] {
             1,
             0,
@@ -442,7 +435,7 @@
             this.btnDeleteTest.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.btnDeleteTest.ImageOptions.Location = DevExpress.XtraEditors.ImageLocation.MiddleCenter;
             this.btnDeleteTest.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("simpleButton3.ImageOptions.SvgImage")));
-            this.btnDeleteTest.Location = new System.Drawing.Point(438, 10);
+            this.btnDeleteTest.Location = new System.Drawing.Point(439, 10);
             this.btnDeleteTest.Margin = new System.Windows.Forms.Padding(2);
             this.btnDeleteTest.Name = "btnDeleteTest";
             this.btnDeleteTest.Size = new System.Drawing.Size(56, 31);
@@ -453,7 +446,7 @@
             this.btnRenameTest.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.btnRenameTest.ImageOptions.Location = DevExpress.XtraEditors.ImageLocation.MiddleCenter;
             this.btnRenameTest.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("simpleButton4.ImageOptions.SvgImage")));
-            this.btnRenameTest.Location = new System.Drawing.Point(498, 10);
+            this.btnRenameTest.Location = new System.Drawing.Point(499, 10);
             this.btnRenameTest.Margin = new System.Windows.Forms.Padding(2);
             this.btnRenameTest.Name = "btnRenameTest";
             this.btnRenameTest.Size = new System.Drawing.Size(56, 31);
@@ -499,7 +492,6 @@
         private DevExpress.XtraEditors.PanelControl panelControl1;
         private System.Windows.Forms.TextBox txtLog;
         private System.Windows.Forms.ColorDialog colorDialog1;
-        private DevExpress.XtraEditors.LabelControl lblMacroRecorder;
         private DevExpress.XtraEditors.SimpleButton btnClear;
         private DevExpress.XtraEditors.SimpleButton btnExportJson;
         private DevExpress.XtraEditors.SimpleButton btnImportJson;
