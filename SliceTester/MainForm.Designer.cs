@@ -61,8 +61,8 @@
             this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.panel2 = new System.Windows.Forms.Panel();
             this.NumLoopBox = new System.Windows.Forms.NumericUpDown();
-            this.btnDeleteTest = new DevExpress.XtraEditors.SimpleButton();
             this.btnRenameTest = new DevExpress.XtraEditors.SimpleButton();
+            this.btnDeleteTest = new DevExpress.XtraEditors.SimpleButton();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
             this.panelControl1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -190,7 +190,7 @@
             // 
             // lblLoop
             // 
-            this.lblLoop.Location = new System.Drawing.Point(670, 92);
+            this.lblLoop.Location = new System.Drawing.Point(668, 101);
             this.lblLoop.Margin = new System.Windows.Forms.Padding(2);
             this.lblLoop.Name = "lblLoop";
             this.lblLoop.Size = new System.Drawing.Size(23, 13);
@@ -415,7 +415,7 @@
             // NumLoopBox
             // 
             this.NumLoopBox.Enabled = false;
-            this.NumLoopBox.Location = new System.Drawing.Point(652, 110);
+            this.NumLoopBox.Location = new System.Drawing.Point(650, 116);
             this.NumLoopBox.Minimum = new decimal(new int[] {
             1,
             0,
@@ -430,27 +430,29 @@
             0,
             0});
             // 
-            // btnDeleteTest
-            // 
-            this.btnDeleteTest.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.btnDeleteTest.ImageOptions.Location = DevExpress.XtraEditors.ImageLocation.MiddleCenter;
-            this.btnDeleteTest.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("simpleButton3.ImageOptions.SvgImage")));
-            this.btnDeleteTest.Location = new System.Drawing.Point(439, 10);
-            this.btnDeleteTest.Margin = new System.Windows.Forms.Padding(2);
-            this.btnDeleteTest.Name = "btnDeleteTest";
-            this.btnDeleteTest.Size = new System.Drawing.Size(56, 31);
-            this.btnDeleteTest.TabIndex = 25;
-            // 
             // btnRenameTest
             // 
             this.btnRenameTest.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.btnRenameTest.ImageOptions.Location = DevExpress.XtraEditors.ImageLocation.MiddleCenter;
-            this.btnRenameTest.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("simpleButton4.ImageOptions.SvgImage")));
+            this.btnRenameTest.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnRenameTest.ImageOptions.SvgImage")));
             this.btnRenameTest.Location = new System.Drawing.Point(499, 10);
             this.btnRenameTest.Margin = new System.Windows.Forms.Padding(2);
             this.btnRenameTest.Name = "btnRenameTest";
             this.btnRenameTest.Size = new System.Drawing.Size(56, 31);
             this.btnRenameTest.TabIndex = 25;
+            this.btnRenameTest.Click += new System.EventHandler(this.btnRenameTest_Click);
+            // 
+            // btnDeleteTest
+            // 
+            this.btnDeleteTest.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.btnDeleteTest.ImageOptions.Location = DevExpress.XtraEditors.ImageLocation.MiddleCenter;
+            this.btnDeleteTest.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnDeleteTest.ImageOptions.SvgImage")));
+            this.btnDeleteTest.Location = new System.Drawing.Point(439, 10);
+            this.btnDeleteTest.Margin = new System.Windows.Forms.Padding(2);
+            this.btnDeleteTest.Name = "btnDeleteTest";
+            this.btnDeleteTest.Size = new System.Drawing.Size(56, 31);
+            this.btnDeleteTest.TabIndex = 25;
+            this.btnDeleteTest.Click += new System.EventHandler(this.btnDeleteTest_Click);
             // 
             // MainForm
             // 

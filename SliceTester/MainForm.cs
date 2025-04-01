@@ -591,5 +591,98 @@ namespace SliceTester
             btnSave.Enabled = true;
             NumLoopBox.Enabled = true;
         }
+
+        private void btnDeleteTest_Click(object sender, EventArgs e)
+        {
+            // Verifica se há um arquivo selecionado na lista
+            if (listFiles.SelectedItems.Count > 0)
+            {
+                string selectedFilePath = listFiles.SelectedItems[0].SubItems[1].Text;
+
+                // Solicita confirmação do usuário antes de excluir o arquivo
+                DialogResult result = MessageBox.Show("Tem certeza de que deseja excluir este arquivo?", "Confirmar Exclusão", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+                if (result == DialogResult.Yes)
+                {
+                    try
+                    {
+                        // Exclui o arquivo
+                        File.Delete(selectedFilePath);
+                        _logger.Log($"[INFO] Arquivo excluído: {selectedFilePath}");
+                        MessageBox.Show("Arquivo excluído com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                        // Remove o item da ListView
+                        listFiles.Items.Remove(listFiles.SelectedItems[0]);
+                    }
+                    catch (Exception ex)
+                    {
+                        // Registra erro no log e exibe uma mensagem de erro ao usuário
+                        _logger.Log($"[ERRO] Falha ao excluir o arquivo: {ex.Message}");
+                        MessageBox.Show($"Erro ao excluir o arquivo:\n{ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+            else
+            {
+                // Exibe um aviso caso nenhum arquivo esteja selecionado
+                MessageBox.Show("Nenhum arquivo selecionado.", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void btnRenameTest_Click(object sender, EventArgs e)
+        {
+            // Verifica se há um arquivo selecionado na lista
+            if (listFiles.SelectedItems.Count > 0)
+            {
+                string selectedFilePath = listFiles.SelectedItems[0].SubItems[1].Text;
+                string directory = Path.GetDirectoryName(selectedFilePath);
+                string currentFileName = Path.GetFileName(selectedFilePath);
+
+                // Cria uma instância do formulário de renomeação (SaveForm)
+                SaveForm renameForm = new SaveForm();
+
+                // Define o nome do arquivo atual no campo de texto (txtSaveFile) do SaveForm
+                renameForm.fileName = currentFileName;
+
+                // Exibe o formulário
+                if (renameForm.ShowDialog() == DialogResult.OK)
+                {
+                    string newFileName = renameForm.fileName;
+
+                    if (!string.IsNullOrWhiteSpace(newFileName))
+                    {
+                        string newFilePath = Path.Combine(directory, newFileName);
+
+                        try
+                        {
+                            // Renomeia o arquivo
+                            File.Move(selectedFilePath, newFilePath);
+                            _logger.Log($"[INFO] Arquivo renomeado de {selectedFilePath} para {newFilePath}");
+                            MessageBox.Show("Arquivo renomeado com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                            // Atualiza o item na ListView
+                            listFiles.SelectedItems[0].SubItems[1].Text = newFilePath;
+                            listFiles.SelectedItems[0].Text = newFileName; // Assume que a primeira coluna contém o nome do arquivo
+                        }
+                        catch (Exception ex)
+                        {
+                            // Registra erro no log e exibe uma mensagem de erro ao usuário
+                            _logger.Log($"[ERRO] Falha ao renomear o arquivo: {ex.Message}");
+                            MessageBox.Show($"Erro ao renomear o arquivo:\n{ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                    else
+                    {
+                        // Caso o nome do arquivo esteja vazio, informa o erro
+                        MessageBox.Show("Nome de arquivo inválido!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                }
+            }
+            else
+            {
+                // Exibe um aviso caso nenhum arquivo esteja selecionado
+                MessageBox.Show("Nenhum arquivo selecionado.", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
     }
 }
