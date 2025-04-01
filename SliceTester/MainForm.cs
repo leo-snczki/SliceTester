@@ -400,9 +400,10 @@ namespace SliceTester
                 return;
             }
 
+            _logger.Log("[INFO] Janela de edição aberta.");
             // Chama o método EditRecordedEvents da classe _macroRecorder para permitir a edição dos eventos gravados.
             _macroRecorder.EditRecordedEvents();
-            _logger.Log("[INFO] Janela de edição aberta.");
+            loadDataGridConfig();
         }
 
         private void SaveTestInDirectory()

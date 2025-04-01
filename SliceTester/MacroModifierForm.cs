@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Windows.Forms;
 using DevExpress.XtraGrid.Views.Grid;
 
 
@@ -35,6 +36,59 @@ namespace SliceTester
             Close();
         }
 
+        private void btnRemove_Click(object sender, EventArgs e)
+        {
+            // Obter o GridView associado ao DataGridView
+            var gridView = dgvEvents.MainView as DevExpress.XtraGrid.Views.Grid.GridView;
+
+            if (gridView != null)
+            {
+                // Verificar se há alguma linha selecionada
+                if (gridView.SelectedRowsCount > 0)
+                {
+                    // Obter o índice da primeira linha selecionada
+                    int selectedIndex = gridView.GetSelectedRows()[0];
+
+                    // Verificar se o índice está dentro do intervalo válido
+                    if (selectedIndex >= 0 && selectedIndex < tempEvents.Count)
+                    {
+                        // Remover o evento selecionado da lista temporária
+                        tempEvents.RemoveAt(selectedIndex);
+
+                        if (checkAjustTimeStamp.Checked)
+                            AdjustTimestamps(selectedIndex);
+
+
+                        // Atualizar a DataGridView para refletir as mudanças
+                        dgvEvents.DataSource = null;
+                        dgvEvents.DataSource = tempEvents;
+                        dgvEvents.RefreshDataSource();
+                    }
+                }
+                else
+                    MessageBox.Show("Por favor, selecione uma linha para remover.");
+
+            }
+        }
+
+        private void checkAjustTimeStamp_CheckedChanged(object sender, EventArgs e)
+        {
+            numIntervarsTimeStamp.Enabled = checkAjustTimeStamp.Checked;
+        }
+
+        private void VerificationTimeStamp()
+        {
+
+            for (int i = 1; i < tempEvents.Count; i++)
+            {
+                if (tempEvents[i - 1].Timestamp > tempEvents[i].Timestamp)
+                {
+                    MessageBox.Show("Um evento possui um timestamp menor que o anterior!", "Erro de Ordenação", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    break;
+                }
+            }
+        }
+
         private void LoadEvents()
         {
             tempEvents.Clear();
@@ -58,6 +112,7 @@ namespace SliceTester
 
         private void ApplyChanges()
         {
+            VerificationTimeStamp();
             originalEvents.Clear();
             originalEvents.AddRange(tempEvents);
         }
@@ -78,8 +133,19 @@ namespace SliceTester
 
                     // Desabilitar o sort para essa coluna.
                     if (eventTypeColumn != null)
-                        eventTypeColumn.OptionsColumn.AllowSort = DevExpress.Utils.DefaultBoolean.False;                   
+                        eventTypeColumn.OptionsColumn.AllowSort = DevExpress.Utils.DefaultBoolean.False;
                 }
+            }
+        }
+
+        private void AdjustTimestamps(int removedEventIndex) // diminuir o timestamp dos proximos eventos do evento removido.
+        {
+            if (removedEventIndex < 0 || removedEventIndex >= tempEvents.Count)
+                return;
+            // Ajustar os timestamps de todos os eventos após o removido
+            for (int i = removedEventIndex; i < tempEvents.Count; i++)
+            {
+                tempEvents[i].Timestamp -= Convert.ToInt32(numIntervarsTimeStamp.Value);
             }
         }
     }
