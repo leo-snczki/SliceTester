@@ -6,7 +6,6 @@ using DevExpress.XtraGrid.Views.Grid;
 using Gma.System.MouseKeyHook;
 using SliceTester.Classes;
 using System.Drawing;
-using System.Linq.Expressions;
 
 namespace SliceTester
 {
@@ -106,24 +105,52 @@ namespace SliceTester
             }
         }
 
-        private void btnRecord_Click(object sender, EventArgs e) => RecordTest();
+        private void btnRecord_Click(object sender, EventArgs e)
+        {
+            RecordTest();
+        }
 
-        private void btnStop_Click(object sender, EventArgs e) => StopTest();
+        private void btnStop_Click(object sender, EventArgs e)
+        {
+            StopTest();
+        }
 
-        private void btnPlay_Click(object sender, EventArgs e) => PlayTest();
+        private void btnPlay_Click(object sender, EventArgs e)
+        {
+            PlayTest();
+        }
 
-        private void btnClear_Click(object sender, EventArgs e) => ClearTest();
+        private void btnClear_Click(object sender, EventArgs e)
+        {
+            ClearTest();
+        }
 
-        private void btnEdit_Click(object sender, EventArgs e) => ModifyTest();
+        private void btnEdit_Click(object sender, EventArgs e)
+        {
+            ModifyTest();
+        }
 
 
-        private void btnExportJson_Click(object sender, EventArgs e) => ExportJson();
+        private void btnExportJson_Click(object sender, EventArgs e)
+        {
+            ExportJson();
+        }
 
-        private void btnImportJson_Click(object sender, EventArgs e) => ImportJson();
+        private void btnImportJson_Click(object sender, EventArgs e)
+        {
+            ImportJson();
+        }
 
-        private void btnSave_Click(object sender, EventArgs e) => SaveTestInDirectory();
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            SaveTestInDirectory();
 
-        private void btnRefresh_Click(object sender, EventArgs e) => LoadJsonFiles();
+        }
+
+        private void btnRefresh_Click(object sender, EventArgs e)
+        {
+            LoadJsonFiles();
+        }
 
         private void ListFiles_ItemActivate(object sender, EventArgs e)
         {
@@ -162,7 +189,10 @@ namespace SliceTester
             }
         }
 
-        private void MainForm_FormClosing(object sender, FormClosingEventArgs e) => _hook.Dispose();
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            _hook.Dispose();
+        }
 
         private void LoadJsonFiles()
         {

@@ -75,7 +75,7 @@
             // 
             // btnRecord
             // 
-            this.btnRecord.ImageOptions.Image = global::SliceTester.Properties.Resources.add_32x32;
+            this.btnRecord.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnRecord.ImageOptions.SvgImage")));
             this.btnRecord.Location = new System.Drawing.Point(569, 45);
             this.btnRecord.Margin = new System.Windows.Forms.Padding(2);
             this.btnRecord.Name = "btnRecord";
@@ -179,7 +179,7 @@
             // btnSave
             // 
             this.btnSave.Enabled = false;
-            this.btnSave.ImageOptions.Image = global::SliceTester.Properties.Resources.additem_32x32;
+            this.btnSave.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnSave.ImageOptions.SvgImage")));
             this.btnSave.Location = new System.Drawing.Point(571, 216);
             this.btnSave.Margin = new System.Windows.Forms.Padding(2);
             this.btnSave.Name = "btnSave";
@@ -322,8 +322,8 @@
             // btnRefresh
             // 
             this.btnRefresh.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.btnRefresh.ImageOptions.Image = global::SliceTester.Properties.Resources.reset_32x32;
             this.btnRefresh.ImageOptions.Location = DevExpress.XtraEditors.ImageLocation.MiddleCenter;
+            this.btnRefresh.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnRefresh.ImageOptions.SvgImage")));
             this.btnRefresh.Location = new System.Drawing.Point(379, 10);
             this.btnRefresh.Margin = new System.Windows.Forms.Padding(2);
             this.btnRefresh.Name = "btnRefresh";
