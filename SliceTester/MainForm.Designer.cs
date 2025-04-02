@@ -38,7 +38,7 @@
             this.btnClear = new DevExpress.XtraEditors.SimpleButton();
             this.btnExportJson = new DevExpress.XtraEditors.SimpleButton();
             this.btnImportJson = new DevExpress.XtraEditors.SimpleButton();
-            this.btnEdit = new DevExpress.XtraEditors.SimpleButton();
+            this.btnModify = new DevExpress.XtraEditors.SimpleButton();
             this.btnSave = new DevExpress.XtraEditors.SimpleButton();
             this.lblLoop = new DevExpress.XtraEditors.LabelControl();
             this.lblHotKeyF1 = new DevExpress.XtraEditors.LabelControl();
@@ -164,17 +164,17 @@
             this.btnImportJson.Text = "Importar";
             this.btnImportJson.Click += new System.EventHandler(this.btnImportJson_Click);
             // 
-            // btnEdit
+            // btnModify
             // 
-            this.btnEdit.Enabled = false;
-            this.btnEdit.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnEdit.ImageOptions.SvgImage")));
-            this.btnEdit.Location = new System.Drawing.Point(770, 216);
-            this.btnEdit.Margin = new System.Windows.Forms.Padding(2);
-            this.btnEdit.Name = "btnEdit";
-            this.btnEdit.Size = new System.Drawing.Size(145, 36);
-            this.btnEdit.TabIndex = 9;
-            this.btnEdit.Text = "Editar";
-            this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
+            this.btnModify.Enabled = false;
+            this.btnModify.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnEdit.ImageOptions.SvgImage")));
+            this.btnModify.Location = new System.Drawing.Point(770, 216);
+            this.btnModify.Margin = new System.Windows.Forms.Padding(2);
+            this.btnModify.Name = "btnModify";
+            this.btnModify.Size = new System.Drawing.Size(145, 36);
+            this.btnModify.TabIndex = 9;
+            this.btnModify.Text = "Modificar";
+            this.btnModify.Click += new System.EventHandler(this.btnModify_Click);
             // 
             // btnSave
             // 
@@ -396,7 +396,7 @@
             this.panel2.Controls.Add(this.btnPlay);
             this.panel2.Controls.Add(this.lblLoop);
             this.panel2.Controls.Add(this.lblHotKeyF8);
-            this.panel2.Controls.Add(this.btnEdit);
+            this.panel2.Controls.Add(this.btnModify);
             this.panel2.Controls.Add(this.btnExportJson);
             this.panel2.Controls.Add(this.btnImportJson);
             this.panel2.Controls.Add(this.lblHotKeyF7);
@@ -497,7 +497,7 @@
         private DevExpress.XtraEditors.SimpleButton btnClear;
         private DevExpress.XtraEditors.SimpleButton btnExportJson;
         private DevExpress.XtraEditors.SimpleButton btnImportJson;
-        private DevExpress.XtraEditors.SimpleButton btnEdit;
+        private DevExpress.XtraEditors.SimpleButton btnModify;
         private DevExpress.XtraEditors.SimpleButton btnSave;
         private DevExpress.XtraEditors.LabelControl lblLoop;
         private DevExpress.XtraEditors.LabelControl lblHotKeyF1;

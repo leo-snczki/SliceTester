@@ -71,10 +71,6 @@ namespace SliceTester
             }
         }
 
-        private void checkAjustTimeStamp_CheckedChanged(object sender, EventArgs e)
-        {
-            numIntervarsTimeStamp.Enabled = checkAjustTimeStamp.Checked;
-        }
 
         private void VerificationTimeStamp()
         {
@@ -142,11 +138,17 @@ namespace SliceTester
         {
             if (removedEventIndex < 0 || removedEventIndex >= tempEvents.Count)
                 return;
+
             // Ajustar os timestamps de todos os eventos após o removido
             for (int i = removedEventIndex; i < tempEvents.Count; i++)
             {
                 tempEvents[i].Timestamp -= Convert.ToInt32(numIntervarsTimeStamp.Value);
             }
+        }
+
+        private void checkAjustTimeStamp_CheckedChanged_(object sender, EventArgs e)
+        {
+            numIntervarsTimeStamp.Enabled = checkAjustTimeStamp.Checked;
         }
     }
 }

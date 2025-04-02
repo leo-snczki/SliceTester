@@ -88,18 +88,30 @@
             // 
             // checkAjustTimeStamp
             // 
-            this.checkAjustTimeStamp.Location = new System.Drawing.Point(41, 413);
+            this.checkAjustTimeStamp.Location = new System.Drawing.Point(41, 414);
             this.checkAjustTimeStamp.Name = "checkAjustTimeStamp";
             this.checkAjustTimeStamp.Properties.Caption = "Ajustar timestamp em:";
             this.checkAjustTimeStamp.Size = new System.Drawing.Size(133, 20);
             this.checkAjustTimeStamp.TabIndex = 7;
+            this.checkAjustTimeStamp.CheckedChanged += new System.EventHandler(this.checkAjustTimeStamp_CheckedChanged_);
             // 
             // numIntervarsTimeStamp
             // 
+            this.numIntervarsTimeStamp.Enabled = false;
             this.numIntervarsTimeStamp.Location = new System.Drawing.Point(172, 414);
+            this.numIntervarsTimeStamp.Maximum = new decimal(new int[] {
+            1000000,
+            0,
+            0,
+            0});
             this.numIntervarsTimeStamp.Name = "numIntervarsTimeStamp";
             this.numIntervarsTimeStamp.Size = new System.Drawing.Size(61, 21);
             this.numIntervarsTimeStamp.TabIndex = 8;
+            this.numIntervarsTimeStamp.Value = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
             // 
             // btnRemove
             // 

@@ -33,7 +33,7 @@ namespace SliceTester.Classes
         {
             using (SaveFileDialog saveFileDialog = new SaveFileDialog())
             {
-                saveFileDialog.Filter = "Arquivos TXT (*.txt)|*.txt|Todos os Arquivos (*.*)|*.*";
+                saveFileDialog.Filter = "ficheiros TXT (*.txt)|*.txt|Todos os ficheiros (*.*)|*.*";
                 saveFileDialog.Title = "Salvar Log";
                 saveFileDialog.FileName = "Log.txt";
 
