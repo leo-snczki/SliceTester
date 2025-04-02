@@ -15,12 +15,20 @@ namespace SliceTester.Classes
 
         public void Log(string message)
         {
-            // No Windows Forms, os controles da interface só podem ser acessados e manipulados na thread principal,
-            // Se você tentar acessar ou modificar um controle da UI a partir de outra thread, o.NET lançará uma exceção.
-            if (logTextBox.InvokeRequired)
-                logTextBox.Invoke(new Action(() => AppendLog(message)));           
-            else
-                AppendLog(message);           
+            try // só pra ter crtz.
+            {
+                // No Windows Forms, os controles da interface só podem ser acessados e manipulados na thread principal,
+                // Se você tentar acessar ou modificar um controle da UI a partir de outra thread, o.NET lançará uma exceção.
+                if (logTextBox.InvokeRequired)
+                    logTextBox.Invoke(new Action(() => AppendLog(message)));
+                else
+                    AppendLog(message);
+            }
+            catch (Exception)
+            {               
+                MessageBox.Show("Erro ao adicionar mensagem ao log.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+         
         }
 
         private void AppendLog(string message)

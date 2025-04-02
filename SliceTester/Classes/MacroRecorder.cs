@@ -104,7 +104,7 @@ public class MacroRecorder
         catch (Exception ex)
         {
             MessageBox.Show("Erro na gravação: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            _logManager.Log($"[ERRORR] {ex.Message}");
+            _logManager.Log($"[ERROR] (RECORD): {ex.Message}");
         }
     }
 
@@ -240,7 +240,7 @@ public class MacroRecorder
         }
         catch (Exception ex)
         {
-            _logManager.Log($"[ERRORR] {ex.Message}");
+            _logManager.Log($"[ERROR] (PLAY): {ex.Message}");
             MessageBox.Show("Erro na reprodução: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
     }
