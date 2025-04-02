@@ -41,7 +41,7 @@ namespace SliceTester
             this.btnOK.Location = new System.Drawing.Point(180, 47);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(100, 23);
-            this.btnOK.TabIndex = 0;
+            this.btnOK.TabIndex = 1;
             this.btnOK.Text = "OK";
             this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
             // 
@@ -50,7 +50,7 @@ namespace SliceTester
             this.txtSaveFile.Location = new System.Drawing.Point(56, 12);
             this.txtSaveFile.Name = "txtSaveFile";
             this.txtSaveFile.Size = new System.Drawing.Size(226, 21);
-            this.txtSaveFile.TabIndex = 2;
+            this.txtSaveFile.TabIndex = 0;
             // 
             // lblNewTestName
             // 
@@ -66,7 +66,7 @@ namespace SliceTester
             this.btnCancel.Location = new System.Drawing.Point(56, 47);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(100, 23);
-            this.btnCancel.TabIndex = 0;
+            this.btnCancel.TabIndex = 2;
             this.btnCancel.Text = "Fechar";
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 

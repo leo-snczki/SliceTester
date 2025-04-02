@@ -81,7 +81,7 @@
             this.btnRecord.Margin = new System.Windows.Forms.Padding(2);
             this.btnRecord.Name = "btnRecord";
             this.btnRecord.Size = new System.Drawing.Size(163, 36);
-            this.btnRecord.TabIndex = 0;
+            this.btnRecord.TabIndex = 1;
             this.btnRecord.Text = "Gravar";
             this.btnRecord.Click += new System.EventHandler(this.btnRecord_Click);
             // 
@@ -93,7 +93,7 @@
             this.btnStop.Margin = new System.Windows.Forms.Padding(2);
             this.btnStop.Name = "btnStop";
             this.btnStop.Size = new System.Drawing.Size(163, 36);
-            this.btnStop.TabIndex = 1;
+            this.btnStop.TabIndex = 2;
             this.btnStop.Text = "Parar";
             this.btnStop.Click += new System.EventHandler(this.btnStop_Click);
             // 
@@ -105,7 +105,7 @@
             this.btnPlay.Margin = new System.Windows.Forms.Padding(2);
             this.btnPlay.Name = "btnPlay";
             this.btnPlay.Size = new System.Drawing.Size(82, 36);
-            this.btnPlay.TabIndex = 2;
+            this.btnPlay.TabIndex = 3;
             this.btnPlay.Text = "Iniciar";
             this.btnPlay.Click += new System.EventHandler(this.btnPlay_Click);
             // 
@@ -139,8 +139,8 @@
             this.txtLog.Name = "txtLog";
             this.txtLog.ReadOnly = true;
             this.txtLog.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtLog.Size = new System.Drawing.Size(362, 90);
-            this.txtLog.TabIndex = 0;
+            this.txtLog.Size = new System.Drawing.Size(357, 90);
+            this.txtLog.TabIndex = 10;
             // 
             // btnClear
             // 
@@ -150,7 +150,7 @@
             this.btnClear.Margin = new System.Windows.Forms.Padding(2);
             this.btnClear.Name = "btnClear";
             this.btnClear.Size = new System.Drawing.Size(163, 36);
-            this.btnClear.TabIndex = 7;
+            this.btnClear.TabIndex = 5;
             this.btnClear.Text = "Limpar";
             this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
             // 
@@ -162,7 +162,7 @@
             this.btnExportJson.Margin = new System.Windows.Forms.Padding(2);
             this.btnExportJson.Name = "btnExportJson";
             this.btnExportJson.Size = new System.Drawing.Size(163, 36);
-            this.btnExportJson.TabIndex = 8;
+            this.btnExportJson.TabIndex = 6;
             this.btnExportJson.Text = "Exportar";
             this.btnExportJson.Click += new System.EventHandler(this.btnExportJson_Click);
             // 
@@ -173,7 +173,7 @@
             this.btnImportJson.Margin = new System.Windows.Forms.Padding(2);
             this.btnImportJson.Name = "btnImportJson";
             this.btnImportJson.Size = new System.Drawing.Size(163, 36);
-            this.btnImportJson.TabIndex = 8;
+            this.btnImportJson.TabIndex = 7;
             this.btnImportJson.Text = "Importar";
             this.btnImportJson.Click += new System.EventHandler(this.btnImportJson_Click);
             // 
@@ -197,7 +197,7 @@
             this.btnSave.Margin = new System.Windows.Forms.Padding(2);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(163, 36);
-            this.btnSave.TabIndex = 23;
+            this.btnSave.TabIndex = 8;
             this.btnSave.Text = "Salvar";
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
@@ -292,7 +292,7 @@
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(977, 31);
-            this.panel1.TabIndex = 31;
+            this.panel1.TabIndex = 0;
             this.panel1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.TitleBarPanel_MouseDown);
             this.panel1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.TitleBarPanel_MouseMove);
             this.panel1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.TitleBarPanel_MouseUp);
@@ -307,7 +307,7 @@
             this.lblNameProgram.Margin = new System.Windows.Forms.Padding(2);
             this.lblNameProgram.Name = "lblNameProgram";
             this.lblNameProgram.Size = new System.Drawing.Size(105, 23);
-            this.lblNameProgram.TabIndex = 31;
+            this.lblNameProgram.TabIndex = 0;
             this.lblNameProgram.Text = "SliceTester";
             // 
             // btnClose
@@ -317,7 +317,7 @@
             this.btnClose.Location = new System.Drawing.Point(899, 4);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(24, 23);
-            this.btnClose.TabIndex = 2;
+            this.btnClose.TabIndex = 0;
             this.btnClose.Text = "X";
             this.btnClose.Click += new System.EventHandler(this.CloseButton_Click);
             // 
@@ -328,7 +328,7 @@
             this.btnMinimize.Location = new System.Drawing.Point(869, 4);
             this.btnMinimize.Name = "btnMinimize";
             this.btnMinimize.Size = new System.Drawing.Size(24, 23);
-            this.btnMinimize.TabIndex = 3;
+            this.btnMinimize.TabIndex = 0;
             this.btnMinimize.Text = "_";
             this.btnMinimize.Click += new System.EventHandler(this.MinimizeButton_Click);
             // 
@@ -341,7 +341,7 @@
             this.btnRefresh.Margin = new System.Windows.Forms.Padding(2);
             this.btnRefresh.Name = "btnRefresh";
             this.btnRefresh.Size = new System.Drawing.Size(56, 31);
-            this.btnRefresh.TabIndex = 25;
+            this.btnRefresh.TabIndex = 11;
             // 
             // listFiles
             // 
@@ -354,7 +354,7 @@
             this.listFiles.Margin = new System.Windows.Forms.Padding(2);
             this.listFiles.Name = "listFiles";
             this.listFiles.Size = new System.Drawing.Size(177, 303);
-            this.listFiles.TabIndex = 1;
+            this.listFiles.TabIndex = 14;
             this.listFiles.UseCompatibleStateImageBehavior = false;
             this.listFiles.View = System.Windows.Forms.View.Details;
             this.listFiles.ItemActivate += new System.EventHandler(this.ListFiles_ItemActivate);
@@ -372,7 +372,7 @@
             this.gridControl.Margin = new System.Windows.Forms.Padding(1);
             this.gridControl.Name = "gridControl";
             this.gridControl.Size = new System.Drawing.Size(368, 338);
-            this.gridControl.TabIndex = 24;
+            this.gridControl.TabIndex = 15;
             this.gridControl.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridViewerFormMain,
             this.gridView1});
@@ -423,7 +423,7 @@
             this.panel2.Location = new System.Drawing.Point(0, 31);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(927, 351);
-            this.panel2.TabIndex = 32;
+            this.panel2.TabIndex = 0;
             // 
             // NumLoopBox
             // 
@@ -436,7 +436,7 @@
             0});
             this.NumLoopBox.Name = "NumLoopBox";
             this.NumLoopBox.Size = new System.Drawing.Size(64, 21);
-            this.NumLoopBox.TabIndex = 31;
+            this.NumLoopBox.TabIndex = 4;
             this.NumLoopBox.Value = new decimal(new int[] {
             1,
             0,
@@ -452,7 +452,7 @@
             this.btnRenameTest.Margin = new System.Windows.Forms.Padding(2);
             this.btnRenameTest.Name = "btnRenameTest";
             this.btnRenameTest.Size = new System.Drawing.Size(56, 31);
-            this.btnRenameTest.TabIndex = 25;
+            this.btnRenameTest.TabIndex = 13;
             this.btnRenameTest.Click += new System.EventHandler(this.btnRenameTest_Click);
             // 
             // btnDeleteTest
@@ -464,7 +464,7 @@
             this.btnDeleteTest.Margin = new System.Windows.Forms.Padding(2);
             this.btnDeleteTest.Name = "btnDeleteTest";
             this.btnDeleteTest.Size = new System.Drawing.Size(56, 31);
-            this.btnDeleteTest.TabIndex = 25;
+            this.btnDeleteTest.TabIndex = 12;
             this.btnDeleteTest.Click += new System.EventHandler(this.btnDeleteTest_Click);
             // 
             // MainForm
