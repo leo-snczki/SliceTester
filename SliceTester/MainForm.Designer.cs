@@ -63,6 +63,7 @@
             this.NumLoopBox = new System.Windows.Forms.NumericUpDown();
             this.btnRenameTest = new DevExpress.XtraEditors.SimpleButton();
             this.btnDeleteTest = new DevExpress.XtraEditors.SimpleButton();
+            this.btnExportLog = new DevExpress.XtraEditors.SimpleButton();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
             this.panelControl1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -110,6 +111,7 @@
             // 
             // panelControl1
             // 
+            this.panelControl1.Controls.Add(this.btnExportLog);
             this.panelControl1.Controls.Add(this.txtLog);
             this.panelControl1.Location = new System.Drawing.Point(559, 257);
             this.panelControl1.Margin = new System.Windows.Forms.Padding(2);
@@ -454,6 +456,17 @@
             this.btnDeleteTest.TabIndex = 25;
             this.btnDeleteTest.Click += new System.EventHandler(this.btnDeleteTest_Click);
             // 
+            // btnExportLog
+            // 
+            this.btnExportLog.ImageOptions.Location = DevExpress.XtraEditors.ImageLocation.MiddleCenter;
+            this.btnExportLog.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnExportLog.ImageOptions.SvgImage")));
+            this.btnExportLog.Location = new System.Drawing.Point(289, 50);
+            this.btnExportLog.Name = "btnExportLog";
+            this.btnExportLog.Size = new System.Drawing.Size(45, 36);
+            this.btnExportLog.TabIndex = 1;
+            this.btnExportLog.Text = "Exportar Log";
+            this.btnExportLog.Click += new System.EventHandler(this.btnExportLog_Click);
+            // 
             // MainForm
             // 
             this.Appearance.BackColor = System.Drawing.Color.DarkOrange;
@@ -522,6 +535,7 @@
         private System.Windows.Forms.NumericUpDown NumLoopBox;
         private DevExpress.XtraEditors.SimpleButton btnRenameTest;
         private DevExpress.XtraEditors.SimpleButton btnDeleteTest;
+        private DevExpress.XtraEditors.SimpleButton btnExportLog;
     }
 }
 

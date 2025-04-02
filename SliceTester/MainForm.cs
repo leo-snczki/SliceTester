@@ -152,6 +152,104 @@ namespace SliceTester
             LoadJsonFiles();
         }
 
+        private void btnExportLog_Click(object sender, EventArgs e)
+        {
+            _logger.ExportLogToFile();
+        }
+
+        private void btnDeleteTest_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string selectedFilePath = listFiles.SelectedItems[0].SubItems[1].Text; ;
+
+                // Verifica se há um ficheiro selecionado na lista.
+                if (listFiles.SelectedItems.Count == 0)
+                {
+                    MessageBox.Show("Nenhum ficheiro selecionado.", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                // Solicita confirmação do utilizador antes de excluir o ficheiro.
+                DialogResult result = MessageBox.Show("Tem certeza de que deseja apagar este ficheiro?", "Confirmar Apagar", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+                if (result != DialogResult.Yes)
+                {
+                    _logger.Log("[CANCEL] Operação de deletar cancelada.");
+                    return;
+                }
+
+
+                // Exclui o ficheiro.
+                File.Delete(selectedFilePath);
+                _logger.Log($"[INFO] Arquivo apagado: {selectedFilePath}");
+                MessageBox.Show("Arquivo apagado com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                // Remove o item da ListView.
+                listFiles.Items.Remove(listFiles.SelectedItems[0]);
+            }
+            catch (Exception ex)
+            {
+                // Registra erro no log e exibe uma mensagem de erro ao usuário.
+                _logger.Log($"[ERROR] (DELFILE): {ex.Message}");
+                MessageBox.Show($"Erro ao apagar o ficheiro:\n{ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnRenameTest_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // Verifica se há um ficheiro selecionado na lista
+                string selectedFilePath = listFiles.SelectedItems[0].SubItems[1].Text;
+                string directory = Path.GetDirectoryName(selectedFilePath);
+                string currentFileName = Path.GetFileName(selectedFilePath);
+                string newFileName;
+                string newFilePath;
+
+
+                if (listFiles.SelectedItems.Count < 0)
+                    throw new InvalidOperationException("Nenhum ficheiro selecionado.");
+
+                // Cria uma instância do formulário de renomeação que é o mesmo que salva.
+                SaveForm renameForm = new SaveForm();
+
+                if (renameForm.ShowDialog() != DialogResult.OK)
+                {
+                    _logger.Log("Operação de renomear cancelada.");
+                    return;
+                }
+
+                newFileName = renameForm.fileName;
+
+                // Define o nome do ficheiro atual no campo de texto (txtSaveFile) do SaveForm.
+                renameForm.fileName = currentFileName;
+
+                if (string.IsNullOrWhiteSpace(newFileName))
+                    throw new InvalidOperationException("Nome do ficheiro inválido.");
+
+
+                newFilePath = Path.Combine(directory, newFileName);
+
+                // Renomeia o ficheiro
+                File.Move(selectedFilePath, newFilePath);
+                _logger.Log($"[INFO] Arquivo renomeado de {selectedFilePath} para {newFilePath}");
+                MessageBox.Show("Arquivo renomeado com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                // Atualiza o item na ListView
+                listFiles.SelectedItems[0].SubItems[1].Text = newFilePath;
+                listFiles.SelectedItems[0].Text = newFileName; // Assume que a primeira coluna contém o nome do ficheiro.
+
+            }
+            catch (Exception ex)
+            {
+                // AVISO.
+
+                _logger.Log($"[ERROR] (RENAME): {ex.Message}");
+                MessageBox.Show($"Erro ao renomear o ficheiro:\n{ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
         private void ListFiles_ItemActivate(object sender, EventArgs e)
         {
             try
@@ -637,99 +735,6 @@ namespace SliceTester
             btnModify.Enabled = true;
             btnSave.Enabled = true;
             NumLoopBox.Enabled = true;
-        }
-
-        private void btnDeleteTest_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                string selectedFilePath = listFiles.SelectedItems[0].SubItems[1].Text; ;
-
-                // Verifica se há um ficheiro selecionado na lista.
-                if (listFiles.SelectedItems.Count == 0)
-                {
-                    MessageBox.Show("Nenhum ficheiro selecionado.", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
-
-                // Solicita confirmação do utilizador antes de excluir o ficheiro.
-                DialogResult result = MessageBox.Show("Tem certeza de que deseja apagar este ficheiro?", "Confirmar Apagar", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-
-                if (result != DialogResult.Yes)
-                {
-                    _logger.Log("[CANCEL] Operação de deletar cancelada.");
-                    return;
-                }
-
-
-                // Exclui o ficheiro.
-                File.Delete(selectedFilePath);
-                _logger.Log($"[INFO] Arquivo apagado: {selectedFilePath}");
-                MessageBox.Show("Arquivo apagado com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                // Remove o item da ListView.
-                listFiles.Items.Remove(listFiles.SelectedItems[0]);
-            }
-            catch (Exception ex)
-            {
-                // Registra erro no log e exibe uma mensagem de erro ao usuário.
-                _logger.Log($"[ERROR] (DELFILE): {ex.Message}");
-                MessageBox.Show($"Erro ao apagar o ficheiro:\n{ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        private void btnRenameTest_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                // Verifica se há um ficheiro selecionado na lista
-                string selectedFilePath = listFiles.SelectedItems[0].SubItems[1].Text;
-                string directory = Path.GetDirectoryName(selectedFilePath);
-                string currentFileName = Path.GetFileName(selectedFilePath);
-                string newFileName;
-                string newFilePath;
-
-
-                if (listFiles.SelectedItems.Count < 0)
-                    throw new InvalidOperationException("Nenhum ficheiro selecionado.");
-
-                // Cria uma instância do formulário de renomeação que é o mesmo que salva.
-                SaveForm renameForm = new SaveForm();
-
-                if (renameForm.ShowDialog() != DialogResult.OK)
-                {
-                    _logger.Log("Operação de renomear cancelada.");
-                    return;
-                }
-
-                newFileName = renameForm.fileName;
-
-                // Define o nome do ficheiro atual no campo de texto (txtSaveFile) do SaveForm.
-                renameForm.fileName = currentFileName;
-
-                if (string.IsNullOrWhiteSpace(newFileName))
-                    throw new InvalidOperationException("Nome do ficheiro inválido.");
-
-
-                newFilePath = Path.Combine(directory, newFileName);
-
-                // Renomeia o ficheiro
-                File.Move(selectedFilePath, newFilePath);
-                _logger.Log($"[INFO] Arquivo renomeado de {selectedFilePath} para {newFilePath}");
-                MessageBox.Show("Arquivo renomeado com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                // Atualiza o item na ListView
-                listFiles.SelectedItems[0].SubItems[1].Text = newFilePath;
-                listFiles.SelectedItems[0].Text = newFileName; // Assume que a primeira coluna contém o nome do ficheiro.
-
-            }
-            catch (Exception ex)
-            {
-                // AVISO.
-
-                _logger.Log($"[ERROR] (RENAME): {ex.Message}");
-                MessageBox.Show($"Erro ao renomear o ficheiro:\n{ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
         }
     }
 }
