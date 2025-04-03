@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Threading;
 using System;
+using System.IO;
 using System.Windows.Forms;
 using Gma.System.MouseKeyHook;
 using WindowsInput;
@@ -261,7 +262,7 @@ public class MacroRecorder
     public void SaveEvents(string path)
     {
         var json = JsonConvert.SerializeObject(_recordedEvents);
-        System.IO.File.WriteAllText(path, json);
+        File.WriteAllText(path, json);
     }
 
     public void LoadEvents(string path)
