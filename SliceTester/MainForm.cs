@@ -154,6 +154,7 @@ namespace SliceTester
 
         private void btnExportLog_Click(object sender, EventArgs e)
         {
+            if(txtLog.Lines.Length > 0)
             _logger.ExportLogToFile();
         }
 
