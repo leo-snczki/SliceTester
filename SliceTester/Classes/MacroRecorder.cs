@@ -267,7 +267,7 @@ public class MacroRecorder
 
     public void LoadEvents(string path)
     {
-        var json = System.IO.File.ReadAllText(path);
+        var json = File.ReadAllText(path);
         _recordedEvents = JsonConvert.DeserializeObject<List<MacroEvent>>(json);
     }
 
