@@ -642,7 +642,7 @@ namespace SliceTester
 
                     if (openFileDialog.ShowDialog() != DialogResult.OK)
                     {
-                        // Se o utilizador não selecionar nenhum ficheiro (clicou em "Cancelar"), regista no log e exibe uma mensagem de aviso.
+                        // Se o utilizador não selecionar nenhum ficheiro, regista no log e exibe uma mensagem de aviso.
                         _logger.Log("[INFO] Nenhum ficheiro selecionado.");
                         MessageBox.Show("Nenhum ficheiro selecionado", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         return;

@@ -149,13 +149,6 @@ public class MacroRecorder
             if (_isPlaying) // Sem mensagem de log porque o panel já vai estar sendo usado com a execução.
                 return;
 
-            if (_recordedEvents.Count == 0)
-            {
-                _logManager.Log("[INFO] Reprodução não iniciada: A lista de eventos está vazia!");
-                MessageBox.Show("Reprodução não iniciada: A lista de eventos está vazia!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
             _isPlaying = true;
 
             var inputSimulator = new InputSimulator();
